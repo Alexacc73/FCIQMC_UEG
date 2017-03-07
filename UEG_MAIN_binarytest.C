@@ -2,7 +2,6 @@
  * \section intro_sec Introduction
  *  ---> INCLUDED IN HEADER < GLOBAL_ORBITAL.H > is " const int ORB_SIZE = 125 " <--- 
     ---> NB - - NUMBER OF ORBITALS MUST BE KNOWN A PRIORI FOR "binaryManip.C* AND for KEsortedKpoints[size][3]
-
 */
 
 
@@ -63,16 +62,23 @@ const int walkerCritical = 500000;
 
 /** initRefWalkers is the number of wlakers which are initially placed on the reference (i.e Hartree Fock) determinant to begin the spawning */
 int initRefWalkers = 50;
-
-
 long int pow2Array [ORB_SIZE];
 
 
-inline constexpr std::uint64_t INLpow2 (std::uint64_t i)
+/**
+Simply raises the input argument to the power 2, thus returning \f$ 2^x \f$
+*/
+inline constexpr std::uint64_t INLpow2 (std::uint64_t x)
 {
-    return std::uint64_t(1) << i;
+    return std::uint64_t(1) << x;
 }
 
+
+/**
+* This function purely resturns the position of a unique determinant within the list of Alpha and Beta determinants.
+* It is necessary to know this, in order that we can add a new walker to the correct determinant (Our unique list is not
+* sorted according to the walker number list, but the Alpha and Beta lists ARE sorted to associate with the walker number list)
+*/
 inline const int INLgetPositionInList(std::pair<long int, long int>& uniqueDet, std::vector<long int>& alphaDetList, std::vector<long int>& betaDetList)
 {
     int DETLIST_size = alphaDetList.size();
@@ -100,7 +106,29 @@ inline const int INLgetPositionInList(std::pair<long int, long int>& uniqueDet, 
 
 
 
-
+/**This function represents first step in the population dynamics of the algorithm.
+  * The spawning routine goes as follows, described verbatim from the original paper:
+  * 
+  * The spawning step: for each walker \f$ \alpha \f$ (located on
+  *  \f$ D_{i \alpha} \f$), we select a (coupled) determinant \f$ D_j \f$ with
+  * normalised probability pgen(j|iα) and attempt to
+  * spawn a child there with probability
+  \f[
+    p_s(j|i_{\alpha}) = \frac{\delta \tau | K_{i_{\alpha}j} | }{p_{gen}j | i_{\alpha}} 
+    (15)
+   \f]
+  * If a spawning event is successful, (i.e. if ps exceeds
+  * a uniformly chosen random number between
+  *0 and 1), then the sign of the child is determined
+* by the sign of \f$ K_{i_{\alpha}j} \f$ and the sign of the parent: it
+* is the same sign as the parent if \f$ K_{i_{\alpha}j} < 0 \f$ , and
+* opposite to the parent otherwise. Our method to
+* compute the generation probabilities \f$ p_{gen} \f$ is given
+* in Appendix B. If \f$ p_s > 1 \f$ , then multiple copies of
+* walkers are spawned on j (namely with probability
+* 1, \f$ |ps| \f$ walkers are spawned, and with probability
+* \f$ ps − |ps| \f$ an additional walker is spawned).
+*/
 void SPAWN( const double cellLength, 
             std::vector<int>& trueWalkerList, 
             std::vector<int>& posWalkerList, 
@@ -111,7 +139,6 @@ void SPAWN( const double cellLength,
             long int> >::iterator , bool >& result, 
             std::vector<long int>& alphaDets, 
             std::vector<long int>& betaDets ){
-
     int walkerNum = 0;
     int intpSpawn = 0;
     int index_i = 0, index_j = 0;
@@ -126,12 +153,7 @@ void SPAWN( const double cellLength,
     double metropolisRand = 0.0; /*Randomly generated number upon [0,1] to compare with pSelect (metropolis criteria)*/
     long int alphaDet;
     long int betaDet;
-    //std::string alphaDetSTR;
-    //std::string betaDetSTR;
-    //std::string combinedAlphaBeta(ORB_SIZE*2 + 1, ' ');
-
     std::pair<long int, long int> iter ;
-
     bool ib_spinDifferent;
 
     int numDets = uniqueDetSet.size() ;
@@ -168,16 +190,12 @@ void SPAWN( const double cellLength,
     
                 if(index_b != -1){ /*Finding a k consevring orbital was SUCCESSFUL*/
                     /*1) Update newly excited determinants*/
-                    // decimalToBinary(alphaDet, alphaDetSTR);
-                    // decimalToBinary(betaDet, betaDetSTR);
 
                     if(randChooseExcite==0){
                         alphaDet -= pow2Array[  index_i ] ; //= '0' ;
                         alphaDet -= pow2Array[  index_j ] ;//= '0' ;
                         alphaDet += pow2Array[  index_a ] ;//= '1' ;
                         alphaDet += pow2Array[  index_b ] ;//= '1' ;
-
-                        //std::cout << "New Alpha Det = " << alphaDet << std::endl;
                     }
                     if(randChooseExcite==1){
                         betaDet -= pow2Array[ index_i ] ;// = '0' ;
@@ -200,25 +218,14 @@ void SPAWN( const double cellLength,
                     remainderpSpawn = pSpawn - intpSpawn ;
                     metropolisRand = ((double) rand() / RAND_MAX) ; //(fastrand() % 100000 )/100000 ;
 
-                    //std::cout << "pSpawn = " << pSpawn << std::endl;
-                    //std::cout << "Excitation scheme = " << randChooseExcite << std::endl;
-                    //std::cout << "pGen = " << pGen << std::endl;
-                    //std::cout << "remainderpSpawn = " << remainderpSpawn << std::endl;
-                    //std::cout << "metropolisRand = " << metropolisRand << std::endl;
-
                     /* SPAWN: YES or NO*/
                     if(remainderpSpawn >= metropolisRand){/* --> SPAWING EVENT SUCCESSFUL <--*/
-                    //std::cout << "remainder > metropolis " << std::endl;
-
-                        //concatStrings(alphaDetSTR, betaDetSTR, combinedAlphaBeta) ;
                         result = uniqueDetSet.insert( std::make_pair(alphaDet, betaDet) ) ;
 
                         if(result.second == true){/* New Determinant Found */
                         /*All 3 walker lists *MUST* each increase their size by 1,
                         hence the .push_back(0) for each .puch_back(1) 1*/
                             trueWalkerList.push_back(0) ;
-                            // binaryToDecimal(alphaDetSTR, alphaDet);
-                            // binaryToDecimal(betaDetSTR, betaDet);
                             alphaDets.push_back(alphaDet) ;
                             betaDets.push_back(betaDet) ;
                             if( (HijElement < 0) && (walkerNum > 0) ){
@@ -259,12 +266,10 @@ void SPAWN( const double cellLength,
 
                     /*SPAWN AGAIN: YES or NO*/
                     if(intpSpawn >= 1){
-                        //concatStrings(alphaDetSTR, betaDetSTR, combinedAlphaBeta) ;
                         result = uniqueDetSet.insert( std::make_pair(alphaDet, betaDet) ) ;
+
                         if(result.second == true){/* New Determinant Found */
                             trueWalkerList.push_back(0) ;
-                            //binaryToDecimal(alphaDetSTR, alphaDet);
-                            //binaryToDecimal(betaDetSTR, betaDet);
                             alphaDets.push_back(alphaDet) ;
                             betaDets.push_back(betaDet) ;
                             if( (HijElement < 0) && (walkerNum > 0) ){
@@ -319,6 +324,32 @@ void SPAWN( const double cellLength,
 
 
 
+
+/** This routine represents the second step in the population dynamics algorithm. The following description is verbatim
+*from the original paper:
+*
+*The diagonal death/cloning step: for each (parent)
+*walker compute
+\f[
+p_{d}(i_{\alpha}) = \delta \tau( K_{i_{\alpha} i_{\alpha}} - S )
+(16)
+\f]
+* 
+* If \f$ p_d > 0 \f$, the walker dies with probability \f$ p_d \f$,
+* and if \f$ p_d < 0 \f$ the walker is cloned with probability
+* \f$ |pd| \f$. The death event happens immediately,
+* and such a parent does not participate in the following
+* (annihilation) step to be described shortly.
+* Cloning events are quite rare, and only occur for
+* \f$ S > 0 \f$, and even then only on determinants for
+* which \f$ \langle  D_i | K | D_i \rangle < S  \f$ . In simulations where we desire
+* to grow the number of walkers rapidly, a positive
+* value of S is adopted, and this can lead to
+* cloning events. However, more often, the value of
+* S is negative (as it tries to match the correlation
+* energy), and in such cases there can be no cloning
+* events at all.
+*/
 void DEATH_CLONE(const double cellLength, 
                 std::vector<int>& trueWalkerList, 
                 double (&KEsortedList)[ORB_SIZE][3], 
@@ -338,30 +369,21 @@ void DEATH_CLONE(const double cellLength,
     double KiiElement = 0;
     long int alphaDet;
     long int betaDet;
-    //std::string alphaDet(ORB_SIZE, ' ') ;
-    //std::string betaDet(ORB_SIZE, ' ') ;
 
     numDets = trueWalkerList.size() ;
     for(int det = 0; det<numDets; det++){
         walkerNum = trueWalkerList[det] ;
         if(walkerNum != 0){
+
             alphaDet = alphaDets[det];
             betaDet = betaDets[det];
-
             HiiElement = 0;
             Di_H_Di(cellLength, INTelectrons, alphaDet, betaDet, KEsortedList, HiiElement);
             KiiElement = HiiElement - HFEnergy ;
-
             pDeath = delt*(KiiElement - SHIFT) ;
             nDeath = fabs(pDeath*walkerNum) ;
-            RandRound =  ((double) rand() / RAND_MAX) ; //(rand() % 1000000 )/1000000.0 ;
+            RandRound =  ((double) rand() / RAND_MAX) ; /** Generates a number between (0,1] */
             INTnDeath = floor(nDeath + RandRound); 
-
-            //std::cout << "Kii diagonal matrix = " << KiiElement << std::endl;
-            //std::cout << "nDeath = " << nDeath << std::endl;
-            //std::cout << " nDeath + RandRound = " << nDeath + RandRound << std::endl;
-            //std::cout << "INTnDeath = " << INTnDeath << std::endl;
-
             if(pDeath > 0){
                 walkersToDie = copysign(INTnDeath, walkerNum);
                 trueWalkerList[det] -= walkersToDie;
@@ -375,6 +397,18 @@ void DEATH_CLONE(const double cellLength,
 }
 
 
+/** This represents the final (third) step in the population dynamics algorithm. The following description is verbatim
+from the original paper:
+
+* The annihilation step: In this (final) part of the
+* algorithm, we run over all (newly-spawned, cloned
+* and surviving parent) walkers, and annihilate pairs
+* of walkers of opposite sign which are found to be on
+* the same determinant. Each time an annihilation
+* event occurs, the corresponding pair is removed
+* from the list of walkers, and the total number of
+* walkers \f$ N_w \f$ reduced by two.
+*/
 void ANNIHILATION(int& step, 
                 std::vector<int>& trueWalkerList, 
                 std::vector<int>& posWalkerList, 
@@ -383,42 +417,40 @@ void ANNIHILATION(int& step,
                 long int> >& uniqueDeterminantSet, 
                 std::vector<long int>& alphaDetsBinary, 
                 std::vector<long int>& betaDetsBinary){
-
+    long int alphaBin;
+    long int betaBin;
     int numDets = 0;
     bool prune = false;
-
     if(step%8==0){
         prune = true;
     }
-    numDets = trueWalkerList.size();
 
+    numDets = trueWalkerList.size();
     for(int det = 0; det<numDets; det++){
         trueWalkerList[det] += (posWalkerList[det] - negWalkerList[det]) ;
         /* Take this opportunity to clear temporary pos and neg walker lists */
         posWalkerList[det] = 0;
-        negWalkerList[det] = 0;
-        
+        negWalkerList[det] = 0; 
     }
 
     if(prune==true){
-        
-
+        /* Make copies of all the lists */
         std::vector<int> TWL_copy;
         std::vector<long int> alphaDets_copy;
         std::vector<long int> betaDets_copy;
-    
+        /* Initialise the copies with the correct sizes */
         TWL_copy.reserve(trueWalkerList.size());
         alphaDets_copy.reserve(alphaDetsBinary.size());
         betaDets_copy.reserve(betaDetsBinary.size());
-
+        /* Move the values from the original lists to the copies */
         copy(trueWalkerList.begin(), trueWalkerList.end(), back_inserter(TWL_copy));
         copy(alphaDetsBinary.begin(), alphaDetsBinary.end(), back_inserter(alphaDets_copy));
         copy(betaDetsBinary.begin(), betaDetsBinary.end(), back_inserter(betaDets_copy));
-
+        /* Empty the old lists of their contents, ready to be refilled with the pruned ones */
         trueWalkerList.clear();
         alphaDetsBinary.clear();
         betaDetsBinary.clear();
-
+        /* CREATE NEW LISTS WITH ONLY DETERMINANTS WITH A NON-ZERO NUMBER OF WALKERS ASSOCIATED WITH THEM  */
         for(int el = 0; el<TWL_copy.size(); el++){
             if(TWL_copy[el] != 0){
                 trueWalkerList.push_back(TWL_copy[el]);
@@ -427,22 +459,13 @@ void ANNIHILATION(int& step,
             }
         }
 
-        long int alphaBin;
-        long int betaBin;
-        // std::string alphaDet(ORB_SIZE, ' ');
-        // std::string betaDet(ORB_SIZE, ' ');
-        // std::string combinedAlphaBeta(ORB_SIZE*2 + 1, ' ');
-
         posWalkerList.resize(trueWalkerList.size()) ;
         negWalkerList.resize(trueWalkerList.size()) ;
-
         uniqueDeterminantSet.clear();
+
         for(int det = 0; det < alphaDetsBinary.size(); det++){
             alphaBin = alphaDetsBinary[det];
             betaBin = betaDetsBinary[det];
-            //decimalToBinary(alphaBin, alphaDet);
-            //decimalToBinary(betaBin, betaDet);
-            //concatStrings(alphaDet, betaDet, combinedAlphaBeta);
             uniqueDeterminantSet.insert( std::make_pair(alphaBin, betaBin) );
         }
     }/*End Prune*/
@@ -451,11 +474,15 @@ void ANNIHILATION(int& step,
 
 
 /* - - - - - AUXILLIARY FUNCTIONS - - - - -*/
+
+/**
+* Simply counts the current number of walkers associated with all determinants, irrespective of sign.
+* Returns: \f$  N_w = \sum_{i} | N_i |  \f$
+*/
 int totalWalkerNumber( std::vector<int>& trueWalkerList){
   int count = 0;
   int numDets = trueWalkerList.size() ;
   for(int det = 0; det < numDets; det++){
-    //cout << "WALKER VAL = " << trueWalkerList[det] << endl;
     count += abs(trueWalkerList[det]);
   }
   return count;
@@ -484,20 +511,22 @@ double variableShift( const double& delt,
   return newShift ;
 }
 
+
 /** The Projector Energy gives an independent estimation of the energy from the shift, according to equation:
 \f[
  E_{proj} =  \sum_{j \neq 0} \Big \langle D_j | H | D_0 \Big \rangle \frac{N_j (\tau)}{N_0 (\tau)} 
 \f]
 */
-
 double projectorEnergy(){
     return 1;
 }
 
 
-
-
-
+/**
+------------------------------------------------
+M A I N  -  S T A R T S  -  H E R E 
+------------------------------------------------
+*/
 int main(void){
     srand(492831);
 
@@ -679,131 +708,7 @@ int main(void){
 
     shoulderplot.close();
 
-    //for (std::set<std::string>::iterator it = uniqueDeterminantSet.begin(); it != uniqueDeterminantSet.end(); it++) {
-    //    std::string element = *it ;
-    //    std::cout << element << std::endl;
-   // }
-  
-    
+
 
     return 1;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /*
-
-    int det_index = 0;
-    int numDuplicates = 0;
-    int numDetsCreated = 1;
-    for(int run = 0; run < 1000; run++){
-
-        int alpha_i = 0, alpha_a = 0;
-        int beta_j = 0, beta_b = 0;
-        std::string alphaDetStr = alphaDetsBinary[det_index] ;
-        std::string betaDetstr =  betaDetsBinary[det_index] ;
-
-        ////std::cout << "-------> Begin Run " << run << " <--------" << std::endl;
-
-        excitationAlpha_iaBeta_jb(alpha_i, alpha_a, beta_j, beta_b, INTelectrons, ORB_SIZE, betaDetstr, alphaDetStr,  KEsortedKpoints );
-        bool ib_SpinDifferent = true;
-        if(beta_b != -1){
-            numDetsCreated += 1;
-
-            double hamltnij__ab =  Di_H_Dj(cellLength , KEsortedKpoints, alpha_i, alpha_a, beta_b, ib_SpinDifferent ) ;
-            ////std::cout << " < D_I | H | D_J > Element =  < ij || ab > is : " << hamltnij__ab << '\n' << std::endl;
-            //Create new determinant into list
-            betaDetstr[ORB_SIZE-1-alpha_i] = '0' ;
-            betaDetstr[ORB_SIZE-1-alpha_a] = '1' ;
-            alphaDetStr[ORB_SIZE-1-beta_j] = '0' ;
-            alphaDetStr[ORB_SIZE-1-beta_b] = '1' ;
-
-            std::string combinedAlphaBeta(ORB_SIZE*2 + 1, ' ');
-            concatStrings(alphaDetStr, betaDetstr, combinedAlphaBeta) ;
-            result = uniqueDeterminantSet.insert( combinedAlphaBeta ) ;
-            if(result.second == true){
-                // INPUT SUCCESSFUL 
-                alphaDetsBinary.push_back(alphaDetStr) ;
-                betaDetsBinary.push_back(betaDetstr) ;
-                det_index += 1 ;
-                walkerList.push_back(1);
-            }
-            if(result.second == false){
-                // INPUT FAILED 
-                std::string iter = *result.first;
-                int position = getPositionInList( iter, alphaDetsBinary, betaDetsBinary ) ;
-                walkerList[position] += 1;
-                numDuplicates += 1 ;
-            }
-        }
-
-        int spin1_i = 0, spin1_a = 0 ;
-        int spin1_j = 0, spin1_b = 0 ;
-        std::string spinDetStr = alphaDetsBinary[det_index] ;
-
-        excitationSameSpinij_ab(spin1_i, spin1_a, spin1_j, spin1_b, INTelectrons, ORB_SIZE, spinDetStr, KEsortedKpoints ) ;
-        bool ib_SpinDiffAlpha = false;
-        if(spin1_b != -1){
-            numDetsCreated += 1;
-
-            double hamltn_spinij__ab =  Di_H_Dj(cellLength , KEsortedKpoints, spin1_i, spin1_a, spin1_b, ib_SpinDiffAlpha ) ;
-            ////std::cout << " < D_I | H | D_J > Element =  < ij || ab > is : " << hamltn_spinij__ab << std::endl;
-            spinDetStr[ORB_SIZE-1- spin1_i ] = '0' ;
-            spinDetStr[ORB_SIZE-1- spin1_j ] = '0' ;
-            spinDetStr[ORB_SIZE-1- spin1_a ] = '1' ;
-            spinDetStr[ORB_SIZE-1- spin1_b ] = '1' ;
-
-            std::string combinedStrings(ORB_SIZE*2 + 1, ' ');
-            concatStrings(spinDetStr, betaDetstr, combinedStrings) ;
-            result = uniqueDeterminantSet.insert( combinedStrings) ;
-            if(result.second == true){
-                // INPUT SUCCESSFUL 
-                alphaDetsBinary.push_back(spinDetStr) ;
-                betaDetsBinary.push_back(betaDetstr) ;
-                det_index += 1 ;
-                walkerList.push_back(1);
-            }
-            if(result.second == false){
-                // INPUT FAILED 
-                std::string iter = *result.first;
-                int position = getPositionInList( iter, alphaDetsBinary, betaDetsBinary ) ;
-                walkerList[position] += 1;
-                numDuplicates += 1 ;
-            }
-        }
-    }
-
-
-
-
-    std::cout << "Number of ALPHA determinants is now = " << alphaDetsBinary.size() << std::endl;
-    std::cout << "Number of BETA determinants is now = " << betaDetsBinary.size() << std::endl;
-    std::cout << " " << std::endl;
-    int uniqueSetSize = uniqueDeterminantSet.size() ;
-    std::cout << "Number of ALPHA determinants in set is now = " << uniqueSetSize << std::endl;
-    std::cout << "First in Alpha unique SET =  " << *uniqueDeterminantSet.begin() << std::endl;
-    std::cout << " " << std::endl;
-    std::cout << "Number of Duplicates = " << numDuplicates << std::endl;
-    std::cout << "Dets Generated in Total = " << numDetsCreated << std::endl;
-    std::cout << "Dets Generated MINUS number of Duplicates = " << numDetsCreated - numDuplicates << std::endl;
-    
-    for (std::vector<int>::iterator it = walkerList.begin(); it != walkerList.end(); it++) {
-        int element = *it ;
-        std::cout << element << " ";
-     }
-    std::cout << " " << std::endl;
-    */
-
