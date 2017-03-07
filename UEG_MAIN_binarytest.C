@@ -4,24 +4,17 @@
     ---> NB - - NUMBER OF ORBITALS MUST BE KNOWN A PRIORI FOR "binaryManip.C* AND for KEsortedKpoints[size][3]
 */
 
-
 #include "binaryManip.H"    /* Inludes  <bitset>  <climits>  <boost/math/special_functions/binomial.hpp>  <vector> */
 #include "planeWaves.H"     /* Includes <iostream>  <set>  <math.h>  <stdlib.h>  <algorithm> */
 #include "UEGHamiltonian.H" /*Includes initialisation: const int ORB_SIZE = 125;*/
-
 
 #include <fstream>
 #include <time.h>
 #include <set>
 #include <map>
 
-
-
-
-
-
 /*
-*Parameters for initial setup of UEG 
+*-----> Parameters for initial setup of UEG <----- 
 */
 
 /** A number, nobody knows what it means */
@@ -307,16 +300,12 @@ void SPAWN( const double cellLength,
                             }
                         }
                     }
-
-
                 }/*End of IF(index_b != -1)*/
                 else{/* COULD NOT find a k consevring orbital - SET Hij = 0 and carry on as usual!*/
                     HijElement = 0 ;
                     pSpawn = 0 ;
                     /*Do Nothing - we know with certainty that pSpawn = 0 since HijElement = 0*/
                 }
-
-
             }/*End of inner walker FOR loop*/
         }/*End of IF loop*/
     } /*End of main FOR loop*/
@@ -530,19 +519,15 @@ M A I N  -  S T A R T S  -  H E R E
 int main(void){
     srand(492831);
 
-	
-	const double cellVolume = (numElectrons*PI*4.0*rs*rs*rs)/3.0;
-	const double cellLength = getCellLength(cellVolume); /* Return cell length in units of rs */
-
-
     for(int i = 0; i<ORB_SIZE; i++){
         pow2Array[i] = INLpow2(i);
     }
 
-	
-
+	const double cellVolume = (numElectrons*PI*4.0*rs*rs*rs)/3.0;
+	const double cellLength = getCellLength(cellVolume); /* Return cell length in units of rs */
 	int spinOrbitals;
     double kpoints[500][3];
+
     createPlaneWaveOrbitals(kpoints, Kc_CUTTOFF, spinOrbitals);
 
     std::cout << "Cell length = " << cellLength << '\n' << std::endl;
@@ -562,7 +547,6 @@ int main(void){
     kPointsEnergySort(kpoints, KEsortedKpoints, ORB_SIZE);
     std::cout << "ORDERED LIST: " << std::endl;
     PRINTORBITALS(ORB_SIZE, KEsortedKpoints);
-
 
     /* -----> DEFINE IMPORTANT LISTS <----- */
     std::set< std::pair<long int, long int> > uniqueDeterminantSet ;
@@ -590,8 +574,6 @@ int main(void){
         HF_STRING[ORB_SIZE-1-el] = '1';
     }
     
-    //std::string combinedHF(ORB_SIZE*2 + 1, ' ');
-    //concatStrings(HF_STRING, HF_STRING, combinedHF ) ;
     long int HF_binary;
     binaryToDecimal(HF_STRING, HF_binary);
     result = uniqueDeterminantSet.insert( std::make_pair(HF_binary, HF_binary) ) ; 
@@ -608,14 +590,8 @@ int main(void){
     const double HFEnergy = EnergyHFnonConst;
     std::cout << " < D_I | H | D_I > Element for HF = " << HFEnergy << '\n' << std::endl;
 
-    //std::string large;
-    //decimalToBinary(HF_binary - pow2(ORB_SIZE-1-56), large) ;
-    //std::cout << large <<  std::endl;
 
-
-
-
-
+    /* EXCIATATION TESTER 
     for(int i = 0; i<1; i++){
         int index_i = 0, index_a = 0, index_j = 0, index_b = 0;
         int sign = 0;
@@ -631,12 +607,13 @@ int main(void){
             std::cout << " " << std::endl;
         }
     }
+    */
 
 
 
 
 
-    /* - - - - - - - - M A I N   L O O P - - - - - - - - - - - - */
+    /* - - - - - - - - - - - - M A I N   L O O P - - - - - - - - - - - - */
     int beginAverageStep;
     double SHIFT = 0.1 ;
     double instantAverageShift = 0.0;
@@ -672,8 +649,9 @@ int main(void){
         std::cout << "CURRENT NUMBER OF DETERMINANTS = " <<  uniqueDeterminantSet.size() << std::endl;
         std::cout << "CURRENT NUMBER OF ALPHAS = " <<  alphaDetsBinary.size() << std::endl;
         std::cout << "CURRENT NUMBER OF BETAS = " <<  betaDetsBinary.size() << '\n' << std::endl;
+        std::cout << "CURRENT SHIFT ENERGY ESTIMATOR = " << SHIFT << std::endl;
 
-        /*TURN SHIFT ON NOW, *THEN* perform spawn-death/clone-annihilation*/
+        /* TURN SHIFT ON NOW, *THEN* perform spawn-death/clone-annihilation */
 
         if( (currentPopulation >= walkerCritical ) && !shiftOn ){
             shiftOn = true;
@@ -684,31 +662,30 @@ int main(void){
             SHIFT = variableShift(delt, AShift, i, zeta, walkerNUMTracker, SHIFTTracker) ;
         }
         SHIFTTracker.push_back(SHIFT) ;
-
         //projectorTracker[i] = currentProjectorEnergy;
 
         shoulderplot << currentPopulation << " " << popToRefRatio << std::endl ;
         shiftPlot << SHIFT << std::endl;
 
-
         start = clock();
+
         SPAWN(cellLength, walkerList, posChildList, negChildList, KEsortedKpoints, uniqueDeterminantSet, result, alphaDetsBinary, betaDetsBinary );
         DEATH_CLONE(cellLength, walkerList, KEsortedKpoints, SHIFT, alphaDetsBinary, betaDetsBinary, HFEnergy);
         ANNIHILATION(i, walkerList, posChildList, negChildList, uniqueDeterminantSet, alphaDetsBinary, betaDetsBinary);
+
         end = clock();
         elapsedTime = end-start;
-        //std::cout << "Triple loop Time = " << elapsedTime << std::endl;
         std::cout<< "Elapsed time for triple loop: " << elapsedTime/CLOCKS_PER_SEC << std::endl;
 
     }
+    shoulderplot.close();
+    shiftPlot.cloase();
 
+    /* PRINT OUT THE WALKER POPULATION PER DETERMINANT
     for(int i = 0; i< walkerList.size(); i++ ){
         std::cout << "Walker on DET " << i << " = " << walkerList[i] << std::endl;
     }
-
-    shoulderplot.close();
-
-
+    */
 
     return 1;
 }
