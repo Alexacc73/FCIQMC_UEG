@@ -1,0 +1,31 @@
+\form#0:\[ S(\tau) = S(\tau - A\delta \tau) - \frac{\zeta}{A \delta \tau} ln\frac{N_w (\tau)}{N_w (\tau - A\delta \tau)} \]
+\form#1:\[ E_{proj} = \sum_{j \neq 0} \Big \langle D_j | H | D_0 \Big \rangle \frac{N_j (\tau)}{N_0 (\tau)} \]
+\form#2:\[ VariableShift function controls the shift in response to the population, and relates exactly to the equation: // S(\tau) = S(\tau - A\delta \tau) - \frac{\zeta}{A \delta \tau} ln\frac{N_w (\tau)}{N_w (\tau - A\delta \tau)} \]
+\form#3:$ \alpha $
+\form#4:$ D_{i \alpha} $
+\form#5:$ D_j $
+\form#6:\[ p_s(j|i_{\alpha}) = \frac{\delta \tau | K_{i_{\alpha}j} | }{p_{gen}j | i_{\alpha}} (15) \]
+\form#7:$ K_{i_{\alpha}j} < 0 $
+\form#8:$ p_{gen} $
+\form#9:$ p_s > 1 $
+\form#10:$ K_{i_{\alpha}j} $
+\form#11:$ |ps| $
+\form#12:$ ps − |ps| $
+\form#13:\[ p_{d}(i_{\alpha}) = \delta \tau( K_{i_{\alpha} i_{\alpha}} - S ) \]
+\form#14:$ p_d > 0 $
+\form#15:$ p_d $
+\form#16:$ p_d < 0 $
+\form#17:$ |pd| $
+\form#18:$ S > 0 $
+\form#19:$ \langle D_i | K | D_i \rangle < S $
+\form#20:$ N_w $
+\form#21:\[ p_{d}(i_{\alpha}) = \delta \tau( K_{i_{\alpha} i_{\alpha}} - S ) (16) \]
+\form#22:$ 2^x $
+\form#23:$ N_w = \sum_i | N_i | $
+\form#24:$ N_w = \sum_{i} | N_i | $
+\form#25:$ \langle D_I | H | D_J \rangle = \langle ij||ab \rangle = \langle ij|ab \rangle - \langle ij|ba \rangle $
+\form#26:$ \langle ij|ba \rangle = 0 $
+\form#27:$ D_J $
+\form#28:$ D_I $
+\form#29:$ \langle ij||ij \rangle $
+\form#30:\[ 2 \frac{\pi^2}{L^2} \sum_{i} k_{i}^{2} - \frac{1}{\pi L} \sum_{i} \sum_{i \neq j} \frac{1}{| K_i - k_j |^2} \]
