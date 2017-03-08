@@ -30,6 +30,10 @@ inline  void INLdecimalToBinary(long int& decimal, std::string& binaryNum)
 * excited into the unfilled orbital index "b".
 * It is assumed that \f$ D_J \f$ has already been chosen as a coupled DOUBLE excitation of \f$ D_I \f$
 * such that CRYSTAL MOMENTUM (k) and SPIN are conserved.
+*
+* NB: Already imposed, prior to being passed to this function, is the following:
+* \f$ i < j \f$, and \f$ a < b \f$, which aids in the calculation of the excitation permutations needed to give 
+* \f$ \langle D_I | H | D_J  \rangle \f$ the correct sign.
 */
 void Di_H_Dj(const double& cellLength, 
              double (&KEsortedList)[ORB_SIZE][3], 
