@@ -808,7 +808,7 @@ int main(void){
         PROJECTOR = projectorEnergy(cellLength, walkerList, alphaDetsBinary, betaDetsBinary, KEsortedKpoints);
 
         shoulderplot << currentPopulation << " " << popToRefRatio << std::endl ;
-        shiftPlot << SHIFT << std::endl;
+        shiftPlot << SHIFT << PROJECTOR << std::endl;
 
         
         start = clock();
