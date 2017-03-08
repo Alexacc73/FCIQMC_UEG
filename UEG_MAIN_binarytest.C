@@ -113,9 +113,7 @@ inline size_t oneBitCount(long int& n){
 */
 inline  void INLdecimalToBinary(long int& decimal, std::string& binaryNum)
 {
-    //std::string binaryNum;
     binaryNum = std::bitset<ORB_SIZE>(decimal).to_string() ;
-    //return binaryNum;
 }
 
 
@@ -579,8 +577,8 @@ double projectorEnergy(const double& cellLength,
                     bool ib_spinDifferent = false;
                     ijBin = HFDet & XORalpha;
                     abBin = alphaDetJ & XORalpha;
-                    decimalToBinary(ijBin, ijSTR);
-                    decimalToBinary(abBin, abSTR);
+                    INLdecimalToBinary(ijBin, ijSTR);
+                    INLdecimalToBinary(abBin, abSTR);
                     idx = 0;
                     for(int i = 0; i<ORB_SIZE; i++){
                         idx = ORB_SIZE - i -1;
@@ -602,8 +600,8 @@ double projectorEnergy(const double& cellLength,
                     bool ib_spinDifferent = false;
                     ijBin = HFDet & XORbeta;
                     abBin = betaDetJ & XORbeta;
-                    decimalToBinary(ijBin, ijSTR);
-                    decimalToBinary(abBin, abSTR);
+                    INLdecimalToBinary(ijBin, ijSTR);
+                    INLdecimalToBinary(abBin, abSTR);
                     idx = 0;
                     for(int i = 0; i<ORB_SIZE; i++){
                         idx = ORB_SIZE - i -1;
@@ -770,8 +768,8 @@ int main(void){
 
     std::ofstream shoulderplot;
     std::ofstream shiftPlot;
-    shoulderplot.open ("SHOULDER_66S0_rs0.5_Nw500000.txt");
-    shiftPlot.open("SHIFT_66SO_rs0.5_Nw500000.txt");
+    shoulderplot.open ("SHOULDER_66S0_rs0.5_Nw200000proj.txt");
+    shiftPlot.open("SHIFT_66SO_rs0.5_Nw200000proj.txt");
    
     int PRINT_STEPS = 50;
     for(int i = 0; i < numSteps; i++){
