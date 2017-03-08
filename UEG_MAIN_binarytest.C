@@ -39,7 +39,7 @@ const double Kc_CUTTOFF = 2 ;
  */
 
 /** delt is the Imaginary timestep for the propogation of the "walker" population */
-const double delt = 0.0005 ;
+const double delt = 0.00025 ;
 
 /** Zeta is a damping parameter which controls the agressiveness of the "shift" in the variable shift mode of the algorithm */
 const double zeta = 0.03 ;
@@ -104,6 +104,18 @@ inline const int INLgetPositionInList(std::pair<long int, long int>& uniqueDet, 
 inline size_t oneBitCount(long int& n){
     std::bitset<sizeof(size_t) * CHAR_BIT> b(n);
     return b.count();
+}
+
+
+/**
+* This inline function simply converts a base 10 integer (which represents the unique determinant)
+* into its binary representation, but with type string. 
+*/
+inline  void INLdecimalToBinary(long int& decimal, std::string& binaryNum)
+{
+    //std::string binaryNum;
+    binaryNum = std::bitset<ORB_SIZE>(decimal).to_string() ;
+    //return binaryNum;
 }
 
 
@@ -509,18 +521,22 @@ double variableShift( const double& delt,
 
 /** The Projector Energy gives an independent estimation of the energy from the shift, according to equation:
 \f[
- E_{proj} =  \sum_{j \neq 0} \Big \langle D_j | H | D_0 \Big \rangle \frac{N_j (\tau)}{N_0 (\tau)} 
+ E_{proj} =  \sum_{J \neq 0} \Big \langle D_J | H | D_0 \Big \rangle \frac{N_J (\tau)}{N_0 (\tau)} 
 \f]
 */
-double projectorEnergy(std::vector<int>& trueWalkerList,
+double projectorEnergy(const double& cellLength, 
+                       std::vector<int>& trueWalkerList,
                        std::vector<long int>& alphaDetsBinary,
-                       std::vector<long int>& betaDetsBinary){
+                       std::vector<long int>& betaDetsBinary,
+                       double (&KEsortedList)[ORB_SIZE][3] ){
     int idx_i;
-    int idx_j;
+    int idx_a;
     int idx_b;
+    int idx;
     int alphaBits = 0;
     int betaBits = 0;
     int excitorCount = 0;
+    int walkerNumJ = 0;
     long int HFDet = 127;
     long int alphaDetJ;
     long int betaDetJ;
@@ -528,14 +544,25 @@ double projectorEnergy(std::vector<int>& trueWalkerList,
     long int XORbeta;
     long int ijBin;
     long int abBin;
+    long int iBin;
+    long int aBin;
+    long int bBin;
     bool ISdoubleExcitation = false;
-
+    bool found_idx_i = false;
+    bool found_idx_a = false;
+    bool ib_spinDifferent = false;
+    double HijElement = 0;
     std::string ijSTR(ORB_SIZE, ' '); 
     std::string abSTR(ORB_SIZE, ' '); 
 
     int numDets = trueWalkerList.size();
+    int refWalkerNum = trueWalkerList[0]; 
+    double EProjSum = 0;
     for(int det = 1; det<numDets; det++){ /*Begin at det = 1, since we do not care about < D_0 | H | D_0 >*/
-        if(trueWalkerList[det] != 0){
+        walkerNumJ = trueWalkerList[det];
+        if( walkerNumJ != 0 ){
+            found_idx_i = false;
+            found_idx_a = false;
             alphaDetJ = alphaDetsBinary[det];
             betaDetJ = betaDetsBinary[det];
             XORalpha = HFDet ^ alphaDetJ;
@@ -546,20 +573,78 @@ double projectorEnergy(std::vector<int>& trueWalkerList,
             if(excitorCount == 4){
                 ISdoubleExcitation = true;
             }
-            if(ISdoubleExcitation){ /* Double Excitation Found */
-                if(alphaBits == 4){ /* search for ij, ab, in ALPHA only!*/
 
+            if(ISdoubleExcitation == true){ /* Double Excitation Found */
+                if( (alphaBits == 4) ){ /* search for ij, ab, in ALPHA only!*/
+                    bool ib_spinDifferent = false;
+                    ijBin = HFDet & XORalpha;
+                    abBin = alphaDetJ & XORalpha;
+                    decimalToBinary(ijBin, ijSTR);
+                    decimalToBinary(abBin, abSTR);
+                    idx = 0;
+                    for(int i = 0; i<ORB_SIZE; i++){
+                        idx = ORB_SIZE - i -1;
+                        if( (found_idx_i == false) && (ijSTR[idx] == '1') ){
+                            idx_i = i;
+                            found_idx_i = true;
+                        }
+                        if( (found_idx_a == true) &&  (abSTR[idx] == '1') ){
+                            idx_b = i;
+                        }
+                        if( (found_idx_a == false) && (abSTR[idx] == '1') ){
+                            idx_a = i;
+                            found_idx_a = true;
+                        }
+                    }
+                }/*End ALPHA search for ij, ab*/
+
+                if( (betaBits == 4) ){ /* search for ij, ab, in BETA only!*/
+                    bool ib_spinDifferent = false;
+                    ijBin = HFDet & XORbeta;
+                    abBin = betaDetJ & XORbeta;
+                    decimalToBinary(ijBin, ijSTR);
+                    decimalToBinary(abBin, abSTR);
+                    idx = 0;
+                    for(int i = 0; i<ORB_SIZE; i++){
+                        idx = ORB_SIZE - i -1;
+                        if( (found_idx_i == false) && (ijSTR[idx] == '1') ){
+                            idx_i = i;
+                            found_idx_i = true;
+                        }
+                        if( (found_idx_a == true) &&  (abSTR[idx] == '1') ){
+                            idx_b = i;
+                        }
+                        if( (found_idx_a == false) && (abSTR[idx] == '1') ){
+                            idx_a = i;
+                            found_idx_a = true;
+                        }
+                    }
+                }/*End ALPHA search for ij, ab*/
+
+                else{ /* i->a are alpha, but i->b are beta*/
+                    bool ib_spinDifferent = true;
+                    iBin = HFDet & XORalpha;
+                    aBin = alphaDetJ & XORalpha;
+                    bBin = betaDetJ & XORbeta;
+                    for(int i = 0; i<ORB_SIZE; i++){
+                        if( iBin - pow2Array[i] == 0 ){
+                            idx_i = i;
+                        }
+                        if( aBin - pow2Array[i] == 0 ){
+                            idx_a = i;
+                        }
+                        if( bBin - pow2Array[i] == 0 ){
+                            idx_b = i;
+                        }
+                    }
                 }
-
-
-
-
+                Di_H_Dj(cellLength, KEsortedList, idx_i, idx_a, idx_b, ib_spinDifferent, HijElement) ;
+                EProjSum += (HijElement * walkerNumJ) ;
             }
         }
-    } 
-
-
-    return 1.0;
+    }/*End of FOR loop*/
+    EProjSum = EProjSum/refWalkerNum ;
+    return EProjSum ;
 }
 
 
