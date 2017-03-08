@@ -5,16 +5,10 @@
 #include <stdlib.h>
 #include <algorithm> 
 
-    /*printy stuff:
-    std::cout << "s_i --> s_a = " << spin1_i << " --> " << spin1_a << std::endl;
-    std::cout << "i --> a = [" << KEsortedKpoints[spin1_i][0] << KEsortedKpoints[spin1_i][1] << KEsortedKpoints[spin1_i][2] ;
-    std::cout << "] --> [" << KEsortedKpoints[spin1_a][0] << KEsortedKpoints[spin1_a][1] << KEsortedKpoints[spin1_a][2] <<"]"<< std::endl;
-    std::cout << "s_j --> s_b = " << spin1_j << " --> " << spin1_b << std::endl;
-    std::cout << "j --> b = [" << KEsortedKpoints[spin1_j][0] << KEsortedKpoints[spin1_j][1] << KEsortedKpoints[spin1_j][2] ;
-    std::cout << "] --> [" << KEsortedKpoints[spin1_b][0] << KEsortedKpoints[spin1_b][1] << KEsortedKpoints[spin1_b][2] <<"]"<< std::endl;
-    */
-
-
+/**
+* This inline function simply converts a base 10 integer (which represents the unique determinant)
+* into its binary representation, but with type string. 
+*/
 inline  void INLdecimalToBinary(long int& decimal, std::string& binaryNum)
 {
     //std::string binaryNum;
@@ -22,15 +16,26 @@ inline  void INLdecimalToBinary(long int& decimal, std::string& binaryNum)
     //return binaryNum;
 }
 
-void Di_H_Dj(const double& cellLength, double (&KEsortedList)[ORB_SIZE][3], int& i, int& a, int& b, bool& ibSpinDifferent, double& RESULT  ){
-	/* - - - RESULT: REUTURNS THE DOUBLE INTEGRAL < ij || ab >  =  <D_I | H | D_J> - - - */
 
-  /* ->From the Determinant given by kpoints in detKlist: "i" is the index 
-        from which one (alpha spin) electron is excited into orbital index "a".
-     ->A second (beta spin) electron is chosen from a filled orbital, j, and is
-        excited into the unfilled orbital index "b".
-     ->It is assumed that D_J has already been chosen as a coupled DOUBLE excitation of D_I
-  such that **CRYSTAL MOMENTUM and SPIN** are conserved.  */
+/**
+* This function calculates the OFF-diagonal matrix elements of the Hamiltonian, for double electronic excitations,
+* using the simplifications of the Slater-Condon rules. 
+* It calculates the double electron integral 
+* \f$ \langle D_I | H | D_J  \rangle  =  \langle ij||ab \rangle = \langle ij|ab \rangle - \langle ij|ba \rangle \f$,
+* where the spin-orthogonality imposed upon the system mean that \f$ \langle ij|ba \rangle = 0 \f$ if orbital i and orbital b are
+* of opposite spin.
+* From the Determinant given by kpoints in detKlist: "i" is the index 
+* from which one (alpha spin) electron is excited into orbital index "a".
+* A second (beta spin) electron is chosen from a filled orbital, j, and is
+* excited into the unfilled orbital index "b".
+* It is assumed that \f$ D_J \f$ has already been chosen as a coupled DOUBLE excitation of \f$ D_I \f$
+* such that CRYSTAL MOMENTUM (k) and SPIN are conserved.
+*/
+void Di_H_Dj(const double& cellLength, 
+             double (&KEsortedList)[ORB_SIZE][3], 
+             int& i, int& a, int& b, 
+             bool& ibSpinDifferent,
+             double& RESULT  ){
   const double PI = 3.141592653589793;
   double coulomb = 0 ;
   double exchange = 0 ;
@@ -60,7 +65,14 @@ void Di_H_Dj(const double& cellLength, double (&KEsortedList)[ORB_SIZE][3], int&
 }
 
 
-
+/**
+This function calculates the diagonal matrix elements of the Hamiltonian, according to the following equation:
+*
+\f[
+2 \frac{\pi^2}{L^2} \sum_{i} k_{i}^{2} - \frac{1}{\pi L} \sum_{i} \sum_{i \neq j} \frac{1}{| K_i - k_j |^2}
+\f]
+* This is again equivalent to the Slater-Condon rules which give the double integral \f$  \langle ij||ij \rangle \f$.
+*/
 void Di_H_Di(const double& cellLength, const int& numElectrons, 
 	long int& alphaBin, long int& betaBin, double (&KElist)[ORB_SIZE][3], double& RESULT){
 
@@ -125,8 +137,8 @@ void Di_H_Di(const double& cellLength, const int& numElectrons,
 }
 
 
-/* - - - - - - - - - - - - - EXCITATION OPERATOR - - - - - - - - - - - - - */
-    /*
+/* - - - - - - - - - - - - - EXCITATION OPERATOR - - - - - - - - - - - - - 
+
     1) Pick a filled alpha obrital *RANDOMLY*, i
     2) choose an UNfilled alpha determinant *RANDOMLY*, a
        ---> record change in K values from i-->a, delk_ia (for each n,m, and l)
@@ -138,24 +150,41 @@ void Di_H_Di(const double& cellLength, const int& numElectrons,
     7) Calculate the Hamiltonian between determinants I and new J, < D_I | H | D_J >
        ---> given {i,j,a,b} as inputs, with acces to ordered KPOINTS, obviously. This is < D_I | H | D_J > is simply < ij || ab > 
     8) use < D_I | H | D_J > to calculate spawning prob! - algorithm continues!!! 
-    */
+*/
 
 
-void excitationAlpha_iaBeta_jb(int& alpha_i, int& alpha_a, int& beta_j, int& beta_b, const int& numElectrons, const int& numOrbitals,
-long int& alphaDetBin, long int& betaDetBin, double (&KEsortedList)[ORB_SIZE][3], int& sign ){
-	/* - - - EXCITATION OPERATOR - - - 
-    1) Pick a filled alpha obrital *RANDOMLY*, i
-    2) choose an UNfilled alpha determinant *RANDOMLY*, a
-       ---> record change in K values from i-->a, delk_ia (for each n,m, and l)
-    3) choose a filled beta orbital *RANDOMLY*, j
-    4) Run through ALL unfilled beta orbitals, and record those which conserve K, given delk_ia (i.e, give -delk_ia ??)
-       ---> Of those which conserve K, choose an unfilled one at *RANDOM* 
-    5) Hopefully, the excitation ij ---> ab conserves K with 100% gauruntee */
+/**
+------------------------- 
+EXCITATION - OPERATOR
+------------------------- 
+* i and a are ALPHA spin ; j and b are BETA spin
+*
+* 1) Pick a filled alpha obrital *RANDOMLY*, i
+*
+* 2) choose an UNfilled alpha determinant *RANDOMLY*, a
+*   ---> record change in K values from i-->a, delk_ia (for each n,m, and l)
+*
+* 3) choose a filled beta orbital *RANDOMLY*, j
+*
+* 4) Run through ALL unfilled beta orbitals, and record those which conserve K, given delk_ia (i.e, given -delk_ia)
+*   ---> Of those which conserve K, choose an unfilled one at *RANDOM* 
+*
+* 5) Hopefully, the excitation ij ---> ab conserves K with 100% gauruntee 
+*/
+void excitationAlpha_iaBeta_jb(int& alpha_i, 
+                               int& alpha_a, 
+                               int& beta_j, 
+                               int& beta_b, 
+                               const int& numElectrons, 
+                               const int& numOrbitals,
+                               long int& alphaDetBin, 
+                               long int& betaDetBin, 
+                               double (&KEsortedList)[ORB_SIZE][3], 
+                               int& sign ){
     int filledAlphaOrbits [numElectrons/2] ;
     int UNfilledAlphaOrbits [numOrbitals - numElectrons/2] ;
     int add_fill = numElectrons/2 -1 ;
     int add_unfill = numOrbitals - numElectrons/2 -1 ;
-
     std::string alphaDetString(ORB_SIZE, ' ');
     std::string betaDetString(ORB_SIZE, ' ');
 
@@ -251,11 +280,6 @@ long int& alphaDetBin, long int& betaDetBin, double (&KEsortedList)[ORB_SIZE][3]
     	}
     	int indexSum = 0;
     	indexSum = index_i + index_j + alphai_excite + betaj_excite;
-    	//std::cout << "idx i = " << index_i << std::endl;
-    	//std::cout << "idx_j = " << index_j<< std::endl;
-    	//std::cout << "alphai_excite = " << alphai_excite << std::endl;
-    	//std::cout << "betaj_excite = " << betaj_excite << std::endl;
-    	//std::cout << "indexSum = " << indexSum << std::endl;
     	if(indexSum%2 == 0){
     		sign = 1;
     	}
@@ -266,18 +290,27 @@ long int& alphaDetBin, long int& betaDetBin, double (&KEsortedList)[ORB_SIZE][3]
 }
 
 
-
-
-
-void excitationSameSpinij_ab(int& spin1_i, int& spin1_a, int& spin1_j, int& spin1_b, const int& numElectrons, const int& numOrbitals,
- long int& spin1DetBin, double (&KEsortedList)[ORB_SIZE][3], int& sign ){
-
+/**
+------------------------- 
+EXCITATION - OPERATOR
+------------------------- 
+* i,j,a,&b are ALL of the same spin (Either Alpha or Beta)
+*/
+void excitationSameSpinij_ab(int& spin1_i, 
+                             int& spin1_a, 
+                             int& spin1_j, 
+                             int& spin1_b, 
+                             const int& numElectrons, 
+                             const int& numOrbitals,
+                             long int& spin1DetBin, 
+                             double (&KEsortedList)[ORB_SIZE][3], 
+                             int& sign ){
  	int filledSpinOrbits [numElectrons/2]  ;
     int UNfilledSpinOrbits [numOrbitals - numElectrons/2] ;
     int add_fill = numElectrons/2 - 1 ;
     int add_unfill = numOrbitals - numElectrons/2 - 1 ;
-
     std::string spin1DetString(ORB_SIZE, ' ');
+
     INLdecimalToBinary(spin1DetBin, spin1DetString);
     for(int index = 0; index < numOrbitals; index++){
     	int korbit = numOrbitals-1-index;
@@ -291,14 +324,11 @@ void excitationSameSpinij_ab(int& spin1_i, int& spin1_a, int& spin1_j, int& spin
     	}
     }
 
-    //std::cout << filledSpinOrbits[0] << " " << filledSpinOrbits[6] << std::endl;
-
     int index_i = rand()%(numElectrons/2) ; // This pickes a radnom num between 0 and 6, (for 14 electrons, 7 alpha electrons)
     /* Pick index_j to be DIFFERENT to index_i - find k value of spin1_j spinOrbital*/
     int index_j = index_i ;
     while( index_j == index_i ){ 
     	index_j = rand()%(numElectrons/2) ; 
-    	//std::cout << "finished yet?" << std::endl;
     }
     if(index_i > index_j){ //Assert that i < j for calculating correct Hij sign purposes
     	int temp_j;
@@ -353,9 +383,6 @@ void excitationSameSpinij_ab(int& spin1_i, int& spin1_a, int& spin1_j, int& spin
     	}
     	b += 1 ;
     }
-    if(foundspin1_b==false){
-    	////std::cout << "E2: Did not find a K conserving Beta_b orbital" << std::endl;
-    }
 
     if(foundspin1_b==true){ /*This part is necessary to determine the sign of the Hij Matrix element!!*/
     	int temp_filled [numElectrons/2] ;
@@ -385,3 +412,14 @@ void excitationSameSpinij_ab(int& spin1_i, int& spin1_a, int& spin1_j, int& spin
     	}
     }
 }
+
+
+
+/*print test stuff:
+std::cout << "s_i --> s_a = " << spin1_i << " --> " << spin1_a << std::endl;
+std::cout << "i --> a = [" << KEsortedKpoints[spin1_i][0] << KEsortedKpoints[spin1_i][1] << KEsortedKpoints[spin1_i][2] ;
+std::cout << "] --> [" << KEsortedKpoints[spin1_a][0] << KEsortedKpoints[spin1_a][1] << KEsortedKpoints[spin1_a][2] <<"]"<< std::endl;
+std::cout << "s_j --> s_b = " << spin1_j << " --> " << spin1_b << std::endl;
+std::cout << "j --> b = [" << KEsortedKpoints[spin1_j][0] << KEsortedKpoints[spin1_j][1] << KEsortedKpoints[spin1_j][2] ;
+std::cout << "] --> [" << KEsortedKpoints[spin1_b][0] << KEsortedKpoints[spin1_b][1] << KEsortedKpoints[spin1_b][2] <<"]"<< std::endl;
+*/
