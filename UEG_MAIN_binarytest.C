@@ -559,6 +559,7 @@ double projectorEnergy(const double& cellLength,
     for(int det = 1; det<numDets; det++){ /*Begin at det = 1, since we do not care about < D_0 | H | D_0 >*/
         walkerNumJ = trueWalkerList[det];
         if( walkerNumJ != 0 ){
+            
             ISdoubleExcitation = false;
             found_idx_i = false;
             found_idx_a = false;
