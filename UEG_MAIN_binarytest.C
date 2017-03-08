@@ -640,7 +640,7 @@ double projectorEnergy(const double& cellLength,
                 EProjSum += (HijElement * walkerNumJ) ;
             }
         }
-    }/*End of FOR loop*/
+    }/* End of FOR loop */
     EProjSum = EProjSum/refWalkerNum ;
     return EProjSum ;
 }
