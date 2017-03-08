@@ -51,7 +51,7 @@ const int AShift = 5 ;
 const int numSteps = 1000000;
 
 /** After "walker critical" walkers have been spawned after a complete cycle (post annihilation) the variable shift mode is turned on */
-const int walkerCritical = 500000;
+const int walkerCritical = 200000;
 
 /** initRefWalkers is the number of wlakers which are initially placed on the reference (i.e Hartree Fock) determinant to begin the spawning */
 int initRefWalkers = 100;
@@ -559,6 +559,7 @@ double projectorEnergy(const double& cellLength,
     for(int det = 1; det<numDets; det++){ /*Begin at det = 1, since we do not care about < D_0 | H | D_0 >*/
         walkerNumJ = trueWalkerList[det];
         if( walkerNumJ != 0 ){
+            ISdoubleExcitation = false;
             found_idx_i = false;
             found_idx_a = false;
             alphaDetJ = alphaDetsBinary[det];
@@ -804,11 +805,10 @@ int main(void){
             SHIFT = variableShift(delt, AShift, i, zeta, walkerNUMTracker, SHIFTTracker) ;
         }
         SHIFTTracker.push_back(SHIFT) ;
-        //projectorTracker[i] = currentProjectorEnergy;
         PROJECTOR = projectorEnergy(cellLength, walkerList, alphaDetsBinary, betaDetsBinary, KEsortedKpoints);
 
         shoulderplot << currentPopulation << " " << popToRefRatio << std::endl ;
-        shiftPlot << SHIFT << PROJECTOR << std::endl;
+        shiftPlot << SHIFT << " " << PROJECTOR << std::endl;
 
         
         start = clock();
@@ -820,7 +820,7 @@ int main(void){
 
         if(i%PRINT_STEPS == 0){
             elapsedTime = CLOCKSUM;
-            std::cout<< "Elapsed time for 20 triple loop: " << elapsedTime/CLOCKS_PER_SEC << std::endl;
+            std::cout<< "Elapsed time for 50 triple loop: " << elapsedTime/CLOCKS_PER_SEC << std::endl;
             CLOCKSUM = 0;
         }
 
