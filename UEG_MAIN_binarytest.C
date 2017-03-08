@@ -22,7 +22,7 @@ const double PI = 3.141592653589793;
 
 /** rs controls density of the Electron Gas. 
 * "rs" is the radius of the sphere whose volume is that of the cell divided by the number of electrons*/
-const double rs = 1.0; 
+const double rs = 0.5; 
 
 /** Total number of electrons -> half allocated Alpha spin, the other half allocated Beta Spin.*/
 const double numElectrons = 14; 
@@ -39,22 +39,22 @@ const double Kc_CUTTOFF = 2 ;
  */
 
 /** delt is the Imaginary timestep for the propogation of the "walker" population */
-const double delt = 0.003 ;
+const double delt = 0.0005 ;
 
 /** Zeta is a damping parameter which controls the agressiveness of the "shift" in the variable shift mode of the algorithm */
-const double zeta = 0.04 ;
+const double zeta = 0.03 ;
 
 /** AShift controls how frequently the shift is changed in response to the population in the variable shift mode (AShift = 1 means every step) */
-const int AShift = 2 ;
+const int AShift = 5 ;
 
 /** Number of steps after which to terminate the algorithm*/
-const int numSteps = 500000;
+const int numSteps = 1000000;
 
 /** After "walker critical" walkers have been spawned after a complete cycle (post annihilation) the variable shift mode is turned on */
 const int walkerCritical = 500000;
 
 /** initRefWalkers is the number of wlakers which are initially placed on the reference (i.e Hartree Fock) determinant to begin the spawning */
-int initRefWalkers = 50;
+int initRefWalkers = 100;
 long int pow2Array [ORB_SIZE];
 
 
@@ -98,6 +98,15 @@ inline const int INLgetPositionInList(std::pair<long int, long int>& uniqueDet, 
 }
 
 
+/**
+* This function simply returns the number of bits, i.e, the number of ones in a binary number.
+*/
+inline size_t oneBitCount(long int& n){
+    std::bitset<sizeof(size_t) * CHAR_BIT> b(n);
+    return b.count();
+}
+
+
 
 /**This function represents first step in the population dynamics of the algorithm.
   * The spawning routine goes as follows, described verbatim from the original paper:
@@ -122,14 +131,13 @@ inline const int INLgetPositionInList(std::pair<long int, long int>& uniqueDet, 
 * 1, \f$ |ps| \f$ walkers are spawned, and with probability
 * \f$ ps − |ps| \f$ an additional walker is spawned).
 */
-void SPAWN( const double cellLength, 
+void SPAWN( const double& cellLength, 
             std::vector<int>& trueWalkerList, 
             std::vector<int>& posWalkerList, 
             std::vector<int>& negWalkerList,
             double (&KEsortedList)[ORB_SIZE][3], 
             std::set< std::pair<long int, long int> >& uniqueDetSet, 
-            std::pair< std::set< std::pair<long int, 
-            long int> >::iterator , bool >& result, 
+            std::pair< std::set< std::pair<long int, long int> >::iterator , bool >& result, 
             std::vector<long int>& alphaDets, 
             std::vector<long int>& betaDets ){
     int walkerNum = 0;
@@ -144,6 +152,7 @@ void SPAWN( const double cellLength,
     double pGen = 0.0;
     double HijElement = 0.0;
     double metropolisRand = 0.0; /*Randomly generated number upon [0,1] to compare with pSelect (metropolis criteria)*/
+    long int detChange = 0;
     long int alphaDet;
     long int betaDet;
     std::pair<long int, long int> iter ;
@@ -183,24 +192,23 @@ void SPAWN( const double cellLength,
     
                 if(index_b != -1){ /*Finding a k consevring orbital was SUCCESSFUL*/
                     /*1) Update newly excited determinants*/
-
                     if(randChooseExcite==0){
-                        alphaDet -= pow2Array[  index_i ] ; //= '0' ;
-                        alphaDet -= pow2Array[  index_j ] ;//= '0' ;
-                        alphaDet += pow2Array[  index_a ] ;//= '1' ;
-                        alphaDet += pow2Array[  index_b ] ;//= '1' ;
+                        detChange = -pow2Array[index_i] - pow2Array[index_j] + pow2Array[index_a] + pow2Array[index_b] ;
+                        alphaDet += detChange;
+                        //alphaDet -= pow2Array[  index_i ] ;//= '0' ;
+                        //alphaDet += pow2Array[  index_a ] ;//= '1' ;
                     }
                     if(randChooseExcite==1){
-                        betaDet -= pow2Array[ index_i ] ;// = '0' ;
-                        betaDet -= pow2Array[ index_j ] ;// = '0' ;
-                        betaDet += pow2Array[ index_a ] ;// = '1' ;
-                        betaDet += pow2Array[ index_b ] ;// = '1' ;
+                        detChange = -pow2Array[index_i] - pow2Array[index_j] + pow2Array[index_a] + pow2Array[index_b] ;
+                        betaDet += detChange;
+                        //betaDet -= pow2Array[ index_i ] ;// = '0' ;
+                        //betaDet += pow2Array[ index_a ] ;// = '1' ;
                     }
                     if( (randChooseExcite == 2)  || (randChooseExcite == 3) ){
                         alphaDet -= pow2Array[ index_i] ; // = '0' ;
                         alphaDet += pow2Array[ index_a] ; // = '1' ;
-                        betaDet  -= pow2Array[ index_j] ; //= '0' ;
-                        betaDet  += pow2Array[ index_b] ; //= '1' ;
+                        betaDet  -= pow2Array[ index_j] ; // = '0' ;
+                        betaDet  += pow2Array[ index_b] ; // = '1' ;
                     }
                    
                     HijElement = 0;
@@ -301,11 +309,9 @@ void SPAWN( const double cellLength,
                         }
                     }
                 }/*End of IF(index_b != -1)*/
-                else{/* COULD NOT find a k consevring orbital - SET Hij = 0 and carry on as usual!*/
-                    HijElement = 0 ;
-                    pSpawn = 0 ;
+                // else{/* COULD NOT find a k consevring orbital - SET Hij = 0 and carry on as usual!*/
                     /*Do Nothing - we know with certainty that pSpawn = 0 since HijElement = 0*/
-                }
+                //}
             }/*End of inner walker FOR loop*/
         }/*End of IF loop*/
     } /*End of main FOR loop*/
@@ -339,7 +345,7 @@ p_{d}(i_{\alpha}) = \delta \tau( K_{i_{\alpha} i_{\alpha}} - S )
 * energy), and in such cases there can be no cloning
 * events at all.
 */
-void DEATH_CLONE(const double cellLength, 
+void DEATH_CLONE(const double& cellLength, 
                 std::vector<int>& trueWalkerList, 
                 double (&KEsortedList)[ORB_SIZE][3], 
                 double& SHIFT,
@@ -506,8 +512,54 @@ double variableShift( const double& delt,
  E_{proj} =  \sum_{j \neq 0} \Big \langle D_j | H | D_0 \Big \rangle \frac{N_j (\tau)}{N_0 (\tau)} 
 \f]
 */
-double projectorEnergy(){
-    return 1;
+double projectorEnergy(std::vector<int>& trueWalkerList,
+                       std::vector<long int>& alphaDetsBinary,
+                       std::vector<long int>& betaDetsBinary){
+    int idx_i;
+    int idx_j;
+    int idx_b;
+    int alphaBits = 0;
+    int betaBits = 0;
+    int excitorCount = 0;
+    long int HFDet = 127;
+    long int alphaDetJ;
+    long int betaDetJ;
+    long int XORalpha;
+    long int XORbeta;
+    long int ijBin;
+    long int abBin;
+    bool ISdoubleExcitation = false;
+
+    std::string ijSTR(ORB_SIZE, ' '); 
+    std::string abSTR(ORB_SIZE, ' '); 
+
+    int numDets = trueWalkerList.size();
+    for(int det = 1; det<numDets; det++){ /*Begin at det = 1, since we do not care about < D_0 | H | D_0 >*/
+        if(trueWalkerList[det] != 0){
+            alphaDetJ = alphaDetsBinary[det];
+            betaDetJ = betaDetsBinary[det];
+            XORalpha = HFDet ^ alphaDetJ;
+            XORbeta = HFDet ^ betaDetJ;
+            alphaBits = oneBitCount(XORalpha);
+            betaBits = oneBitCount(XORbeta);
+            excitorCount = alphaBits + betaBits;
+            if(excitorCount == 4){
+                ISdoubleExcitation = true;
+            }
+            if(ISdoubleExcitation){ /* Double Excitation Found */
+                if(alphaBits == 4){ /* search for ij, ab, in ALPHA only!*/
+
+                }
+
+
+
+
+            }
+        }
+    } 
+
+
+    return 1.0;
 }
 
 
@@ -615,7 +667,7 @@ int main(void){
 
     /* - - - - - - - - - - - - M A I N   L O O P - - - - - - - - - - - - */
     int beginAverageStep;
-    double SHIFT = 0.1 ;
+    double SHIFT = 0.01 ;
     double instantAverageShift = 0.0;
     double instantAvergeProjector = 0.0;
     double elapsedTime;  
@@ -628,13 +680,15 @@ int main(void){
 
     clock_t start;
     clock_t end;
+    clock_t CLOCKSUM = 0;
     bool shiftOn = false;
 
     std::ofstream shoulderplot;
     std::ofstream shiftPlot;
-    shoulderplot.open ("SHOULDER_66S0_500000WC.txt");
-    shiftPlot.open("SHIFT_66SO_50000WC.txt");
+    shoulderplot.open ("SHOULDER_66S0_rs0.5_Nw500000.txt");
+    shiftPlot.open("SHIFT_66SO_rs0.5_Nw500000.txt");
    
+    int PRINT_STEPS = 50;
     for(int i = 0; i < numSteps; i++){
         
         currentPopulation = totalWalkerNumber(walkerList) ;
@@ -643,13 +697,17 @@ int main(void){
         referenceWalkers = walkerList[0] ;
         popToRefRatio = currentPopulation / referenceWalkers ;
 
-        std::cout << "-------------> STEP : " << i << std::endl;
-        std::cout << "CURRENT POPULATION = " << walkerNUMTracker[i] << std::endl;
-        std::cout << "REFERENCE WALKERS = " << referenceWalkers << std::endl;
-        std::cout << "CURRENT NUMBER OF DETERMINANTS = " <<  uniqueDeterminantSet.size() << std::endl;
-        std::cout << "CURRENT NUMBER OF ALPHAS = " <<  alphaDetsBinary.size() << std::endl;
-        std::cout << "CURRENT NUMBER OF BETAS = " <<  betaDetsBinary.size() << '\n' << std::endl;
-        std::cout << "CURRENT SHIFT ENERGY ESTIMATOR = " << SHIFT << std::endl;
+
+        if(i%PRINT_STEPS ==0){
+            std::cout << "-------------> STEP : " << i << std::endl;
+            std::cout << "CURRENT POPULATION = " << walkerNUMTracker[i] << std::endl;
+            std::cout << "REFERENCE WALKERS = " << referenceWalkers << std::endl;
+            std::cout << "CURRENT NUMBER OF DETERMINANTS = " <<  uniqueDeterminantSet.size() << std::endl;
+            std::cout << "CURRENT NUMBER OF ALPHAS = " <<  alphaDetsBinary.size() << std::endl;
+            std::cout << "CURRENT NUMBER OF BETAS = " <<  betaDetsBinary.size() << '\n' << std::endl;
+            std::cout << "CURRENT SHIFT ENERGY ESTIMATOR = " << SHIFT << std::endl;
+        }
+
 
         /* TURN SHIFT ON NOW, *THEN* perform spawn-death/clone-annihilation */
 
@@ -667,19 +725,23 @@ int main(void){
         shoulderplot << currentPopulation << " " << popToRefRatio << std::endl ;
         shiftPlot << SHIFT << std::endl;
 
+        
         start = clock();
-
         SPAWN(cellLength, walkerList, posChildList, negChildList, KEsortedKpoints, uniqueDeterminantSet, result, alphaDetsBinary, betaDetsBinary );
         DEATH_CLONE(cellLength, walkerList, KEsortedKpoints, SHIFT, alphaDetsBinary, betaDetsBinary, HFEnergy);
         ANNIHILATION(i, walkerList, posChildList, negChildList, uniqueDeterminantSet, alphaDetsBinary, betaDetsBinary);
-
         end = clock();
-        elapsedTime = end-start;
-        std::cout<< "Elapsed time for triple loop: " << elapsedTime/CLOCKS_PER_SEC << std::endl;
+        CLOCKSUM += (end-start);
+
+        if(i%PRINT_STEPS == 0){
+            elapsedTime = CLOCKSUM;
+            std::cout<< "Elapsed time for 20 triple loop: " << elapsedTime/CLOCKS_PER_SEC << std::endl;
+            CLOCKSUM = 0;
+        }
 
     }
     shoulderplot.close();
-    shiftPlot.cloase();
+    shiftPlot.close();
 
     /* PRINT OUT THE WALKER POPULATION PER DETERMINANT
     for(int i = 0; i< walkerList.size(); i++ ){
@@ -689,3 +751,11 @@ int main(void){
 
     return 1;
 }
+
+
+
+
+
+
+
+
