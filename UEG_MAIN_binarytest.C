@@ -751,6 +751,7 @@ int main(void){
     /* - - - - - - - - - - - - M A I N   L O O P - - - - - - - - - - - - */
     int beginAverageStep;
     double SHIFT = 0.01 ;
+    double PROJECTOR = 0;
     double instantAverageShift = 0.0;
     double instantAvergeProjector = 0.0;
     double elapsedTime;  
@@ -804,6 +805,7 @@ int main(void){
         }
         SHIFTTracker.push_back(SHIFT) ;
         //projectorTracker[i] = currentProjectorEnergy;
+        PROJECTOR = projectorEnergy(cellLength, walkerList, alphaDetsBinary, betaDetsBinary, KEsortedKpoints);
 
         shoulderplot << currentPopulation << " " << popToRefRatio << std::endl ;
         shiftPlot << SHIFT << std::endl;
