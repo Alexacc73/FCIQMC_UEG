@@ -30,7 +30,7 @@ const int INTelectrons = numElectrons ;
 
 /** Kc_CUTTOFF is the kinetic energy cutoff for the plane wave basis orbitals.
 E.g, a cutoff of "2" will allow the orbital [4 0 0] but not [5 0 0]. Set cutoff = 2.4 for 57 Orbitals (114 Spin Orbitals) */
-const double Kc_CUTTOFF = 2 ; 
+const double Kc_CUTTOFF = 1.5 ; 
 
 
 
@@ -39,10 +39,10 @@ const double Kc_CUTTOFF = 2 ;
  */
 
 /** delt is the Imaginary timestep for the propogation of the "walker" population */
-const double delt = 0.00025 ;
+const double delt = 0.0003 ;
 
 /** Zeta is a damping parameter which controls the agressiveness of the "shift" in the variable shift mode of the algorithm */
-const double zeta = 0.03 ;
+const double zeta = 0.02 ;
 
 /** AShift controls how frequently the shift is changed in response to the population in the variable shift mode (AShift = 1 means every step) */
 const int AShift = 5 ;
@@ -51,11 +51,19 @@ const int AShift = 5 ;
 const int numSteps = 1000000;
 
 /** After "walker critical" walkers have been spawned after a complete cycle (post annihilation) the variable shift mode is turned on */
-const int walkerCritical = 200000;
+const int walkerCritical = 50000;
 
 /** initRefWalkers is the number of wlakers which are initially placed on the reference (i.e Hartree Fock) determinant to begin the spawning */
 int initRefWalkers = 100;
 long int pow2Array [ORB_SIZE];
+
+/*
+ *-----> OUTPUT FILES <----- 
+ */
+const std::string FILE_shoulderPlot = "SHOULDER_38S0_rs0.5_projtest.txt" ;
+const std::string FILE_shiftPlot = "SHIFT_38SO_rs0.5_projtest.txt" ;
+
+
 
 
 /**
@@ -114,6 +122,42 @@ inline size_t oneBitCount(long int& n){
 inline  void INLdecimalToBinary(long int& decimal, std::string& binaryNum)
 {
     binaryNum = std::bitset<ORB_SIZE>(decimal).to_string() ;
+}
+
+
+/**
+* This function is only used in conjunction with the Projector Energy routine,
+* An very similar piece of code exists already within the Excitation operator
+*/
+inline void INLgetHijSign(int& orb_i ,int& orb_j ,int& orb_a ,int& orb_b, int& sign)
+{
+    int index_i_excite;
+    int index_j_excite;
+    int filledSO[INTelectrons/2] ;
+    int tempFilledSO[INTelectrons/2] ;
+    for(int i = 0; i<INTelectrons/2; i++){ /*Fill as a HF orbital, which we know it will be*/
+        filledSO[i] = i;
+        tempFilledSO[i] = i;
+    }
+    tempFilledSO[orb_i] = orb_a;
+    tempFilledSO[orb_j] = orb_b;
+
+    std::sort(tempFilledSO, tempFilledSO + INTelectrons/2 );
+    for(int j = 0; j<INTelectrons/2; j++){
+        if(tempFilledSO[j] == orb_a){
+            index_i_excite = j ;
+        }
+        if(tempFilledSO[j] == orb_b){
+            index_j_excite = j ;
+        }
+    }
+    int idxSum = orb_i + orb_j + index_i_excite + index_j_excite;
+    if(idxSum%2 == 0){// is EVEN!
+        sign = 1;
+    }
+    else{
+        sign = -1;
+    }
 }
 
 
@@ -528,13 +572,14 @@ double projectorEnergy(const double& cellLength,
                        std::vector<long int>& betaDetsBinary,
                        double (&KEsortedList)[ORB_SIZE][3] ){
     int idx_i;
+    int idx_j;
     int idx_a;
     int idx_b;
     int idx;
     int alphaBits = 0;
     int betaBits = 0;
     int excitorCount = 0;
-    int walkerNumJ = 0;
+    int SIGN = 1;
     long int HFDet = 127;
     long int alphaDetJ;
     long int betaDetJ;
@@ -543,23 +588,25 @@ double projectorEnergy(const double& cellLength,
     long int ijBin;
     long int abBin;
     long int iBin;
+    long int jBin;
     long int aBin;
     long int bBin;
     bool ISdoubleExcitation = false;
     bool found_idx_i = false;
     bool found_idx_a = false;
-    bool ib_spinDifferent = false;
+    bool IB_spinDifferent = false;
     double HijElement = 0;
-    std::string ijSTR(ORB_SIZE, ' '); 
-    std::string abSTR(ORB_SIZE, ' '); 
-
-    int numDets = trueWalkerList.size();
-    int refWalkerNum = trueWalkerList[0]; 
+    double walkerNumJ = 0;
+  
+    int numDets = alphaDetsBinary.size();
+    double refWalkerNum = trueWalkerList[0]; 
     double EProjSum = 0;
     for(int det = 1; det<numDets; det++){ /*Begin at det = 1, since we do not care about < D_0 | H | D_0 >*/
         walkerNumJ = trueWalkerList[det];
         if( walkerNumJ != 0 ){
-            
+
+            std::string ijSTR(ORB_SIZE, ' '); 
+            std::string abSTR(ORB_SIZE, ' ');
             ISdoubleExcitation = false;
             found_idx_i = false;
             found_idx_a = false;
@@ -576,7 +623,7 @@ double projectorEnergy(const double& cellLength,
 
             if(ISdoubleExcitation == true){ /* Double Excitation Found */
                 if( (alphaBits == 4) ){ /* search for ij, ab, in ALPHA only!*/
-                    bool ib_spinDifferent = false;
+                    bool IB_spinDifferent = false;
                     ijBin = HFDet & XORalpha;
                     abBin = alphaDetJ & XORalpha;
                     INLdecimalToBinary(ijBin, ijSTR);
@@ -584,6 +631,9 @@ double projectorEnergy(const double& cellLength,
                     idx = 0;
                     for(int i = 0; i<ORB_SIZE; i++){
                         idx = ORB_SIZE - i -1;
+                        if( (found_idx_i == true) &&  (ijSTR[idx] == '1') ){
+                            idx_j = i;
+                        }
                         if( (found_idx_i == false) && (ijSTR[idx] == '1') ){
                             idx_i = i;
                             found_idx_i = true;
@@ -596,10 +646,11 @@ double projectorEnergy(const double& cellLength,
                             found_idx_a = true;
                         }
                     }
+                    INLgetHijSign(idx_i, idx_j, idx_a, idx_b, SIGN);
                 }/*End ALPHA search for ij, ab*/
 
                 if( (betaBits == 4) ){ /* search for ij, ab, in BETA only!*/
-                    bool ib_spinDifferent = false;
+                    bool IB_spinDifferent = false;
                     ijBin = HFDet & XORbeta;
                     abBin = betaDetJ & XORbeta;
                     INLdecimalToBinary(ijBin, ijSTR);
@@ -607,6 +658,9 @@ double projectorEnergy(const double& cellLength,
                     idx = 0;
                     for(int i = 0; i<ORB_SIZE; i++){
                         idx = ORB_SIZE - i -1;
+                        if( (found_idx_i == true) &&  (ijSTR[idx] == '1') ){
+                            idx_j = i;
+                        }
                         if( (found_idx_i == false) && (ijSTR[idx] == '1') ){
                             idx_i = i;
                             found_idx_i = true;
@@ -619,16 +673,21 @@ double projectorEnergy(const double& cellLength,
                             found_idx_a = true;
                         }
                     }
+                    INLgetHijSign(idx_i, idx_j, idx_a, idx_b, SIGN);
                 }/*End ALPHA search for ij, ab*/
 
-                else{ /* i->a are alpha, but i->b are beta*/
-                    bool ib_spinDifferent = true;
+                if( (alphaBits == 2) && (betaBits == 2) ){ /* i->a are alpha, but i->b are beta*/
+                    bool IB_spinDifferent = true;
                     iBin = HFDet & XORalpha;
+                    jBin = HFDet & XORbeta;
                     aBin = alphaDetJ & XORalpha;
                     bBin = betaDetJ & XORbeta;
                     for(int i = 0; i<ORB_SIZE; i++){
                         if( iBin - pow2Array[i] == 0 ){
                             idx_i = i;
+                        }
+                        if( jBin - pow2Array[i] == 0 ){
+                            idx_j = i;
                         }
                         if( aBin - pow2Array[i] == 0 ){
                             idx_a = i;
@@ -637,13 +696,23 @@ double projectorEnergy(const double& cellLength,
                             idx_b = i;
                         }
                     }
+                    int idxSum = (abs(idx_a)-abs(idx_i)) + (abs(idx_b)-abs(idx_j));
+                    if(idxSum%2 == 0){
+                        SIGN = 1;
+                    }
+                    else{
+                        SIGN = -1;
+                    }
                 }
-                Di_H_Dj(cellLength, KEsortedList, idx_i, idx_a, idx_b, ib_spinDifferent, HijElement) ;
-                EProjSum += (HijElement * walkerNumJ) ;
+
+                HijElement = 0;
+                Di_H_Dj(cellLength, KEsortedList, idx_i, idx_a, idx_b, IB_spinDifferent, HijElement) ;
+                HijElement *= SIGN;
+                EProjSum += (HijElement * walkerNumJ )*(1.0/refWalkerNum) ;
             }
         }
     }/* End of FOR loop */
-    EProjSum = EProjSum/refWalkerNum ;
+    //EProjSum *= (1.0/refWalkerNum) ;
     return EProjSum ;
 }
 
@@ -771,8 +840,8 @@ int main(void){
 
     std::ofstream shoulderplot;
     std::ofstream shiftPlot;
-    shoulderplot.open ("SHOULDER_66S0_rs0.5_Nw200000proj.txt");
-    shiftPlot.open("SHIFT_66SO_rs0.5_Nw200000proj.txt");
+    shoulderplot.open(FILE_shoulderPlot); /* File is defined at top of the code as const std::String*/
+    shiftPlot.open(FILE_shiftPlot);  
    
     int PRINT_STEPS = 50;
     for(int i = 0; i < numSteps; i++){

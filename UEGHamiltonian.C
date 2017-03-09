@@ -284,7 +284,7 @@ void excitationAlpha_iaBeta_jb(int& alpha_i,
     	}
     	int indexSum = 0;
     	indexSum = index_i + index_j + alphai_excite + betaj_excite;
-    	if(indexSum%2 == 0){
+    	if(indexSum%2 == 0){// is EVEN
     		sign = 1;
     	}
     	else{
@@ -408,7 +408,7 @@ void excitationSameSpinij_ab(int& spin1_i,
     		}
     	}
     	int indexSum = index_i + index_j + index_i_excite + index_j_excite;
-    	if(indexSum%2 == 0){// is ODD!
+    	if(indexSum%2 == 0){// is EVEN!
     		sign = 1;
     	}
     	else{
