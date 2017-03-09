@@ -4,14 +4,14 @@
     ---> NB - - NUMBER OF ORBITALS MUST BE KNOWN A PRIORI FOR "binaryManip.C* AND for KEsortedKpoints[size][3]
 */
 
-#include "binaryManip.H"    /* Inludes  <bitset>  <climits>  <boost/math/special_functions/binomial.hpp>  <vector> */
 #include "planeWaves.H"     /* Includes <iostream>  <set>  <math.h>  <stdlib.h>  <algorithm> */
-#include "UEGHamiltonian.H" /*Includes initialisation: const int ORB_SIZE = 125;*/
+#include "UEGHamiltonian.H" /* includes <bitset>  <climits>  <boost/math/special_functions/binomial.hpp>  <vector> */
 
 #include <fstream>
 #include <time.h>
 #include <set>
 #include <map>
+
 
 /*
 *-----> Parameters for initial setup of UEG <----- 
@@ -51,7 +51,7 @@ const int AShift = 5 ;
 const int numSteps = 1000000;
 
 /** After "walker critical" walkers have been spawned after a complete cycle (post annihilation) the variable shift mode is turned on */
-const int walkerCritical = 100000;
+const int walkerCritical = 300000;
 
 /** initRefWalkers is the number of wlakers which are initially placed on the reference (i.e Hartree Fock) determinant to begin the spawning */
 int initRefWalkers = 100;
@@ -60,7 +60,7 @@ long int pow2Array [ORB_SIZE];
 /*
  *-----> OUTPUT FILES <----- 
  */
-const std::string FILE_shoulderPlot = "SHOULDER_38S0_rs0.5_projtest.txt" ;
+const std::string FILE_shoulderPlot = "SHOULDER_38SO_rs0.5_projtest.txt";
 const std::string FILE_shiftPlot = "SHIFT_38SO_rs0.5_projtest.txt" ;
 
 
@@ -122,6 +122,15 @@ inline size_t oneBitCount(long int& n){
 inline  void INLdecimalToBinary(long int& decimal, std::string& binaryNum)
 {
     binaryNum = std::bitset<ORB_SIZE>(decimal).to_string() ;
+}
+
+/**
+* This inline function simply converts a string (of length defined at compile time) which represents the unique determinant
+* into its decimal representation, type long int (up to 2^63).
+*/
+inline void INLbinaryToDecimal(std::string& binaryString, long int& decimal)
+{
+    decimal = std::bitset<ORB_SIZE>(binaryString).to_ulong() ;
 }
 
 
@@ -815,13 +824,13 @@ int main(void){
     // ---> Fill with HF orbitals - lowest KE occupied!!
     long int zero = 0;
     std::string HF_STRING;
-    decimalToBinary(zero, HF_STRING) ; 
+    INLdecimalToBinary(zero, HF_STRING) ; 
     for(int el = 0; el < INTelectrons/2; el++){
         HF_STRING[ORB_SIZE-1-el] = '1';
     }
     
     long int HF_binary;
-    binaryToDecimal(HF_STRING, HF_binary);
+    INLbinaryToDecimal(HF_STRING, HF_binary);
     result = uniqueDeterminantSet.insert( std::make_pair(HF_binary, HF_binary) ) ; 
     
     if(result.second == true){

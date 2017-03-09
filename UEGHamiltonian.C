@@ -1,9 +1,5 @@
 #include "UEGHamiltonian.H" 
-#include "binaryManip.H"
 
-#include <iostream>
-#include <stdlib.h>
-#include <algorithm> 
 
 /**
 * This inline function simply converts a base 10 integer (which represents the unique determinant)
