@@ -39,7 +39,7 @@ const double Kc_CUTTOFF = 1.5 ;
  */
 
 /** delt is the Imaginary timestep for the propogation of the "walker" population */
-const double delt = 0.0003 ;
+const double delt = 0.0006 ;
 
 /** Zeta is a damping parameter which controls the agressiveness of the "shift" in the variable shift mode of the algorithm */
 const double zeta = 0.02 ;
@@ -129,10 +129,11 @@ inline  void INLdecimalToBinary(long int& decimal, std::string& binaryNum)
 * This function is only used in conjunction with the Projector Energy routine,
 * An very similar piece of code exists already within the Excitation operator
 */
-inline void INLgetHijSign(int& orb_i ,int& orb_j ,int& orb_a ,int& orb_b, int& sign)
+inline int INLgetHijSign(int orb_i ,int orb_j ,int orb_a ,int orb_b)
 {
     int index_i_excite;
     int index_j_excite;
+    int sign = 0;
     int filledSO[INTelectrons/2] ;
     int tempFilledSO[INTelectrons/2] ;
     for(int i = 0; i<INTelectrons/2; i++){ /*Fill as a HF orbital, which we know it will be*/
@@ -158,7 +159,52 @@ inline void INLgetHijSign(int& orb_i ,int& orb_j ,int& orb_a ,int& orb_b, int& s
     else{
         sign = -1;
     }
+    return sign;
 }
+
+
+/**
+* This function is only used in conjunction with the Projector Energy routine,
+* An very similar piece of code exists already within the Excitation operator
+*/
+inline int INLgetHijSignAB(int orb_i ,int orb_j ,int orb_a ,int orb_b)
+{
+    int sign;
+    int alphai_excite;
+    int betaj_excite;
+    int filledSO[INTelectrons/2] ;
+    int tempFilledSOA[INTelectrons/2] ;
+    int tempFilledSOB[INTelectrons/2] ;
+    for(int i = 0; i<INTelectrons/2; i++){ /*Fill as a HF orbital, which we know it will be*/
+        filledSO[i] = i;
+        tempFilledSOA[i] = i;
+        tempFilledSOB[i] = i;
+    }
+
+    tempFilledSOA[orb_i] = orb_a;
+    tempFilledSOB[orb_j] = orb_b;
+    std::sort(tempFilledSOA, tempFilledSOA + INTelectrons/2) ;
+    std::sort(tempFilledSOB, tempFilledSOB + INTelectrons/2) ;
+
+
+    for(int j = 0; j<INTelectrons/2; j++){
+        if(tempFilledSOA[j] == orb_a){
+            alphai_excite = j;
+        }
+        if(tempFilledSOB[j] == orb_b){
+            betaj_excite = j;
+        }
+    }
+    int indexSum = orb_i + orb_j + alphai_excite + betaj_excite;
+    if(indexSum%2 == 0){// is EVEN
+        sign = 1;
+    }
+    else{
+        sign = -1;
+    }
+    return sign;
+}
+
 
 
 
@@ -646,7 +692,7 @@ double projectorEnergy(const double& cellLength,
                             found_idx_a = true;
                         }
                     }
-                    INLgetHijSign(idx_i, idx_j, idx_a, idx_b, SIGN);
+                    SIGN = INLgetHijSign(idx_i, idx_j, idx_a, idx_b);
                 }/*End ALPHA search for ij, ab*/
 
                 if( (betaBits == 4) ){ /* search for ij, ab, in BETA only!*/
@@ -673,7 +719,7 @@ double projectorEnergy(const double& cellLength,
                             found_idx_a = true;
                         }
                     }
-                    INLgetHijSign(idx_i, idx_j, idx_a, idx_b, SIGN);
+                    SIGN = INLgetHijSign(idx_i, idx_j, idx_a, idx_b);
                 }/*End ALPHA search for ij, ab*/
 
                 if( (alphaBits == 2) && (betaBits == 2) ){ /* i->a are alpha, but i->b are beta*/
@@ -696,13 +742,7 @@ double projectorEnergy(const double& cellLength,
                             idx_b = i;
                         }
                     }
-                    int idxSum = (abs(idx_a)-abs(idx_i)) + (abs(idx_b)-abs(idx_j));
-                    if(idxSum%2 == 0){
-                        SIGN = 1;
-                    }
-                    else{
-                        SIGN = -1;
-                    }
+                    SIGN = INLgetHijSignAB(idx_i, idx_j, idx_a, idx_b);
                 }
 
                 HijElement = 0;
