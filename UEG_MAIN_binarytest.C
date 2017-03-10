@@ -30,7 +30,7 @@ const int INTelectrons = numElectrons ;
 
 /** Kc_CUTTOFF is the kinetic energy cutoff for the plane wave basis orbitals.
 E.g, a cutoff of "2" will allow the orbital [4 0 0] but not [5 0 0]. Set cutoff = 2.4 for 57 Orbitals (114 Spin Orbitals) */
-const double Kc_CUTTOFF = 1.5 ; 
+const double Kc_CUTTOFF = 2.4 ; 
 
 
 
@@ -39,19 +39,19 @@ const double Kc_CUTTOFF = 1.5 ;
  */
 
 /** delt is the Imaginary timestep for the propogation of the "walker" population */
-const double delt = 0.0004 ;
+const double delt = 0.00025 ;
 
 /** Zeta is a damping parameter which controls the agressiveness of the "shift" in the variable shift mode of the algorithm */
-const double zeta = 0.02 ;
+const double zeta = 0.04 ;
 
 /** AShift controls how frequently the shift is changed in response to the population in the variable shift mode (AShift = 1 means every step) */
-const int AShift = 5 ;
+const int AShift = 3 ;
 
 /** Number of steps after which to terminate the algorithm*/
 const int numSteps = 1000000;
 
 /** After "walker critical" walkers have been spawned after a complete cycle (post annihilation) the variable shift mode is turned on */
-const int walkerCritical = 300000;
+const int walkerCritical = 400000;
 
 /** initRefWalkers is the number of wlakers which are initially placed on the reference (i.e Hartree Fock) determinant to begin the spawning */
 int initRefWalkers = 100;
@@ -60,8 +60,8 @@ long int pow2Array [ORB_SIZE];
 /*
  *-----> OUTPUT FILES <----- 
  */
-const std::string FILE_shoulderPlot = "SHOULDER_38SO_rs0.5_projtest.txt";
-const std::string FILE_shiftPlot = "SHIFT_38SO_rs0.5_projtest.txt" ;
+const std::string FILE_shoulderPlot = "SHOULDER_114SO_rs0.5_proj1.txt";
+const std::string FILE_shiftPlot = "SHIFT_114SO_rs0.5_proj1.txt" ;
 
 
 
@@ -109,7 +109,7 @@ inline const int INLgetPositionInList(std::pair<long int, long int>& uniqueDet, 
 /**
 * This function simply returns the number of bits, i.e, the number of ones in a binary number.
 */
-inline size_t oneBitCount(long int& n){
+inline size_t oneBitCount(long int n){
     std::bitset<sizeof(size_t) * CHAR_BIT> b(n);
     return b.count();
 }
