@@ -522,7 +522,7 @@ void ANNIHILATION(int& step,
     long int betaBin;
     int numDets = 0;
     bool prune = false;
-    if(step%8==0){
+    if(step%1==0){
         prune = true;
     }
 
@@ -619,6 +619,7 @@ double variableShift( const double& delt,
 \f]
 */
 double projectorEnergy(const double& cellLength, 
+                       long int& HF_BINARY,
                        std::vector<int>& trueWalkerList,
                        std::vector<long int>& alphaDetsBinary,
                        std::vector<long int>& betaDetsBinary,
@@ -632,7 +633,7 @@ double projectorEnergy(const double& cellLength,
     int betaBits = 0;
     int excitorCount = 0;
     int SIGN = 1;
-    long int HFDet = 127;
+    long int HFDet = HF_BINARY;
     long int alphaDetJ;
     long int betaDetJ;
     long int XORalpha;
@@ -649,19 +650,24 @@ double projectorEnergy(const double& cellLength,
     bool IB_spinDifferent = false;
     double HijElement = 0;
     double walkerNumJ = 0;
+    std::string ijSTR(ORB_SIZE, ' '); 
+    std::string abSTR(ORB_SIZE, ' ');
   
     int numDets = alphaDetsBinary.size();
     double refWalkerNum = trueWalkerList[0]; 
     double EProjSum = 0;
-    for(int det = 1; det<numDets; det++){ /*Begin at det = 1, since we do not care about < D_0 | H | D_0 >*/
+    for(int det = 0; det<numDets; det++){ /*Begin at det = 1, since we do not care about < D_0 | H | D_0 >*/
         walkerNumJ = trueWalkerList[det];
         if( walkerNumJ != 0 ){
 
-            std::string ijSTR(ORB_SIZE, ' '); 
-            std::string abSTR(ORB_SIZE, ' ');
+            
             ISdoubleExcitation = false;
             found_idx_i = false;
             found_idx_a = false;
+            idx_i = 0;
+            idx_j = 0;
+            idx_a = 0;
+            idx_b = 0;
             alphaDetJ = alphaDetsBinary[det];
             betaDetJ = betaDetsBinary[det];
             XORalpha = HFDet ^ alphaDetJ;
@@ -728,7 +734,7 @@ double projectorEnergy(const double& cellLength,
                     SIGN = INLgetHijSign(idx_i, idx_j, idx_a, idx_b);
                 }/*End ALPHA search for ij, ab*/
 
-                if( (alphaBits == 2) && (betaBits == 2) ){ /* i->a are alpha, but i->b are beta*/
+                if( (alphaBits == 2) || (betaBits == 2) ){ /* i->a are alpha, but i->b are beta*/
                     bool IB_spinDifferent = true;
                     iBin = HFDet & XORalpha;
                     jBin = HFDet & XORbeta;
@@ -929,7 +935,7 @@ int main(void){
             SHIFT = variableShift(delt, AShift, i, zeta, walkerNUMTracker, SHIFTTracker) ;
         }
         SHIFTTracker.push_back(SHIFT) ;
-        PROJECTOR = projectorEnergy(cellLength, walkerList, alphaDetsBinary, betaDetsBinary, KEsortedKpoints);
+        PROJECTOR = projectorEnergy(cellLength, HF_binary, walkerList, alphaDetsBinary, betaDetsBinary, KEsortedKpoints);
 
         shoulderplot << currentPopulation << " " << popToRefRatio << std::endl ;
         shiftPlot << SHIFT << " " << PROJECTOR << std::endl;
