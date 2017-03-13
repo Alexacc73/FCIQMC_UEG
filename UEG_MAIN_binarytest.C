@@ -42,16 +42,16 @@ const double Kc_CUTTOFF = 2.4 ;
 const double delt = 0.001 ;
 
 /** Zeta is a damping parameter which controls the agressiveness of the "shift" in the variable shift mode of the algorithm */
-const double zeta = 0.01 ;
+const double zeta = 0.005 ;
 
 /** AShift controls how frequently the shift is changed in response to the population in the variable shift mode (AShift = 1 means every step) */
-const int AShift = 2 ;
+const int AShift = 5 ;
 
 /** Number of steps after which to terminate the algorithm*/
 const int numSteps = 1000000;
 
 /** After "walker critical" walkers have been spawned after a complete cycle (post annihilation) the variable shift mode is turned on */
-const int walkerCritical = 12000;
+const int walkerCritical = 20000;
 
 /** initRefWalkers is the number of wlakers which are initially placed on the reference (i.e Hartree Fock) determinant to begin the spawning */
 int initRefWalkers = 5;
@@ -60,8 +60,8 @@ long int pow2Array [ORB_SIZE];
 /*
  *-----> OUTPUT FILES <----- 
  */
-const std::string FILE_shoulderPlot = "SHOULDER_114SO_rs0.5_Nw100000.txt" ;
-const std::string FILE_shiftPlot = "SHIFT_114SO_rs0.5_Nw100000.txt" ;
+const std::string FILE_shoulderPlot = "SHOULDER_114SO_rs0.5_Nw20000.txt" ;
+const std::string FILE_shiftPlot = "SHIFT_114SO_rs0.5_Nw20000.txt" ;
 
 
 
@@ -891,6 +891,14 @@ int main(void){
    
     int PRINT_STEPS = 50;
     for(int i = 0; i < numSteps; i++){
+
+        start = clock();
+        SPAWN(cellLength, walkerList, posChildList, negChildList, KEsortedKpoints, uniqueDeterminantSet, result, alphaDetsBinary, betaDetsBinary );
+        DEATH_CLONE(cellLength, walkerList, KEsortedKpoints, SHIFT, alphaDetsBinary, betaDetsBinary, HFEnergy);
+        ANNIHILATION(i, walkerList, posChildList, negChildList, uniqueDeterminantSet, alphaDetsBinary, betaDetsBinary);
+        end = clock();
+        CLOCKSUM += (end-start);
+
         
         currentPopulation = totalWalkerNumber(walkerList) ;
         walkerNUMTracker.push_back( currentPopulation );
@@ -927,13 +935,7 @@ int main(void){
         shiftPlot << SHIFT << " " << PROJECTOR << std::endl;
 
         
-        start = clock();
-        SPAWN(cellLength, walkerList, posChildList, negChildList, KEsortedKpoints, uniqueDeterminantSet, result, alphaDetsBinary, betaDetsBinary );
-        DEATH_CLONE(cellLength, walkerList, KEsortedKpoints, SHIFT, alphaDetsBinary, betaDetsBinary, HFEnergy);
-        ANNIHILATION(i, walkerList, posChildList, negChildList, uniqueDeterminantSet, alphaDetsBinary, betaDetsBinary);
-        end = clock();
-        CLOCKSUM += (end-start);
-
+        
         if(i%PRINT_STEPS == 0){
             elapsedTime = CLOCKSUM;
             std::cout<< "Elapsed time for 50 triple loop: " << elapsedTime/CLOCKS_PER_SEC << std::endl;
