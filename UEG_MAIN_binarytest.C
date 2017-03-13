@@ -39,29 +39,29 @@ const double Kc_CUTTOFF = 2.4 ;
  */
 
 /** delt is the Imaginary timestep for the propogation of the "walker" population */
-const double delt = 0.00025 ;
+const double delt = 0.001 ;
 
 /** Zeta is a damping parameter which controls the agressiveness of the "shift" in the variable shift mode of the algorithm */
-const double zeta = 0.04 ;
+const double zeta = 0.01 ;
 
 /** AShift controls how frequently the shift is changed in response to the population in the variable shift mode (AShift = 1 means every step) */
-const int AShift = 3 ;
+const int AShift = 2 ;
 
 /** Number of steps after which to terminate the algorithm*/
 const int numSteps = 1000000;
 
 /** After "walker critical" walkers have been spawned after a complete cycle (post annihilation) the variable shift mode is turned on */
-const int walkerCritical = 400000;
+const int walkerCritical = 12000;
 
 /** initRefWalkers is the number of wlakers which are initially placed on the reference (i.e Hartree Fock) determinant to begin the spawning */
-int initRefWalkers = 100;
+int initRefWalkers = 5;
 long int pow2Array [ORB_SIZE];
 
 /*
  *-----> OUTPUT FILES <----- 
  */
-const std::string FILE_shoulderPlot = "SHOULDER_114SO_rs0.5_proj1.txt";
-const std::string FILE_shiftPlot = "SHIFT_114SO_rs0.5_proj1.txt" ;
+const std::string FILE_shoulderPlot = "SHOULDER_114SO_rs0.5_Nw100000.txt" ;
+const std::string FILE_shiftPlot = "SHIFT_114SO_rs0.5_Nw100000.txt" ;
 
 
 
@@ -88,9 +88,7 @@ inline const int INLgetPositionInList(std::pair<long int, long int>& uniqueDet, 
     bool not_found = true ;
 
     long int alphaBIN = uniqueDet.first ;
-    //binaryToDecimal(ALPHA, alphaBIN);
     long int betaBIN = uniqueDet.second ;
-    //binaryToDecimal(BETA, betaBIN);
     while( (j<DETLIST_size) && (not_found == true)  ){
         if( (alphaBIN == alphaDetList[j]) && (betaBIN == betaDetList[j]) ){
             pos = j ;
@@ -99,7 +97,6 @@ inline const int INLgetPositionInList(std::pair<long int, long int>& uniqueDet, 
         j++ ;
     }
     if(not_found == true){
-        //pos = -1;
         std::cout << "OOPS POTISION FIND WENT WRONG!!!!!" << std::endl;
     }
     return pos ;
@@ -757,11 +754,11 @@ double projectorEnergy(const double& cellLength,
                 HijElement = 0;
                 Di_H_Dj(cellLength, KEsortedList, idx_i, idx_a, idx_b, IB_spinDifferent, HijElement) ;
                 HijElement *= SIGN;
-                EProjSum += (HijElement * walkerNumJ )*(1.0/refWalkerNum) ;
+                EProjSum += (HijElement * walkerNumJ ) ;
             }
         }
     }/* End of FOR loop */
-    //EProjSum *= (1.0/refWalkerNum) ;
+    EProjSum *= (1.0/refWalkerNum) ;
     return EProjSum ;
 }
 
@@ -920,7 +917,7 @@ int main(void){
             beginAverageStep = i*2;
             std::cout << "THIS TEXT SHOULD APPEAR EXACTLY ONCE" << std::endl;
         }
-        if(shiftOn && ( (i)%AShift == 0) ){ 
+        if(shiftOn && ( (i+1)%AShift == 0) ){ 
             SHIFT = variableShift(delt, AShift, i, zeta, walkerNUMTracker, SHIFTTracker) ;
         }
         SHIFTTracker.push_back(SHIFT) ;
