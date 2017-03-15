@@ -39,7 +39,7 @@ const double Kc_CUTTOFF = 2.4 ;
  */
 
 /** delt is the Imaginary timestep for the propogation of the "walker" population */
-const double delt = 0.001 ;
+const double delt = 0.00025 ;
 
 /** Zeta is a damping parameter which controls the agressiveness of the "shift" in the variable shift mode of the algorithm */
 const double zeta = 0.005 ;
@@ -51,17 +51,17 @@ const int AShift = 5 ;
 const int numSteps = 1000000;
 
 /** After "walker critical" walkers have been spawned after a complete cycle (post annihilation) the variable shift mode is turned on */
-const int walkerCritical = 20000;
+const int walkerCritical = 100000;
 
 /** initRefWalkers is the number of wlakers which are initially placed on the reference (i.e Hartree Fock) determinant to begin the spawning */
-int initRefWalkers = 5;
+int initRefWalkers = 100;
 long int pow2Array [ORB_SIZE];
 
 /*
  *-----> OUTPUT FILES <----- 
  */
-const std::string FILE_shoulderPlot = "SHOULDER_114SO_rs0.5_Nw20000.txt" ;
-const std::string FILE_shiftPlot = "SHIFT_114SO_rs0.5_Nw20000.txt" ;
+const std::string FILE_shoulderPlot = "SHOULDER_114SO_rs0.5_Nw100000.txt" ;
+const std::string FILE_shiftPlot = "SHIFT_114SO_rs0.5_Nw100000.txt" ;
 
 
 
@@ -514,15 +514,15 @@ void ANNIHILATION(int& step,
                 std::vector<int>& trueWalkerList, 
                 std::vector<int>& posWalkerList, 
                 std::vector<int>& negWalkerList,
-                std::set< std::pair<long int, 
-                long int> >& uniqueDeterminantSet, 
+                std::set< std::pair<long int, long int> >& uniqueDeterminantSet, 
                 std::vector<long int>& alphaDetsBinary, 
                 std::vector<long int>& betaDetsBinary){
     long int alphaBin;
     long int betaBin;
     int numDets = 0;
+    int NEWnumDets = 0;
     bool prune = false;
-    if(step%1==0){
+    if(step%50==-1){
         prune = true;
     }
 
@@ -539,29 +539,36 @@ void ANNIHILATION(int& step,
         std::vector<int> TWL_copy;
         std::vector<long int> alphaDets_copy;
         std::vector<long int> betaDets_copy;
-        /* Initialise the copies with the correct sizes */
-        TWL_copy.reserve(trueWalkerList.size());
-        alphaDets_copy.reserve(alphaDetsBinary.size());
-        betaDets_copy.reserve(betaDetsBinary.size());
+      
         /* Move the values from the original lists to the copies */
-        copy(trueWalkerList.begin(), trueWalkerList.end(), back_inserter(TWL_copy));
-        copy(alphaDetsBinary.begin(), alphaDetsBinary.end(), back_inserter(alphaDets_copy));
-        copy(betaDetsBinary.begin(), betaDetsBinary.end(), back_inserter(betaDets_copy));
+        for(int num = 0; num < numDets; num++){
+            TWL_copy.push_back(trueWalkerList[num]);
+            alphaDets_copy.push_back(alphaDetsBinary[num]);
+            betaDets_copy.push_back(betaDetsBinary[num]);
+        }
+        //copy(trueWalkerList.begin(), trueWalkerList.end(), back_inserter(TWL_copy));
+        //copy(alphaDetsBinary.begin(), alphaDetsBinary.end(), back_inserter(alphaDets_copy));
+        //copy(betaDetsBinary.begin(), betaDetsBinary.end(), back_inserter(betaDets_copy));
         /* Empty the old lists of their contents, ready to be refilled with the pruned ones */
         trueWalkerList.clear();
         alphaDetsBinary.clear();
         betaDetsBinary.clear();
+        posWalkerList.clear();
+        negWalkerList.clear();
+        NEWnumDets = TWL_copy.size();
         /* CREATE NEW LISTS WITH ONLY DETERMINANTS WITH A NON-ZERO NUMBER OF WALKERS ASSOCIATED WITH THEM  */
-        for(int el = 0; el<TWL_copy.size(); el++){
+        for(int el = 0; el<NEWnumDets; el++){
             if(TWL_copy[el] != 0){
                 trueWalkerList.push_back(TWL_copy[el]);
                 alphaDetsBinary.push_back(alphaDets_copy[el]);
                 betaDetsBinary.push_back(betaDets_copy[el]);
+                posWalkerList.push_back(0);
+                negWalkerList.push_back(0);
             }
         }
 
-        posWalkerList.resize(trueWalkerList.size()) ;
-        negWalkerList.resize(trueWalkerList.size()) ;
+        //posWalkerList.resize(trueWalkerList.size()) ;
+        //negWalkerList.resize(trueWalkerList.size()) ;
         uniqueDeterminantSet.clear();
 
         for(int det = 0; det < alphaDetsBinary.size(); det++){
@@ -624,41 +631,29 @@ double projectorEnergy(const double& cellLength,
                        std::vector<long int>& alphaDetsBinary,
                        std::vector<long int>& betaDetsBinary,
                        double (&KEsortedList)[ORB_SIZE][3] ){
-    int idx_i;
-    int idx_j;
-    int idx_a;
-    int idx_b;
-    int idx;
-    int alphaBits = 0;
-    int betaBits = 0;
-    int excitorCount = 0;
+    int idx_i, idx_j, idx_a, idx_b;
+    int alphaBits = 0, betaBits = 0, excitorCount = 0;
     int SIGN = 1;
+    int idx;
     long int HFDet = HF_BINARY;
-    long int alphaDetJ;
-    long int betaDetJ;
-    long int XORalpha;
-    long int XORbeta;
-    long int ijBin;
-    long int abBin;
-    long int iBin;
-    long int jBin;
-    long int aBin;
-    long int bBin;
+    long int alphaDetJ, betaDetJ, XORalpha, XORbeta;
+    long int ijBin, abBin, iBin, jBin;
+    long int aBin, bBin;
     bool ISdoubleExcitation = false;
-    bool found_idx_i = false;
-    bool found_idx_a = false;
+    bool found_idx_i = false, found_idx_a = false;
     bool IB_spinDifferent = false;
-    double HijElement = 0;
-    double walkerNumJ = 0;
+    double HijElement = 0, walkerNumJ = 0, EProjSum = 0;
+    int INTwalkerNum;
     std::string ijSTR(ORB_SIZE, ' '); 
     std::string abSTR(ORB_SIZE, ' ');
   
     int numDets = alphaDetsBinary.size();
     double refWalkerNum = trueWalkerList[0]; 
-    double EProjSum = 0;
-    for(int det = 0; det<numDets; det++){ /*Begin at det = 1, since we do not care about < D_0 | H | D_0 >*/
+    
+    for(int det = 1; det<numDets; det++){ /*Begin at det = 1, since we do not care about < D_0 | H | D_0 >*/
+        INTwalkerNum = trueWalkerList[det];
         walkerNumJ = trueWalkerList[det];
-        if( walkerNumJ != 0 ){
+        if( INTwalkerNum != 0 ){
 
             
             ISdoubleExcitation = false;
