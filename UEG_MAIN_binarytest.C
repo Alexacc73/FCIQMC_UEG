@@ -60,8 +60,8 @@ long int pow2Array [ORB_SIZE];
 /*
  *-----> OUTPUT FILES <----- 
  */
-const std::string FILE_shoulderPlot = "SHOULDER_114SO_rs0.5_PGEN4.txt" ;
-const std::string FILE_shiftPlot = "SHIFT_114SO_rs0.5_PGEN4.txt" ;
+const std::string FILE_shoulderPlot = "SHOULDER_114SO_rs0.5_PGEN6.txt" ;
+const std::string FILE_shiftPlot = "SHIFT_114SO_rs0.5_PGEN6.txt" ;
 
 
 
@@ -280,19 +280,19 @@ void SPAWN( const double& cellLength,
                 if(randChooseExcite == 0){ /* i-->a AND j-->b are both ALPHA spin*/
                     excitationSameSpinij_ab(index_i, index_a, index_j, index_b, INTelectrons, ORB_SIZE, alphaDet, KEsortedList, SIGN);
                     bool ib_spinDiffAlpha = false;
-                    pGen = (2.0/( (numElectrons/2.0) *((numElectrons/2.0)-1.0)) ) * ( 1.0/(ORB_SIZE - (numElectrons/2)) ) ;
+                    pGen = (1.0/( (numElectrons/2.0) *((numElectrons/2.0)-1.0)) ) * ( 1.0/(ORB_SIZE - (numElectrons/2)) ) ;
                     pGen = pGen/4.0 ;
                 }
                 if(randChooseExcite == 1){/* i-->a AND j-->b are both BETA spin*/
                     excitationSameSpinij_ab(index_i, index_a, index_j, index_b, INTelectrons, ORB_SIZE, betaDet, KEsortedList, SIGN);
                     bool ib_spinDiffAlpha = false;
-                    pGen = (2.0/( (numElectrons/2.0) *((numElectrons/2.0)-1.0)) ) * ( 1.0/(ORB_SIZE - (numElectrons/2)) ) ;
+                    pGen = (1.0/( (numElectrons/2.0) *((numElectrons/2.0)-1.0)) ) * ( 1.0/(ORB_SIZE - (numElectrons/2)) ) ;
                     pGen = pGen/4.0 ;
                 }
                 if( (randChooseExcite == 2)  || (randChooseExcite == 3) ){ /* i-->a is ALPHA,  j-->b is BETA*/
                     excitationAlpha_iaBeta_jb(index_i, index_a, index_j, index_b, INTelectrons, ORB_SIZE, alphaDet, betaDet, KEsortedList, SIGN);
                     bool ib_spinDifferent = true;
-                    pGen = (1.0/((numElectrons/2.0)*(numElectrons/2.0)) ) * ( 1.0/(ORB_SIZE - (numElectrons/2)) ) ;
+                    pGen = (2.0/((numElectrons/2.0)*(numElectrons/2.0)) ) * ( 1.0/(ORB_SIZE - (numElectrons/2)) ) ;
                     pGen = pGen/2.0 ;
                 }
     
