@@ -30,7 +30,7 @@ const int INTelectrons = numElectrons ;
 
 /** Kc_CUTTOFF is the kinetic energy cutoff for the plane wave basis orbitals.
 E.g, a cutoff of "2" will allow the orbital [4 0 0] but not [5 0 0]. Set cutoff = 2.4 for 57 Orbitals (114 Spin Orbitals) */
-const double Kc_CUTTOFF = 2.4 ; 
+const double Kc_CUTTOFF = 2 ; 
 
 
 
@@ -39,7 +39,7 @@ const double Kc_CUTTOFF = 2.4 ;
  */
 
 /** delt is the Imaginary timestep for the propogation of the "walker" population */
-const double delt = 0.00025 ;
+const double delt = 0.0005 ;
 
 /** Zeta is a damping parameter which controls the agressiveness of the "shift" in the variable shift mode of the algorithm */
 const double zeta = 0.005 ;
@@ -51,7 +51,7 @@ const int AShift = 5 ;
 const int numSteps = 1000000;
 
 /** After "walker critical" walkers have been spawned after a complete cycle (post annihilation) the variable shift mode is turned on */
-const int walkerCritical = 100000;
+const int walkerCritical = 10000;
 
 /** initRefWalkers is the number of wlakers which are initially placed on the reference (i.e Hartree Fock) determinant to begin the spawning */
 int initRefWalkers = 100;
@@ -60,8 +60,8 @@ long int pow2Array [ORB_SIZE];
 /*
  *-----> OUTPUT FILES <----- 
  */
-const std::string FILE_shoulderPlot = "SHOULDER_114SO_rs0.5_Nw100000.txt" ;
-const std::string FILE_shiftPlot = "SHIFT_114SO_rs0.5_Nw100000.txt" ;
+const std::string FILE_shoulderPlot = "SHOULDER_114SO_rs0.5_PGEN.txt" ;
+const std::string FILE_shiftPlot = "SHIFT_114SO_rs0.5_PGEN.txt" ;
 
 
 
@@ -80,7 +80,7 @@ inline constexpr std::uint64_t INLpow2 (std::uint64_t x)
 * It is necessary to know this, in order that we can add a new walker to the correct determinant (Our unique list is not
 * sorted according to the walker number list, but the Alpha and Beta lists ARE sorted to associate with the walker number list)
 */
-inline const int INLgetPositionInList(std::pair<long int, long int>& uniqueDet, std::vector<long int>& alphaDetList, std::vector<long int>& betaDetList)
+inline int INLgetPositionInList(std::pair<long int, long int>& uniqueDet, std::vector<long int>& alphaDetList, std::vector<long int>& betaDetList)
 {
     int DETLIST_size = alphaDetList.size();
     int pos ;
@@ -280,19 +280,19 @@ void SPAWN( const double& cellLength,
                 if(randChooseExcite == 0){ /* i-->a AND j-->b are both ALPHA spin*/
                     excitationSameSpinij_ab(index_i, index_a, index_j, index_b, INTelectrons, ORB_SIZE, alphaDet, KEsortedList, SIGN);
                     bool ib_spinDiffAlpha = false;
-                    pGen = (1.0/( (numElectrons/2.0) *((numElectrons/2.0)-1.0)) ) * ( 2/(ORB_SIZE - (numElectrons/2)) ) ;
+                    pGen = (2.0/( (numElectrons/2.0) *((numElectrons/2.0)-1.0)) ) * ( 2.0/(ORB_SIZE - (numElectrons/2)) ) ;
                     pGen = pGen/4.0 ;
                 }
                 if(randChooseExcite == 1){/* i-->a AND j-->b are both BETA spin*/
                     excitationSameSpinij_ab(index_i, index_a, index_j, index_b, INTelectrons, ORB_SIZE, betaDet, KEsortedList, SIGN);
                     bool ib_spinDiffAlpha = false;
-                    pGen = (1.0/( (numElectrons/2.0) *((numElectrons/2.0)-1.0)) ) * ( 2/(ORB_SIZE - (numElectrons/2)) ) ;
+                    pGen = (2.0/( (numElectrons/2.0) *((numElectrons/2.0)-1.0)) ) * ( 2.0/(ORB_SIZE - (numElectrons/2)) ) ;
                     pGen = pGen/4.0 ;
                 }
                 if( (randChooseExcite == 2)  || (randChooseExcite == 3) ){ /* i-->a is ALPHA,  j-->b is BETA*/
                     excitationAlpha_iaBeta_jb(index_i, index_a, index_j, index_b, INTelectrons, ORB_SIZE, alphaDet, betaDet, KEsortedList, SIGN);
                     bool ib_spinDifferent = true;
-                    pGen = (1.0/((numElectrons/2.0)*(numElectrons/2.0)) ) * ( 1/(ORB_SIZE - (numElectrons/2)) ) ;
+                    pGen = (1.0/((numElectrons/2.0)*(numElectrons/2.0)) ) * ( 1.0/(ORB_SIZE - (numElectrons/2)) ) ;
                     pGen = pGen/2.0 ;
                 }
     
@@ -522,7 +522,7 @@ void ANNIHILATION(int& step,
     int numDets = 0;
     int NEWnumDets = 0;
     bool prune = false;
-    if(step%50==-1){
+    if(step%10==1){
         prune = true;
     }
 
@@ -779,7 +779,7 @@ int main(void){
 	const double cellVolume = (numElectrons*PI*4.0*rs*rs*rs)/3.0;
 	const double cellLength = getCellLength(cellVolume); /* Return cell length in units of rs */
 	int spinOrbitals;
-    double kpoints[500][3];
+    double kpoints[1000][3];
 
     createPlaneWaveOrbitals(kpoints, Kc_CUTTOFF, spinOrbitals);
 
@@ -868,7 +868,7 @@ int main(void){
 
     /* - - - - - - - - - - - - M A I N   L O O P - - - - - - - - - - - - */
     int beginAverageStep;
-    double SHIFT = 0.01 ;
+    double SHIFT = 0 ;
     double PROJECTOR = 0;
     double instantAverageShift = 0.0;
     double instantAvergeProjector = 0.0;
