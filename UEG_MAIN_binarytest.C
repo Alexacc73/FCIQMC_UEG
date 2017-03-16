@@ -292,7 +292,7 @@ void SPAWN( const double& cellLength,
                 if( (randChooseExcite == 2)  || (randChooseExcite == 3) ){ /* i-->a is ALPHA,  j-->b is BETA*/
                     excitationAlpha_iaBeta_jb(index_i, index_a, index_j, index_b, INTelectrons, ORB_SIZE, alphaDet, betaDet, KEsortedList, SIGN);
                     bool ib_spinDifferent = true;
-                    pGen = (1.0/((numElectrons/2.0)*(numElectrons/2.0)) ) * ( 1.0/(ORB_SIZE - (numElectrons/2)) ) ;
+                    pGen = (2.0/((numElectrons/2.0)*(numElectrons/2.0)) ) * ( 1.0/(ORB_SIZE - (numElectrons/2)) ) ;
                     pGen = pGen/2.0 ;
                 }
     
