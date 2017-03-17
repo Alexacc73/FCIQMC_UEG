@@ -116,17 +116,27 @@ void Di_H_Di(const double& cellLength, const int& numElectrons,
 
     double tempExchangeAlpha = 0;
     double tempExchangeBeta = 0;
+    double AK1, AK2, AK3, AM1, AM2, AM3;
+    double BK1, BK2, BK3, BM1, BM2, BM3; 
 	for(int k = 0; k<(numElectrons/2); k++){
+        AK1 = KElist[alphaEl[k]][0] ;
+        AK2 = KElist[alphaEl[k]][1] ;
+        AK3 = KElist[alphaEl[k]][2] ;
+        BK1 = KElist[betaEl[k]][0] ;
+        BK2 = KElist[betaEl[k]][1] ;
+        BK3 = KElist[betaEl[k]][2] ;
 		for(int m = k+1; m<(numElectrons/2); m++){
+            AM1 = KElist[alphaEl[m]][0] ;
+            AM2 = KElist[alphaEl[m]][1] ;
+            AM3 = KElist[alphaEl[m]][2] ;
+            BM1 = KElist[betaEl[m]][0] ;
+            BM2 = KElist[betaEl[m]][1] ;
+            BM3 = KElist[betaEl[m]][2] ;
           
-			tempExchangeAlpha = (KElist[alphaEl[k]][0] - KElist[alphaEl[m]][0])*(KElist[alphaEl[k]][0] - KElist[alphaEl[m]][0]) ;
-			tempExchangeAlpha += (KElist[alphaEl[k]][1] - KElist[alphaEl[m]][1])*(KElist[alphaEl[k]][1] - KElist[alphaEl[m]][1]) ;
-			tempExchangeAlpha += (KElist[alphaEl[k]][2] - KElist[alphaEl[m]][2])*(KElist[alphaEl[k]][2] - KElist[alphaEl[m]][2]) ;
-			exchangeEnergy += (1/tempExchangeAlpha) ;
+			tempExchangeAlpha =  (AK1 - AM1)*(AK1 - AM1) + (AK2 - AM2)*(AK2 - AM2) + (AK3 - AM3)*(AK3 - AM3) ;
+			exchangeEnergy += (1.0/tempExchangeAlpha) ;
 
-			tempExchangeBeta = (KElist[betaEl[k]][0] - KElist[betaEl[m]][0])*(KElist[betaEl[k]][0] - KElist[betaEl[m]][0]) ;
-			tempExchangeBeta += (KElist[betaEl[k]][1] - KElist[betaEl[m]][1])*(KElist[betaEl[k]][1] - KElist[betaEl[m]][1]) ;
-			tempExchangeBeta += (KElist[betaEl[k]][2] - KElist[betaEl[m]][2])*(KElist[betaEl[k]][2] - KElist[betaEl[m]][2]) ;
+			tempExchangeBeta =  (BK1 - BM1)*(BK1 - BM1) + (BK2 - BM2)*(BK2 - BM2) + (BK3 - BM3)*(BK3 - BM3) ;
 			exchangeEnergy += (1/tempExchangeBeta) ;
 		}
 	}

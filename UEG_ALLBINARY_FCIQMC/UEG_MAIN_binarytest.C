@@ -30,7 +30,7 @@ const int INTelectrons = numElectrons ;
 
 /** Kc_CUTTOFF is the kinetic energy cutoff for the plane wave basis orbitals.
 E.g, a cutoff of "2" will allow the orbital [4 0 0] but not [5 0 0]. Set cutoff = 2.4 for 57 Orbitals (114 Spin Orbitals) */
-const double Kc_CUTTOFF = 2.4 ; 
+const double Kc_CUTTOFF = 2 ; 
 
 
 
@@ -39,7 +39,7 @@ const double Kc_CUTTOFF = 2.4 ;
  */
 
 /** delt is the Imaginary timestep for the propogation of the "walker" population */
-const double delt = 0.00025 ;
+const double delt = 0.0004 ;
 
 /** Zeta is a damping parameter which controls the agressiveness of the "shift" in the variable shift mode of the algorithm */
 const double zeta = 0.005 ;
@@ -51,20 +51,20 @@ const int AShift = 1 ;
 const int numSteps = 1000000;
 
 /** After "walker critical" walkers have been spawned after a complete cycle (post annihilation) the variable shift mode is turned on */
-const int walkerCritical = 300000;
+const int walkerCritical = 800000;
 
 /** initRefWalkers is the number of wlakers which are initially placed on the reference (i.e Hartree Fock) determinant to begin the spawning */
-int initRefWalkers = 150;
+int initRefWalkers = 50;
 long int pow2Array [ORB_SIZE];
 
 /*
  *-----> OUTPUT FILES <----- 
  */
-//const std::string FILE_shoulderPlot = "SHOULDER_114SO_rs0.5_WORKING.txt" ;
-//const std::string FILE_shiftPlot = "SHIFT_114SO_rs0.5_WORKING.txt" ;
+const std::string FILE_shoulderPlot = "SHOULDER_66SO_rs0.5.txt" ;
+const std::string FILE_shiftPlot = "SHIFT_66SO_rs0.5.txt" ;
 
-const std::string FILE_shoulderPlot = "SHOULDER_TEST.txt" ;
-const std::string FILE_shiftPlot = "SHIFT_TEST.txt" ;
+//const std::string FILE_shoulderPlot = "SHOULDER_TEST.txt" ;
+//const std::string FILE_shiftPlot = "SHIFT_TEST.txt" ;
 
 
 
