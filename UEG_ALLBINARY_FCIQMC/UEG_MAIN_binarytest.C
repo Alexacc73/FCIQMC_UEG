@@ -39,7 +39,7 @@ const double Kc_CUTTOFF = 2 ;
  */
 
 /** delt is the Imaginary timestep for the propogation of the "walker" population */
-const double delt = 0.0004 ;
+const double delt = 0.0005 ;
 
 /** Zeta is a damping parameter which controls the agressiveness of the "shift" in the variable shift mode of the algorithm */
 const double zeta = 0.005 ;
@@ -51,7 +51,7 @@ const int AShift = 1 ;
 const int numSteps = 1000000;
 
 /** After "walker critical" walkers have been spawned after a complete cycle (post annihilation) the variable shift mode is turned on */
-const int walkerCritical = 800000;
+const int walkerCritical = 200000;
 
 /** initRefWalkers is the number of wlakers which are initially placed on the reference (i.e Hartree Fock) determinant to begin the spawning */
 int initRefWalkers = 50;
@@ -524,7 +524,7 @@ void ANNIHILATION(int& step,
     int numDets = 0;
     int NEWnumDets = 0;
     bool prune = false;
-    if(step%10==1){
+    if(step%5==1){
         prune = true;
     }
 
@@ -951,14 +951,5 @@ int main(void){
         std::cout << "Walker on DET " << i << " = " << walkerList[i] << std::endl;
     }
     */
-
     return 1;
 }
-
-
-
-
-
-
-
-
