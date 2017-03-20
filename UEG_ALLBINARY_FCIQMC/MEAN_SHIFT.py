@@ -14,7 +14,7 @@ for line in fil.readlines():
 
 fil.close()
 
-mean_sample = int(size*0.30)
+mean_sample = int(size*0.90)
 
 for num in range(0, mean_sample ):
 	summ1 += shiftArray[-num-1]

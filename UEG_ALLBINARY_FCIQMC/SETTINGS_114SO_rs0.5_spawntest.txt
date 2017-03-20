@@ -1,0 +1,14 @@
+-----------------------------------
+SETUP VARIABLES FOR THIS FCIQMC RUN
+Electrons = 14
+rs = 0.5
+Initial reference walkers seed number = 50
+
+Time step = 0.0008
+Spin Orbitals = 114
+Critical Walker Number = 100000
+
+----- SHIFT CONTROl PARAMETERS ----
+A = 1
+Zeta = 0.005
+-----------------------------------

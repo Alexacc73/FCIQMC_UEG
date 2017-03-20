@@ -29,10 +29,43 @@ inline  void INLdecimalToBinary(long int& decimal, std::string& binaryNum)
 * \f$ i < j \f$, and \f$ a < b \f$, which aids in the calculation of the excitation permutations needed to give 
 * \f$ \langle D_I | H | D_J  \rangle \f$ the correct sign.
 */
-void Di_H_Dj(const double& cellLength, 
+void Di_H_DjPARASPIN(const double& cellLength, 
              double (&KEsortedList)[ORB_SIZE][3], 
              int& i, int& a, int& b, 
-             bool& ibSpinDifferent,
+             double& RESULT  ){
+  const double PI = 3.141592653589793;
+  double coulomb = 0 ;
+  double exchange = 0 ;
+  double HElement_ij = 0 ;
+  double qDotCoulomb = 0 ;
+  double qDotExchange = 0 ;
+
+  qDotCoulomb =  (KEsortedList[i][0] - KEsortedList[a][0])*(KEsortedList[i][0] - KEsortedList[a][0]);
+  qDotCoulomb += (KEsortedList[i][1] - KEsortedList[a][1])*(KEsortedList[i][1] - KEsortedList[a][1]);
+  qDotCoulomb += (KEsortedList[i][2] - KEsortedList[a][2])*(KEsortedList[i][2] - KEsortedList[a][2]);
+  
+  coulomb = 1/(PI*cellLength*qDotCoulomb);
+  //std::cout << "Coulomb part = " << coulomb << std::endl;
+
+  qDotExchange =  (KEsortedList[i][0] - KEsortedList[b][0])*(KEsortedList[i][0] - KEsortedList[b][0]);
+  qDotExchange += (KEsortedList[i][1] - KEsortedList[b][1])*(KEsortedList[i][1] - KEsortedList[b][1]);
+  qDotExchange += (KEsortedList[i][2] - KEsortedList[b][2])*(KEsortedList[i][2] - KEsortedList[b][2]);
+
+  exchange = 1/(PI*cellLength*qDotExchange);
+    //std::cout << "Exchange part = " << exchange << std::endl;
+  
+  
+  HElement_ij = coulomb - exchange;
+  RESULT = HElement_ij;
+}
+
+
+
+
+
+void Di_H_DjOPPSPIN(const double& cellLength, 
+             double (&KEsortedList)[ORB_SIZE][3], 
+             int& i, int& a, int& b, 
              double& RESULT  ){
   const double PI = 3.141592653589793;
   double coulomb = 0 ;
@@ -45,22 +78,18 @@ void Di_H_Dj(const double& cellLength,
   qDotCoulomb += (KEsortedList[i][1] - KEsortedList[a][1])*(KEsortedList[i][1] - KEsortedList[a][1]);
   qDotCoulomb += (KEsortedList[i][2] - KEsortedList[a][2])*(KEsortedList[i][2] - KEsortedList[a][2]);
   coulomb = 1/(PI*cellLength*qDotCoulomb);
-  ////std::cout << "Coulomb part = " << coulomb << std::endl;
+  //std::cout << "Coulomb part = " << coulomb << std::endl;
 
-  if(ibSpinDifferent == false){
-  	qDotExchange =  (KEsortedList[i][0] - KEsortedList[b][0])*(KEsortedList[i][0] - KEsortedList[b][0]);
-  	qDotExchange += (KEsortedList[i][1] - KEsortedList[b][1])*(KEsortedList[i][1] - KEsortedList[b][1]);
-  	qDotExchange += (KEsortedList[i][2] - KEsortedList[b][2])*(KEsortedList[i][2] - KEsortedList[b][2]);
-  	exchange = 1/(PI*cellLength*qDotExchange);
-  	////std::cout << "Exchange part = " << exchange << std::endl;
-  }
-  else{
-  	exchange = 0.0;
-  }
 
-  HElement_ij = coulomb - exchange;
+  HElement_ij = coulomb ;
   RESULT = HElement_ij;
 }
+
+
+
+
+
+
 
 
 /**
@@ -137,10 +166,10 @@ void Di_H_Di(const double& cellLength, const int& numElectrons,
 			exchangeEnergy += (1.0/tempExchangeAlpha) ;
 
 			tempExchangeBeta =  (BK1 - BM1)*(BK1 - BM1) + (BK2 - BM2)*(BK2 - BM2) + (BK3 - BM3)*(BK3 - BM3) ;
-			exchangeEnergy += (1/tempExchangeBeta) ;
+			exchangeEnergy += (1.0/tempExchangeBeta) ;
 		}
 	}
-	exchangeEnergy *= (1/(PI*cellLength)) ;
+	exchangeEnergy *= (1.0/(PI*cellLength)) ;
 	
 
 	totalHamiltonian = kineticEnergy - exchangeEnergy ;
@@ -392,7 +421,7 @@ void excitationSameSpinij_ab(int& spin1_i,
     spin1_b = -1 ;
     while( (b<(numOrbitals - numElectrons/2)) && (foundspin1_b == false)  ){
     	unfilled_index = UNfilledSpinOrbits[b];
-    	if(unfilled_index != spin1_a){ /*IMPORTANT!! CANNOT HAVE spin1_a == spin1_b*/
+    	if( (unfilled_index != spin1_a) ){ /*IMPORTANT!! CANNOT HAVE spin1_a == spin1_b*/
     		Kj_n = spin1_j_k[0] - KEsortedList[unfilled_index][0];
     		Kj_m = spin1_j_k[1] - KEsortedList[unfilled_index][1];
     		Kj_l = spin1_j_k[2] - KEsortedList[unfilled_index][2];
@@ -407,6 +436,11 @@ void excitationSameSpinij_ab(int& spin1_i,
     			}
     			spin1_b = UNfilledSpinOrbits[b] ;
     			foundspin1_b = true;
+                //std::cout << "Spin i = " << spin1_i <<std::endl;
+                //std::cout << "Spin b = " << spin1_b <<std::endl;
+                if(spin1_b == spin1_i){
+                    std::cout << "------------------------THE SAME?? wha!!!!!!------------------" << std::endl;
+                }
 
     		}
     	}

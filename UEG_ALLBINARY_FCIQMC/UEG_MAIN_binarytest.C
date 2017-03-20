@@ -11,6 +11,7 @@
 #include <time.h>
 #include <set>
 #include <map>
+#include <algorithm>
 
 
 /*
@@ -30,7 +31,7 @@ const int INTelectrons = numElectrons ;
 
 /** Kc_CUTTOFF is the kinetic energy cutoff for the plane wave basis orbitals.
 E.g, a cutoff of "2" will allow the orbital [4 0 0] but not [5 0 0]. Set cutoff = 2.4 for 57 Orbitals (114 Spin Orbitals) */
-const double Kc_CUTTOFF = 2 ; 
+const double Kc_CUTTOFF = 2.4 ; 
 
 
 
@@ -39,7 +40,7 @@ const double Kc_CUTTOFF = 2 ;
  */
 
 /** delt is the Imaginary timestep for the propogation of the "walker" population */
-const double delt = 0.0005 ;
+const double delt = 0.0008 ;
 
 /** Zeta is a damping parameter which controls the agressiveness of the "shift" in the variable shift mode of the algorithm */
 const double zeta = 0.005 ;
@@ -51,17 +52,22 @@ const int AShift = 1 ;
 const int numSteps = 1000000;
 
 /** After "walker critical" walkers have been spawned after a complete cycle (post annihilation) the variable shift mode is turned on */
-const int walkerCritical = 200000;
+const int walkerCritical = 100000;
 
 /** initRefWalkers is the number of wlakers which are initially placed on the reference (i.e Hartree Fock) determinant to begin the spawning */
 int initRefWalkers = 50;
+
+/** Decides how frequently to prune the list of walkers of values containing a zero (to avoid looping over innocuous zeros)*/
+const int PRUNE_EVERY = 6;
+
 long int pow2Array [ORB_SIZE];
 
 /*
  *-----> OUTPUT FILES <----- 
  */
-const std::string FILE_shoulderPlot = "SHOULDER_66SO_rs0.5.txt" ;
-const std::string FILE_shiftPlot = "SHIFT_66SO_rs0.5.txt" ;
+const std::string FILE_shoulderPlot = "SHOULDER_114SO_rs0.5_spawntest.txt" ;
+const std::string FILE_shiftPlot = "SHIFT_114SO_rs0.5_spawntest.txt" ;
+const std::string FILE_SETTINGS = "SETTINGS_114SO_rs0.5_spawntest.txt" ;
 
 //const std::string FILE_shoulderPlot = "SHOULDER_TEST.txt" ;
 //const std::string FILE_shiftPlot = "SHIFT_TEST.txt" ;
@@ -265,7 +271,7 @@ void SPAWN( const double& cellLength,
     long int alphaDet;
     long int betaDet;
     std::pair<long int, long int> iter ;
-    bool ib_spinDifferent;
+    bool SPINDIFF = true;
 
     int numDets = uniqueDetSet.size() ;
     for(int det = 0; det < numDets; det++){
@@ -281,21 +287,12 @@ void SPAWN( const double& cellLength,
             randChooseExcite = rand()%4 ;
             if(randChooseExcite == 0){ /* i-->a AND j-->b are both ALPHA spin*/
                 excitationSameSpinij_ab(index_i, index_a, index_j, index_b, INTelectrons, ORB_SIZE, alphaDet, KEsortedList, SIGN);
-                bool ib_spinDiffAlpha = false;
-                pGen = (2.0/( (numElectrons/2.0) *((numElectrons/2.0)-1.0)) ) * ( 2.0/(ORB_SIZE - (numElectrons/2)) ) ;
-                pGen = pGen/4.0 ;
             }
             if(randChooseExcite == 1){/* i-->a AND j-->b are both BETA spin*/
                 excitationSameSpinij_ab(index_i, index_a, index_j, index_b, INTelectrons, ORB_SIZE, betaDet, KEsortedList, SIGN);
-                bool ib_spinDiffAlpha = false;
-                pGen = (2.0/( (numElectrons/2.0) *((numElectrons/2.0)-1.0)) ) * ( 2.0/(ORB_SIZE - (numElectrons/2)) ) ;
-                pGen = pGen/4.0 ;
             }
-            if( (randChooseExcite == 2)  || (randChooseExcite == 3) ){ /* i-->a is ALPHA,  j-->b is BETA*/
-                excitationAlpha_iaBeta_jb(index_i, index_a, index_j, index_b, INTelectrons, ORB_SIZE, alphaDet, betaDet, KEsortedList, SIGN);
-                bool ib_spinDifferent = true;
-                pGen = (1.0/((numElectrons/2.0)*(numElectrons/2.0)) ) * ( 1.0/(ORB_SIZE - (numElectrons/2)) ) ;
-                pGen = pGen/2.0 ;
+            if( (randChooseExcite >= 2)   ){ /* i-->a is ALPHA,  j-->b is BETA*/
+                excitationAlpha_iaBeta_jb(index_i, index_a, index_j, index_b, INTelectrons, ORB_SIZE, alphaDet, betaDet, KEsortedList, SIGN);   
             }
     
             if(index_b != -1){ /*Finding a k consevring orbital was SUCCESSFUL*/
@@ -303,32 +300,52 @@ void SPAWN( const double& cellLength,
                 if(randChooseExcite==0){
                     detChange = -pow2Array[index_i] - pow2Array[index_j] + pow2Array[index_a] + pow2Array[index_b] ;
                     alphaDet += detChange;
-                    //alphaDet -= pow2Array[  index_i ] ;//= '0' ;
-                    //alphaDet += pow2Array[  index_a ] ;//= '1' ;
+                    pGen = (2.0/( (numElectrons/2.0) *((numElectrons/2.0)-1.0)) ) * ( 2.0/(ORB_SIZE - (numElectrons/2)) ) ;
+                    pGen = pGen*0.25 ;
+                    HijElement = 0;
+                    Di_H_DjPARASPIN(cellLength , KEsortedList, index_i, index_a, index_b, HijElement) ;
                 }
                 if(randChooseExcite==1){
                     detChange = -pow2Array[index_i] - pow2Array[index_j] + pow2Array[index_a] + pow2Array[index_b] ;
                     betaDet += detChange;
-                    //betaDet -= pow2Array[ index_i ] ;// = '0' ;
-                    //betaDet += pow2Array[ index_a ] ;// = '1' ;
+                    pGen = (2.0/( (numElectrons/2.0) *((numElectrons/2.0)-1.0)) ) * ( 2.0/(ORB_SIZE - (numElectrons/2)) ) ;
+                    pGen = pGen*0.25 ;
+                    HijElement = 0;
+                    Di_H_DjPARASPIN(cellLength , KEsortedList, index_i, index_a, index_b, HijElement) ;
                 }
-                if( (randChooseExcite == 2)  || (randChooseExcite == 3) ){
+                if( (randChooseExcite >= 2) ){
+                    //std::cout << "DIFF spin" <<std::endl;
                     alphaDet -= pow2Array[ index_i] ; // = '0' ;
                     alphaDet += pow2Array[ index_a] ; // = '1' ;
                     betaDet  -= pow2Array[ index_j] ; // = '0' ;
                     betaDet  += pow2Array[ index_b] ; // = '1' ;
+                    pGen = (1.0/((numElectrons/2.0)*(numElectrons/2.0)) ) * ( 1.0/(ORB_SIZE - (numElectrons/2)) ) ;
+                    pGen = pGen*0.5 ;
+                    HijElement = 0;
+                    Di_H_DjOPPSPIN(cellLength , KEsortedList, index_i, index_a, index_b, HijElement) ;
                 }
                    
-                HijElement = 0;
-                Di_H_Dj(cellLength , KEsortedList, index_i, index_a, index_b, ib_spinDifferent, HijElement) ;
+                //std::cout << "PRE Di|H|Dj: i and b = " << index_i << ", " << index_b << std::endl;
+                //std::cout << "Bool spin DIFF = " << SPINDIFF << std::endl;
                 HijElement *= SIGN ;
                 pSpawn = (delt * fabs(HijElement) ) / pGen ;
-                intpSpawn = floor(pSpawn) ;
+                intpSpawn = std::floor(pSpawn) ;
                 remainderpSpawn = pSpawn - intpSpawn ;
+                //std::cout << "------" << '\n' << "HijEl = " << HijElement << std::endl;
+                //std::cout << "pSpawn = " << pSpawn << std::endl;
+                //std::cout << "intpSpawn = " << intpSpawn << std::endl;
+                //std::cout << "Remainder spawn = " << remainderpSpawn << std::endl;
                 metropolisRand = ((double) rand() / RAND_MAX) ; //(fastrand() % 100000 )/100000 ;
+                //std::cout << "MetropRand = " << metropolisRand << std::endl;
 
                 /* SPAWN: YES or NO*/
                 if(remainderpSpawn >= metropolisRand){/* --> SPAWING EVENT SUCCESSFUL <--*/
+                //std::cout << "SPAWN YES" <<  std::endl;
+                //std::cout << "------" << "HijEl = " << HijElement << std::endl;
+                //std::cout << "pSpawn = " << pSpawn << std::endl;
+                //std::cout << "intpSpawn = " << intpSpawn << std::endl;
+                //std::cout << "Remainder spawn = " << remainderpSpawn << std::endl;
+                //std::cout << "MetropRand = " << metropolisRand << '\n' <<std::endl;
                     result = uniqueDetSet.insert( std::make_pair(alphaDet, betaDet) ) ;
 
                     if(result.second == true){/* New Determinant Found */
@@ -376,6 +393,7 @@ void SPAWN( const double& cellLength,
                 /*SPAWN AGAIN: YES or NO*/
                 if(intpSpawn >= 1){
                     result = uniqueDetSet.insert( std::make_pair(alphaDet, betaDet) ) ;
+                    std::cout << "------------INTPSPAWN >= 1: possible bloom!" << std::endl;
 
                     if(result.second == true){/* New Determinant Found */
                         trueWalkerList.push_back(0) ;
@@ -484,17 +502,19 @@ void DEATH_CLONE(const double& cellLength,
             Di_H_Di(cellLength, INTelectrons, alphaDet, betaDet, KEsortedList, HiiElement);
             KiiElement = HiiElement - HFEnergy ;
             pDeath = delt*(KiiElement - SHIFT) ;
-            nDeath = fabs(pDeath*walkerNum) ;
+            nDeath = fabs(pDeath * double(walkerNum) ) ;
             RandRound =  ((double) rand() / RAND_MAX) ; /** Generates a number between (0,1] */
+            //std::cout << "RandRound = " << RandRound << std::endl;
             INTnDeath = floor(nDeath + RandRound); 
             if(pDeath > 0){
                 walkersToDie = copysign(INTnDeath, walkerNum);
                 trueWalkerList[det] -= walkersToDie;
             }
             if(pDeath < 0){
-                walkersToClone = copysign(INTnDeath, walkerNum);
+                walkersToClone = copysign(INTnDeath, walkerNum); 
                 trueWalkerList[det] += walkersToClone;
             }
+        
         }
     }/* End of FOR loop */
 }
@@ -524,7 +544,7 @@ void ANNIHILATION(int& step,
     int numDets = 0;
     int NEWnumDets = 0;
     bool prune = false;
-    if(step%5==1){
+    if(step%PRUNE_EVERY==1){
         prune = true;
     }
 
@@ -536,29 +556,59 @@ void ANNIHILATION(int& step,
         negWalkerList[det] = 0; 
     }
 
+
+/* SLOW BUT EQUIVALENT
     if(prune==true){
-        /* Make copies of all the lists */
+        std::vector<int> ints_to_remove;
+        for(int det = 0; det<numDets; det++){
+            if(trueWalkerList[det] == 0){//PRUNE!
+                ints_to_remove.push_back(det);
+            }
+        }
+        const int size = ints_to_remove.size();
+        int int_to_remove;
+        for(int rm = 0; rm < size; rm++ ){
+            int_to_remove = ints_to_remove[size-1-rm];
+            trueWalkerList.erase(trueWalkerList.begin() + int_to_remove );
+            alphaDetsBinary.erase(alphaDetsBinary.begin() + int_to_remove );
+            betaDetsBinary.erase(betaDetsBinary.begin() + int_to_remove );
+        }
+        uniqueDeterminantSet.clear();
+        posWalkerList.clear();
+        negWalkerList.clear();
+        int newsize = alphaDetsBinary.size();
+        for(int add = 0; add<newsize; add++){
+            alphaBin = alphaDetsBinary[add];
+            betaBin = betaDetsBinary[add];
+            uniqueDeterminantSet.insert( std::make_pair(alphaBin, betaBin) );
+            posWalkerList.push_back(0);
+            negWalkerList.push_back(0);
+        }
+    }
+    */
+
+    
+    if(prune==true){
+        // Make copies of all the lists 
         std::vector<int> TWL_copy;
         std::vector<long int> alphaDets_copy;
         std::vector<long int> betaDets_copy;
       
-        /* Move the values from the original lists to the copies */
+        // Move the values from the original lists to the copies 
         for(int num = 0; num < numDets; num++){
             TWL_copy.push_back(trueWalkerList[num]);
             alphaDets_copy.push_back(alphaDetsBinary[num]);
             betaDets_copy.push_back(betaDetsBinary[num]);
         }
-        //copy(trueWalkerList.begin(), trueWalkerList.end(), back_inserter(TWL_copy));
-        //copy(alphaDetsBinary.begin(), alphaDetsBinary.end(), back_inserter(alphaDets_copy));
-        //copy(betaDetsBinary.begin(), betaDetsBinary.end(), back_inserter(betaDets_copy));
-        /* Empty the old lists of their contents, ready to be refilled with the pruned ones */
+
+        //// Empty the old lists of their contents, ready to be refilled with the pruned ones 
         trueWalkerList.clear();
         alphaDetsBinary.clear();
         betaDetsBinary.clear();
         posWalkerList.clear();
         negWalkerList.clear();
         NEWnumDets = TWL_copy.size();
-        /* CREATE NEW LISTS WITH ONLY DETERMINANTS WITH A NON-ZERO NUMBER OF WALKERS ASSOCIATED WITH THEM  */
+        //// CREATE NEW LISTS WITH ONLY DETERMINANTS WITH A NON-ZERO NUMBER OF WALKERS ASSOCIATED WITH THEM  
         for(int el = 0; el<NEWnumDets; el++){
             if(TWL_copy[el] != 0){
                 trueWalkerList.push_back(TWL_copy[el]);
@@ -569,8 +619,6 @@ void ANNIHILATION(int& step,
             }
         }
 
-        //posWalkerList.resize(trueWalkerList.size()) ;
-        //negWalkerList.resize(trueWalkerList.size()) ;
         uniqueDeterminantSet.clear();
 
         for(int det = 0; det < alphaDetsBinary.size(); det++){
@@ -578,7 +626,7 @@ void ANNIHILATION(int& step,
             betaBin = betaDetsBinary[det];
             uniqueDeterminantSet.insert( std::make_pair(alphaBin, betaBin) );
         }
-    }/*End Prune*/
+    }
 
 }
 
@@ -643,7 +691,6 @@ double projectorEnergy(const double& cellLength,
     long int aBin, bBin;
     bool ISdoubleExcitation = false;
     bool found_idx_i = false, found_idx_a = false;
-    bool IB_spinDifferent = false;
     double HijElement = 0, walkerNumJ = 0, EProjSum = 0;
     int INTwalkerNum;
     std::string ijSTR(ORB_SIZE, ' '); 
@@ -679,7 +726,6 @@ double projectorEnergy(const double& cellLength,
 
             if(ISdoubleExcitation == true){ /* Double Excitation Found */
                 if( (alphaBits == 4) ){ /* search for ij, ab, in ALPHA only!*/
-                    bool IB_spinDifferent = false;
                     ijBin = HFDet & XORalpha;
                     abBin = alphaDetJ & XORalpha;
                     idx = 0;
@@ -701,10 +747,11 @@ double projectorEnergy(const double& cellLength,
                         }
                     }
                     SIGN = INLgetHijSign(idx_i, idx_j, idx_a, idx_b);
+                    HijElement = 0;
+                    Di_H_DjPARASPIN(cellLength, KEsortedList, idx_i, idx_a, idx_b, HijElement) ;
                 }/*End ALPHA search for ij, ab*/
 
                 if( (betaBits == 4) ){ /* search for ij, ab, in BETA only!*/
-                    bool IB_spinDifferent = false;
                     ijBin = HFDet & XORbeta;
                     abBin = betaDetJ & XORbeta;
                     idx = 0;
@@ -726,10 +773,11 @@ double projectorEnergy(const double& cellLength,
                         }
                     }
                     SIGN = INLgetHijSign(idx_i, idx_j, idx_a, idx_b);
+                    HijElement = 0;
+                    Di_H_DjPARASPIN(cellLength, KEsortedList, idx_i, idx_a, idx_b, HijElement) ;
                 }/*End ALPHA search for ij, ab*/
 
                 if( (alphaBits == 2) || (betaBits == 2) ){ /* i->a are alpha, but i->b are beta*/
-                    bool IB_spinDifferent = true;
                     iBin = HFDet & XORalpha;
                     jBin = HFDet & XORbeta;
                     aBin = alphaDetJ & XORalpha;
@@ -749,10 +797,9 @@ double projectorEnergy(const double& cellLength,
                         }
                     }
                     SIGN = INLgetHijSignAB(idx_i, idx_j, idx_a, idx_b);
+                    HijElement = 0;
+                    Di_H_DjOPPSPIN(cellLength, KEsortedList, idx_i, idx_a, idx_b, HijElement) ;
                 }
-
-                HijElement = 0;
-                Di_H_Dj(cellLength, KEsortedList, idx_i, idx_a, idx_b, IB_spinDifferent, HijElement) ;
                 HijElement *= SIGN;
                 EProjSum += (HijElement * walkerNumJ ) ;
             }
@@ -779,8 +826,26 @@ int main(void){
 	const double cellLength = getCellLength(cellVolume); /* Return cell length in units of rs */
 	int spinOrbitals;
     double kpoints[1000][3];
-
     createPlaneWaveOrbitals(kpoints, Kc_CUTTOFF, spinOrbitals);
+
+
+    std::ofstream settings;
+    settings.open(FILE_SETTINGS);
+    settings << "-----------------------------------" << std::endl;
+    settings << "SETUP VARIABLES FOR THIS FCIQMC RUN" << std::endl;
+    settings << "Electrons = " << INTelectrons << std::endl;
+    settings << "rs = " << rs << std::endl;
+    settings << "Initial reference walkers seed number = " << initRefWalkers << '\n'  << std::endl;
+    settings << "Time step = " << delt << std::endl;
+    settings << "Spin Orbitals = " << spinOrbitals << std::endl;
+    settings << "Critical Walker Number = " << walkerCritical << '\n'  << std::endl;
+    settings << "----- SHIFT CONTROl PARAMETERS ----" << std::endl;
+    settings << "A = "<< AShift  << std::endl;
+    settings << "Zeta = " << zeta  << std::endl;
+    settings << "-----------------------------------" << std::endl;
+    settings.close();
+
+    
 
     std::cout << "Cell length = " << cellLength << '\n' << std::endl;
     std::cout << "Number spin orbitals = " << spinOrbitals << std::endl;
