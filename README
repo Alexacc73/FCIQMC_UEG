@@ -1,0 +1,8 @@
+In order to compile this LaTeX document you should run the following:
+pdflatex MPhil_Report_Template.tex
+bibtex MPhil_Report_Template.aux
+pdflatex MPhil_Report_Template.tex
+pdflatex MPhil_Report_Template.tex
+
+in order to get all the cross-references correct, including those
+from your BiBTeX file references.bib
