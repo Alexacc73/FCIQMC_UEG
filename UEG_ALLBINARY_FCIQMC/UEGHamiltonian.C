@@ -12,8 +12,8 @@ inline  void INLdecimalToBinary(long int& decimal, std::string& binaryNum)
 
 
 /**
-* This function calculates the OFF-diagonal matrix elements of the Hamiltonian, for double electronic excitations,
-* using the simplifications of the Slater-Condon rules. 
+* This function calculates the OFF-diagonal matrix elements of the Hamiltonian, for double electronic excitations of 
+* *THE SAME SPIN* using the simplifications of the Slater-Condon rules. 
 * It calculates the double electron integral 
 * \f$ \langle D_I | H | D_J  \rangle  =  \langle ij||ab \rangle = \langle ij|ab \rangle - \langle ij|ba \rangle \f$,
 * where the spin-orthogonality imposed upon the system mean that \f$ \langle ij|ba \rangle = 0 \f$ if orbital i and orbital b are
@@ -43,7 +43,7 @@ void Di_H_DjPARASPIN(const double& cellLength,
   qDotCoulomb =  (KEsortedList[i][0] - KEsortedList[a][0])*(KEsortedList[i][0] - KEsortedList[a][0]);
   qDotCoulomb += (KEsortedList[i][1] - KEsortedList[a][1])*(KEsortedList[i][1] - KEsortedList[a][1]);
   qDotCoulomb += (KEsortedList[i][2] - KEsortedList[a][2])*(KEsortedList[i][2] - KEsortedList[a][2]);
-  
+
   coulomb = 1/(PI*cellLength*qDotCoulomb);
   //std::cout << "Coulomb part = " << coulomb << std::endl;
 

@@ -40,34 +40,34 @@ const double Kc_CUTTOFF = 2.4 ;
  */
 
 /** delt is the Imaginary timestep for the propogation of the "walker" population */
-const double delt = 0.0008 ;
+const double delt = 0.0001 ;
 
 /** Zeta is a damping parameter which controls the agressiveness of the "shift" in the variable shift mode of the algorithm */
-const double zeta = 0.005 ;
+const double zeta = 0.004 ;
 
 /** AShift controls how frequently the shift is changed in response to the population in the variable shift mode (AShift = 1 means every step) */
-const int AShift = 1 ;
+const int AShift = 2 ;
 
 /** Number of steps after which to terminate the algorithm*/
-const int numSteps = 1000000;
+const int numSteps = 2000000;
 
 /** After "walker critical" walkers have been spawned after a complete cycle (post annihilation) the variable shift mode is turned on */
-const int walkerCritical = 100000;
+const int walkerCritical = 70000;
 
 /** initRefWalkers is the number of wlakers which are initially placed on the reference (i.e Hartree Fock) determinant to begin the spawning */
 int initRefWalkers = 50;
 
 /** Decides how frequently to prune the list of walkers of values containing a zero (to avoid looping over innocuous zeros)*/
-const int PRUNE_EVERY = 6;
+const int PRUNE_EVERY = 10;
 
 long int pow2Array [ORB_SIZE];
 
 /*
  *-----> OUTPUT FILES <----- 
  */
-const std::string FILE_shoulderPlot = "SHOULDER_114SO_rs0.5_spawntest.txt" ;
-const std::string FILE_shiftPlot = "SHIFT_114SO_rs0.5_spawntest.txt" ;
-const std::string FILE_SETTINGS = "SETTINGS_114SO_rs0.5_spawntest.txt" ;
+const std::string FILE_shoulderPlot = "SHOULDER_114SO_rs0.5_dt25E-4.txt" ;
+const std::string FILE_shiftPlot = "SHIFT_114SO_rs0.5_dt25E-4.txt" ;
+const std::string FILE_SETTINGS = "SETTINGS_114SO_rs0.5_dt25E-4.txt" ;
 
 //const std::string FILE_shoulderPlot = "SHOULDER_TEST.txt" ;
 //const std::string FILE_shiftPlot = "SHIFT_TEST.txt" ;
@@ -908,26 +908,6 @@ int main(void){
     std::cout << " < D_I | H | D_I > Element for HF = " << HFEnergy << '\n' << std::endl;
 
 
-    /* EXCIATATION TESTER 
-    for(int i = 0; i<1; i++){
-        int index_i = 0, index_a = 0, index_j = 0, index_b = 0;
-        int sign = 0;
-        excitationAlpha_iaBeta_jb(index_i, index_a, index_j, index_b, INTelectrons, ORB_SIZE, HF_binary, HF_binary, KEsortedKpoints, sign) ;
-        if(index_b != -1){
-            std::cout << "s_i --> s_a = " << index_i << " --> " << index_a << std::endl;
-            std::cout << "i --> a = [" << KEsortedKpoints[index_i][0] << KEsortedKpoints[index_i][1] << KEsortedKpoints[index_i][2] ;
-            std::cout << "] --> [" << KEsortedKpoints[index_a][0] << KEsortedKpoints[index_a][1] << KEsortedKpoints[index_a][2] <<"]"<< std::endl;
-            std::cout << "s_j --> s_b = " << index_j << " --> " << index_b << std::endl;
-            std::cout << "j --> b = [" << KEsortedKpoints[index_j][0] << KEsortedKpoints[index_j][1] << KEsortedKpoints[index_j][2] ;
-            std::cout << "] --> [" << KEsortedKpoints[index_b][0] << KEsortedKpoints[index_b][1] << KEsortedKpoints[index_b][2] <<"]"<< std::endl;
-            std::cout << "SIGN : " << sign << std::endl;
-            std::cout << " " << std::endl;
-        }
-    }
-    */
-
-
-
 
 
     /* - - - - - - - - - - - - M A I N   L O O P - - - - - - - - - - - - */
@@ -943,6 +923,7 @@ int main(void){
     double referenceWalkers = 0;
     double currentPopulation = 0;
     double popToRefRatio = 0;
+    double projectorNumerator = 0;
 
     clock_t start;
     clock_t end;
@@ -995,9 +976,11 @@ int main(void){
         }
         SHIFTTracker.push_back(SHIFT) ;
         PROJECTOR = projectorEnergy(cellLength, HF_binary, walkerList, alphaDetsBinary, betaDetsBinary, KEsortedKpoints);
+        projectorNumerator = PROJECTOR * referenceWalkers;
+
 
         shoulderplot << currentPopulation << " " << popToRefRatio << std::endl ;
-        shiftPlot << SHIFT << " " << PROJECTOR << std::endl;
+        shiftPlot << SHIFT << " " << PROJECTOR << " " << projectorNumerator << " " << referenceWalkers << std::endl;
 
         
         

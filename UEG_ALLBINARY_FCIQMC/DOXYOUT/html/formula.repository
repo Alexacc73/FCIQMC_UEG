@@ -1,0 +1,31 @@
+\form#0:$ 2^x $
+\form#1:$ \alpha $
+\form#2:$ D_{i \alpha} $
+\form#3:$ D_j $
+\form#4:\[ p_s(j|i_{\alpha}) = \frac{\delta \tau | K_{i_{\alpha}j} | }{p_{gen}j | i_{\alpha}} (15) \]
+\form#5:$ K_{i_{\alpha}j} $
+\form#6:$ K_{i_{\alpha}j} < 0 $
+\form#7:$ p_{gen} $
+\form#8:$ p_s > 1 $
+\form#9:$ |ps| $
+\form#10:$ ps − |ps| $
+\form#11:\[ p_{d}(i_{\alpha}) = \delta \tau( K_{i_{\alpha} i_{\alpha}} - S ) (16) \]
+\form#12:$ p_d > 0 $
+\form#13:$ p_d $
+\form#14:$ p_d < 0 $
+\form#15:$ |pd| $
+\form#16:$ S > 0 $
+\form#17:$ \langle D_i | K | D_i \rangle < S $
+\form#18:$ N_w $
+\form#19:$ N_w = \sum_{i} | N_i | $
+\form#20:\[ S(\tau) = S(\tau - A\delta \tau) - \frac{\zeta}{A \delta \tau} ln\frac{N_w (\tau)}{N_w (\tau - A\delta \tau)} \]
+\form#21:\[ E_{proj} = \sum_{J \neq 0} \Big \langle D_J | H | D_0 \Big \rangle \frac{N_J (\tau)}{N_0 (\tau)} \]
+\form#22:$ \langle D_I | H | D_J \rangle = \langle ij||ab \rangle = \langle ij|ab \rangle - \langle ij|ba \rangle $
+\form#23:$ \langle ij|ba \rangle = 0 $
+\form#24:$ D_J $
+\form#25:$ D_I $
+\form#26:$ i < j $
+\form#27:$ a < b $
+\form#28:$ \langle D_I | H | D_J \rangle $
+\form#29:\[ 2 \frac{\pi^2}{L^2} \sum_{i} k_{i}^{2} - \frac{1}{\pi L} \sum_{i} \sum_{i \neq j} \frac{1}{| K_i - k_j |^2} \]
+\form#30:$ \langle ij||ij \rangle $
