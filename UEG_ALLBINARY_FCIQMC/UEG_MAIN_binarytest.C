@@ -23,7 +23,7 @@ const double PI = 3.141592653589793;
 
 /** rs controls density of the Electron Gas. 
 * "rs" is the radius of the sphere whose volume is that of the cell divided by the number of electrons*/
-const double rs = 0.5; 
+const double rs = 1.0; 
 
 /** Total number of electrons -> half allocated Alpha spin, the other half allocated Beta Spin.*/
 const double numElectrons = 14; 
@@ -31,7 +31,7 @@ const int INTelectrons = numElectrons ;
 
 /** Kc_CUTTOFF is the kinetic energy cutoff for the plane wave basis orbitals.
 E.g, a cutoff of "2" will allow the orbital [4 0 0] but not [5 0 0]. Set cutoff = 2.4 for 57 Orbitals (114 Spin Orbitals) */
-const double Kc_CUTTOFF = 2.4 ; 
+const double Kc_CUTTOFF = 1.5 ; 
 
 
 
@@ -40,10 +40,10 @@ const double Kc_CUTTOFF = 2.4 ;
  */
 
 /** delt is the Imaginary timestep for the propogation of the "walker" population */
-const double delt = 0.0001 ;
+const double delt = 0.0008 ;
 
 /** Zeta is a damping parameter which controls the agressiveness of the "shift" in the variable shift mode of the algorithm */
-const double zeta = 0.004 ;
+const double zeta = 0.0008 ;
 
 /** AShift controls how frequently the shift is changed in response to the population in the variable shift mode (AShift = 1 means every step) */
 const int AShift = 2 ;
@@ -52,22 +52,22 @@ const int AShift = 2 ;
 const int numSteps = 2000000;
 
 /** After "walker critical" walkers have been spawned after a complete cycle (post annihilation) the variable shift mode is turned on */
-const int walkerCritical = 70000;
+const int walkerCritical = 60000;
 
 /** initRefWalkers is the number of wlakers which are initially placed on the reference (i.e Hartree Fock) determinant to begin the spawning */
-int initRefWalkers = 50;
+int initRefWalkers = 100;
 
 /** Decides how frequently to prune the list of walkers of values containing a zero (to avoid looping over innocuous zeros)*/
-const int PRUNE_EVERY = 10;
+const int PRUNE_EVERY = 5;
 
 long int pow2Array [ORB_SIZE];
 
 /*
  *-----> OUTPUT FILES <----- 
- */
-const std::string FILE_shoulderPlot = "SHOULDER_114SO_rs0.5_dt25E-4.txt" ;
-const std::string FILE_shiftPlot = "SHIFT_114SO_rs0.5_dt25E-4.txt" ;
-const std::string FILE_SETTINGS = "SETTINGS_114SO_rs0.5_dt25E-4.txt" ;
+*/
+const std::string FILE_shoulderPlot = "SHOULDER_38SO_rs1.0_dt8E-4.txt" ;
+const std::string FILE_shiftPlot = "SHIFT_38SO_rs1.0_dt8E-4.txt" ;
+const std::string FILE_SETTINGS = "SETTINGS_38SO_rs1.0_dt8E-4.txt" ;
 
 //const std::string FILE_shoulderPlot = "SHOULDER_TEST.txt" ;
 //const std::string FILE_shiftPlot = "SHIFT_TEST.txt" ;
@@ -284,7 +284,7 @@ void SPAWN( const double& cellLength,
             index_j = 0 ;
             index_a = 0 ;
             index_b = 0 ;
-            randChooseExcite = rand()%4 ;
+            randChooseExcite = rand()%10 ;
             if(randChooseExcite == 0){ /* i-->a AND j-->b are both ALPHA spin*/
                 excitationSameSpinij_ab(index_i, index_a, index_j, index_b, INTelectrons, ORB_SIZE, alphaDet, KEsortedList, SIGN);
             }
@@ -301,7 +301,7 @@ void SPAWN( const double& cellLength,
                     detChange = -pow2Array[index_i] - pow2Array[index_j] + pow2Array[index_a] + pow2Array[index_b] ;
                     alphaDet += detChange;
                     pGen = (2.0/( (numElectrons/2.0) *((numElectrons/2.0)-1.0)) ) * ( 2.0/(ORB_SIZE - (numElectrons/2)) ) ;
-                    pGen = pGen*0.25 ;
+                    pGen = pGen*0.1 ;
                     HijElement = 0;
                     Di_H_DjPARASPIN(cellLength , KEsortedList, index_i, index_a, index_b, HijElement) ;
                 }
@@ -309,7 +309,7 @@ void SPAWN( const double& cellLength,
                     detChange = -pow2Array[index_i] - pow2Array[index_j] + pow2Array[index_a] + pow2Array[index_b] ;
                     betaDet += detChange;
                     pGen = (2.0/( (numElectrons/2.0) *((numElectrons/2.0)-1.0)) ) * ( 2.0/(ORB_SIZE - (numElectrons/2)) ) ;
-                    pGen = pGen*0.25 ;
+                    pGen = pGen*0.1 ;
                     HijElement = 0;
                     Di_H_DjPARASPIN(cellLength , KEsortedList, index_i, index_a, index_b, HijElement) ;
                 }
@@ -320,7 +320,7 @@ void SPAWN( const double& cellLength,
                     betaDet  -= pow2Array[ index_j] ; // = '0' ;
                     betaDet  += pow2Array[ index_b] ; // = '1' ;
                     pGen = (1.0/((numElectrons/2.0)*(numElectrons/2.0)) ) * ( 1.0/(ORB_SIZE - (numElectrons/2)) ) ;
-                    pGen = pGen*0.5 ;
+                    pGen = pGen*0.8 ;
                     HijElement = 0;
                     Di_H_DjOPPSPIN(cellLength , KEsortedList, index_i, index_a, index_b, HijElement) ;
                 }
