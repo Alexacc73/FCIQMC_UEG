@@ -1,0 +1,51 @@
+\contentsline {chapter}{\numberline {1}F\discretionary {-}{}{}C\discretionary {-}{}{}I\discretionary {-}{}{}Q\discretionary {-}{}{}M\discretionary {-}{}{}C H\discretionary {-}{}{}E\discretionary {-}{}{}A\discretionary {-}{}{}D P\discretionary {-}{}{}A\discretionary {-}{}{}G\discretionary {-}{}{}E}{1}{chapter.1}
+\contentsline {section}{\numberline {1.1}Introduction}{1}{section.1.1}
+\contentsline {chapter}{\numberline {2}F\discretionary {-}{}{}C\discretionary {-}{}{}I\discretionary {-}{}{}Q\discretionary {-}{}{}M\discretionary {-}{}{}C\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}U\discretionary {-}{}{}E\discretionary {-}{}{}G}{3}{chapter.2}
+\contentsline {chapter}{\numberline {3}File Index}{5}{chapter.3}
+\contentsline {section}{\numberline {3.1}File List}{5}{section.3.1}
+\contentsline {chapter}{\numberline {4}File Documentation}{7}{chapter.4}
+\contentsline {section}{\numberline {4.1}binary\discretionary {-}{}{}Manip.\discretionary {-}{}{}C File Reference}{7}{section.4.1}
+\contentsline {subsection}{\numberline {4.1.1}Function Documentation}{7}{subsection.4.1.1}
+\contentsline {subsubsection}{\numberline {4.1.1.1}binary\discretionary {-}{}{}To\discretionary {-}{}{}Decimal}{7}{subsubsection.4.1.1.1}
+\contentsline {subsubsection}{\numberline {4.1.1.2}binomialn\discretionary {-}{}{}Cr}{7}{subsubsection.4.1.1.2}
+\contentsline {subsubsection}{\numberline {4.1.1.3}decimal\discretionary {-}{}{}To\discretionary {-}{}{}Binary}{7}{subsubsection.4.1.1.3}
+\contentsline {subsubsection}{\numberline {4.1.1.4}get\discretionary {-}{}{}Position\discretionary {-}{}{}In\discretionary {-}{}{}List}{7}{subsubsection.4.1.1.4}
+\contentsline {subsubsection}{\numberline {4.1.1.5}one\discretionary {-}{}{}Bit\discretionary {-}{}{}Count}{7}{subsubsection.4.1.1.5}
+\contentsline {section}{\numberline {4.2}plane\discretionary {-}{}{}Waves.\discretionary {-}{}{}C File Reference}{7}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Function Documentation}{8}{subsection.4.2.1}
+\contentsline {subsubsection}{\numberline {4.2.1.1}create\discretionary {-}{}{}Plane\discretionary {-}{}{}Wave\discretionary {-}{}{}Orbitals}{8}{subsubsection.4.2.1.1}
+\contentsline {subsubsection}{\numberline {4.2.1.2}get\discretionary {-}{}{}Cell\discretionary {-}{}{}Length}{8}{subsubsection.4.2.1.2}
+\contentsline {subsubsection}{\numberline {4.2.1.3}k\discretionary {-}{}{}Points\discretionary {-}{}{}Energy\discretionary {-}{}{}Sort}{8}{subsubsection.4.2.1.3}
+\contentsline {subsubsection}{\numberline {4.2.1.4}P\discretionary {-}{}{}R\discretionary {-}{}{}I\discretionary {-}{}{}N\discretionary {-}{}{}T\discretionary {-}{}{}O\discretionary {-}{}{}R\discretionary {-}{}{}B\discretionary {-}{}{}I\discretionary {-}{}{}T\discretionary {-}{}{}A\discretionary {-}{}{}L\discretionary {-}{}{}S}{8}{subsubsection.4.2.1.4}
+\contentsline {section}{\numberline {4.3}R\discretionary {-}{}{}E\discretionary {-}{}{}A\discretionary {-}{}{}D\discretionary {-}{}{}M\discretionary {-}{}{}E.\discretionary {-}{}{}md File Reference}{8}{section.4.3}
+\contentsline {section}{\numberline {4.4}U\discretionary {-}{}{}E\discretionary {-}{}{}G\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}M\discretionary {-}{}{}A\discretionary {-}{}{}I\discretionary {-}{}{}N\discretionary {-}{}{}\_\discretionary {-}{}{}binarytest.\discretionary {-}{}{}C File Reference}{8}{section.4.4}
+\contentsline {subsection}{\numberline {4.4.1}Function Documentation}{9}{subsection.4.4.1}
+\contentsline {subsubsection}{\numberline {4.4.1.1}A\discretionary {-}{}{}N\discretionary {-}{}{}N\discretionary {-}{}{}I\discretionary {-}{}{}H\discretionary {-}{}{}I\discretionary {-}{}{}L\discretionary {-}{}{}A\discretionary {-}{}{}T\discretionary {-}{}{}I\discretionary {-}{}{}O\discretionary {-}{}{}N}{9}{subsubsection.4.4.1.1}
+\contentsline {subsubsection}{\numberline {4.4.1.2}D\discretionary {-}{}{}E\discretionary {-}{}{}A\discretionary {-}{}{}T\discretionary {-}{}{}H\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}C\discretionary {-}{}{}L\discretionary {-}{}{}O\discretionary {-}{}{}N\discretionary {-}{}{}E}{9}{subsubsection.4.4.1.2}
+\contentsline {subsubsection}{\numberline {4.4.1.3}I\discretionary {-}{}{}N\discretionary {-}{}{}Lget\discretionary {-}{}{}Position\discretionary {-}{}{}In\discretionary {-}{}{}List}{9}{subsubsection.4.4.1.3}
+\contentsline {subsubsection}{\numberline {4.4.1.4}I\discretionary {-}{}{}N\discretionary {-}{}{}Lpow2}{9}{subsubsection.4.4.1.4}
+\contentsline {subsubsection}{\numberline {4.4.1.5}main}{10}{subsubsection.4.4.1.5}
+\contentsline {subsubsection}{\numberline {4.4.1.6}projector\discretionary {-}{}{}Energy}{10}{subsubsection.4.4.1.6}
+\contentsline {subsubsection}{\numberline {4.4.1.7}S\discretionary {-}{}{}P\discretionary {-}{}{}A\discretionary {-}{}{}W\discretionary {-}{}{}N}{10}{subsubsection.4.4.1.7}
+\contentsline {subsubsection}{\numberline {4.4.1.8}total\discretionary {-}{}{}Walker\discretionary {-}{}{}Number}{10}{subsubsection.4.4.1.8}
+\contentsline {subsubsection}{\numberline {4.4.1.9}variable\discretionary {-}{}{}Shift}{10}{subsubsection.4.4.1.9}
+\contentsline {subsection}{\numberline {4.4.2}Variable Documentation}{10}{subsection.4.4.2}
+\contentsline {subsubsection}{\numberline {4.4.2.1}A\discretionary {-}{}{}Shift}{10}{subsubsection.4.4.2.1}
+\contentsline {subsubsection}{\numberline {4.4.2.2}delt}{10}{subsubsection.4.4.2.2}
+\contentsline {subsubsection}{\numberline {4.4.2.3}init\discretionary {-}{}{}Ref\discretionary {-}{}{}Walkers}{11}{subsubsection.4.4.2.3}
+\contentsline {subsubsection}{\numberline {4.4.2.4}I\discretionary {-}{}{}N\discretionary {-}{}{}Telectrons}{11}{subsubsection.4.4.2.4}
+\contentsline {subsubsection}{\numberline {4.4.2.5}Kc\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}C\discretionary {-}{}{}U\discretionary {-}{}{}T\discretionary {-}{}{}T\discretionary {-}{}{}O\discretionary {-}{}{}F\discretionary {-}{}{}F}{11}{subsubsection.4.4.2.5}
+\contentsline {subsubsection}{\numberline {4.4.2.6}num\discretionary {-}{}{}Electrons}{11}{subsubsection.4.4.2.6}
+\contentsline {subsubsection}{\numberline {4.4.2.7}num\discretionary {-}{}{}Steps}{11}{subsubsection.4.4.2.7}
+\contentsline {subsubsection}{\numberline {4.4.2.8}P\discretionary {-}{}{}I}{11}{subsubsection.4.4.2.8}
+\contentsline {subsubsection}{\numberline {4.4.2.9}pow2\discretionary {-}{}{}Array}{11}{subsubsection.4.4.2.9}
+\contentsline {subsubsection}{\numberline {4.4.2.10}rs}{11}{subsubsection.4.4.2.10}
+\contentsline {subsubsection}{\numberline {4.4.2.11}walker\discretionary {-}{}{}Critical}{11}{subsubsection.4.4.2.11}
+\contentsline {subsubsection}{\numberline {4.4.2.12}zeta}{11}{subsubsection.4.4.2.12}
+\contentsline {section}{\numberline {4.5}U\discretionary {-}{}{}E\discretionary {-}{}{}G\discretionary {-}{}{}Hamiltonian.\discretionary {-}{}{}C File Reference}{11}{section.4.5}
+\contentsline {subsection}{\numberline {4.5.1}Function Documentation}{12}{subsection.4.5.1}
+\contentsline {subsubsection}{\numberline {4.5.1.1}Di\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}H\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}Di}{12}{subsubsection.4.5.1.1}
+\contentsline {subsubsection}{\numberline {4.5.1.2}Di\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}H\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}Dj}{12}{subsubsection.4.5.1.2}
+\contentsline {subsubsection}{\numberline {4.5.1.3}excitation\discretionary {-}{}{}Alpha\discretionary {-}{}{}\_\discretionary {-}{}{}ia\discretionary {-}{}{}Beta\discretionary {-}{}{}\_\discretionary {-}{}{}jb}{12}{subsubsection.4.5.1.3}
+\contentsline {subsubsection}{\numberline {4.5.1.4}excitation\discretionary {-}{}{}Same\discretionary {-}{}{}Spinij\discretionary {-}{}{}\_\discretionary {-}{}{}ab}{13}{subsubsection.4.5.1.4}
+\contentsline {subsubsection}{\numberline {4.5.1.5}I\discretionary {-}{}{}N\discretionary {-}{}{}Ldecimal\discretionary {-}{}{}To\discretionary {-}{}{}Binary}{13}{subsubsection.4.5.1.5}

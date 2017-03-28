@@ -1,0 +1,107 @@
+\hypertarget{UEGHamiltonian_8C}{\section{/home/acc73/\-Documents/\-U\-E\-G\-\_\-fast\-\_\-\-F\-C\-I\-Q\-M\-C/\-U\-E\-G\-Hamiltonian.C File Reference}
+\label{UEGHamiltonian_8C}\index{/home/acc73/\-Documents/\-U\-E\-G\-\_\-fast\-\_\-\-F\-C\-I\-Q\-M\-C/\-U\-E\-G\-Hamiltonian.\-C@{/home/acc73/\-Documents/\-U\-E\-G\-\_\-fast\-\_\-\-F\-C\-I\-Q\-M\-C/\-U\-E\-G\-Hamiltonian.\-C}}
+}
+{\ttfamily \#include \char`\"{}U\-E\-G\-Hamiltonian.\-H\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{UEGHamiltonian_8C_ad349fcf2533ef69216553d20f96d6320}{I\-N\-Ldecimal\-To\-Binary} (long int \&decimal, std\-::string \&binary\-Num)
+\item 
+void \hyperlink{UEGHamiltonian_8C_ac49d093e43e654317ebc138e4ec744dd}{Di\-\_\-\-H\-\_\-\-Dj} (const double \&cell\-Length, double(\&K\-Esorted\-List)\mbox{[}O\-R\-B\-\_\-\-S\-I\-Z\-E\mbox{]}\mbox{[}3\mbox{]}, int \&i, int \&a, int \&b, bool \&ib\-Spin\-Different, double \&R\-E\-S\-U\-L\-T)
+\item 
+void \hyperlink{UEGHamiltonian_8C_a72450954a1e868acec0abb9b40eea196}{Di\-\_\-\-H\-\_\-\-Di} (const double \&cell\-Length, const int \&\hyperlink{UEG__MAIN__binarytest_8C_a613e167ad809e33c73b70a24822cc6f9}{num\-Electrons}, long int \&alpha\-Bin, long int \&beta\-Bin, double(\&K\-Elist)\mbox{[}O\-R\-B\-\_\-\-S\-I\-Z\-E\mbox{]}\mbox{[}3\mbox{]}, double \&R\-E\-S\-U\-L\-T)
+\item 
+void \hyperlink{UEGHamiltonian_8C_a0f083f849adf99409ad61ff7d9ab2dea}{excitation\-Alpha\-\_\-ia\-Beta\-\_\-jb} (int \&alpha\-\_\-i, int \&alpha\-\_\-a, int \&beta\-\_\-j, int \&beta\-\_\-b, const int \&\hyperlink{UEG__MAIN__binarytest_8C_a613e167ad809e33c73b70a24822cc6f9}{num\-Electrons}, const int \&num\-Orbitals, long int \&alpha\-Det\-Bin, long int \&beta\-Det\-Bin, double(\&K\-Esorted\-List)\mbox{[}O\-R\-B\-\_\-\-S\-I\-Z\-E\mbox{]}\mbox{[}3\mbox{]}, int \&sign)
+\item 
+void \hyperlink{UEGHamiltonian_8C_aa6447c7741a98dd5076411e98357c9d7}{excitation\-Same\-Spinij\-\_\-ab} (int \&spin1\-\_\-i, int \&spin1\-\_\-a, int \&spin1\-\_\-j, int \&spin1\-\_\-b, const int \&\hyperlink{UEG__MAIN__binarytest_8C_a613e167ad809e33c73b70a24822cc6f9}{num\-Electrons}, const int \&num\-Orbitals, long int \&spin1\-Det\-Bin, double(\&K\-Esorted\-List)\mbox{[}O\-R\-B\-\_\-\-S\-I\-Z\-E\mbox{]}\mbox{[}3\mbox{]}, int \&sign)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{UEGHamiltonian_8C_a72450954a1e868acec0abb9b40eea196}{\index{U\-E\-G\-Hamiltonian.\-C@{U\-E\-G\-Hamiltonian.\-C}!Di\-\_\-\-H\-\_\-\-Di@{Di\-\_\-\-H\-\_\-\-Di}}
+\index{Di\-\_\-\-H\-\_\-\-Di@{Di\-\_\-\-H\-\_\-\-Di}!UEGHamiltonian.C@{U\-E\-G\-Hamiltonian.\-C}}
+\subsubsection[{Di\-\_\-\-H\-\_\-\-Di}]{\setlength{\rightskip}{0pt plus 5cm}void Di\-\_\-\-H\-\_\-\-Di (
+\begin{DoxyParamCaption}
+\item[{const double \&}]{cell\-Length, }
+\item[{const int \&}]{num\-Electrons, }
+\item[{long int \&}]{alpha\-Bin, }
+\item[{long int \&}]{beta\-Bin, }
+\item[{double(\&)}]{K\-Elist\mbox{[}\-O\-R\-B\-\_\-\-S\-I\-Z\-E\mbox{]}\mbox{[}3\mbox{]}, }
+\item[{double \&}]{R\-E\-S\-U\-L\-T}
+\end{DoxyParamCaption}
+)}}\label{UEGHamiltonian_8C_a72450954a1e868acec0abb9b40eea196}
+This function calculates the diagonal matrix elements of the Hamiltonian, according to the following equation\-:
+
+\[ 2 \frac{\pi^2}{L^2} \sum_{i} k_{i}^{2} - \frac{1}{\pi L} \sum_{i} \sum_{i \neq j} \frac{1}{| K_i - k_j |^2} \] This is again equivalent to the Slater-\/\-Condon rules which give the double integral $ \langle ij||ij \rangle $. \hypertarget{UEGHamiltonian_8C_ac49d093e43e654317ebc138e4ec744dd}{\index{U\-E\-G\-Hamiltonian.\-C@{U\-E\-G\-Hamiltonian.\-C}!Di\-\_\-\-H\-\_\-\-Dj@{Di\-\_\-\-H\-\_\-\-Dj}}
+\index{Di\-\_\-\-H\-\_\-\-Dj@{Di\-\_\-\-H\-\_\-\-Dj}!UEGHamiltonian.C@{U\-E\-G\-Hamiltonian.\-C}}
+\subsubsection[{Di\-\_\-\-H\-\_\-\-Dj}]{\setlength{\rightskip}{0pt plus 5cm}void Di\-\_\-\-H\-\_\-\-Dj (
+\begin{DoxyParamCaption}
+\item[{const double \&}]{cell\-Length, }
+\item[{double(\&)}]{K\-Esorted\-List\mbox{[}\-O\-R\-B\-\_\-\-S\-I\-Z\-E\mbox{]}\mbox{[}3\mbox{]}, }
+\item[{int \&}]{i, }
+\item[{int \&}]{a, }
+\item[{int \&}]{b, }
+\item[{bool \&}]{ib\-Spin\-Different, }
+\item[{double \&}]{R\-E\-S\-U\-L\-T}
+\end{DoxyParamCaption}
+)}}\label{UEGHamiltonian_8C_ac49d093e43e654317ebc138e4ec744dd}
+This function calculates the O\-F\-F-\/diagonal matrix elements of the Hamiltonian, for double electronic excitations, using the simplifications of the Slater-\/\-Condon rules. It calculates the double electron integral $ \langle D_I | H | D_J \rangle = \langle ij||ab \rangle = \langle ij|ab \rangle - \langle ij|ba \rangle $, where the spin-\/orthogonality imposed upon the system mean that $ \langle ij|ba \rangle = 0 $ if orbital i and orbital b are of opposite spin. From the Determinant given by kpoints in det\-Klist\-: \char`\"{}i\char`\"{} is the index from which one (alpha spin) electron is excited into orbital index \char`\"{}a\char`\"{}. A second (beta spin) electron is chosen from a filled orbital, j, and is excited into the unfilled orbital index \char`\"{}b\char`\"{}. It is assumed that $ D_J $ has already been chosen as a coupled D\-O\-U\-B\-L\-E excitation of $ D_I $ such that C\-R\-Y\-S\-T\-A\-L M\-O\-M\-E\-N\-T\-U\-M (k) and S\-P\-I\-N are conserved.
+
+N\-B\-: Already imposed, prior to being passed to this function, is the following\-: $ i < j $, and $ a < b $, which aids in the calculation of the excitation permutations needed to give $ \langle D_I | H | D_J \rangle $ the correct sign. \hypertarget{UEGHamiltonian_8C_a0f083f849adf99409ad61ff7d9ab2dea}{\index{U\-E\-G\-Hamiltonian.\-C@{U\-E\-G\-Hamiltonian.\-C}!excitation\-Alpha\-\_\-ia\-Beta\-\_\-jb@{excitation\-Alpha\-\_\-ia\-Beta\-\_\-jb}}
+\index{excitation\-Alpha\-\_\-ia\-Beta\-\_\-jb@{excitation\-Alpha\-\_\-ia\-Beta\-\_\-jb}!UEGHamiltonian.C@{U\-E\-G\-Hamiltonian.\-C}}
+\subsubsection[{excitation\-Alpha\-\_\-ia\-Beta\-\_\-jb}]{\setlength{\rightskip}{0pt plus 5cm}void excitation\-Alpha\-\_\-ia\-Beta\-\_\-jb (
+\begin{DoxyParamCaption}
+\item[{int \&}]{alpha\-\_\-i, }
+\item[{int \&}]{alpha\-\_\-a, }
+\item[{int \&}]{beta\-\_\-j, }
+\item[{int \&}]{beta\-\_\-b, }
+\item[{const int \&}]{num\-Electrons, }
+\item[{const int \&}]{num\-Orbitals, }
+\item[{long int \&}]{alpha\-Det\-Bin, }
+\item[{long int \&}]{beta\-Det\-Bin, }
+\item[{double(\&)}]{K\-Esorted\-List\mbox{[}\-O\-R\-B\-\_\-\-S\-I\-Z\-E\mbox{]}\mbox{[}3\mbox{]}, }
+\item[{int \&}]{sign}
+\end{DoxyParamCaption}
+)}}\label{UEGHamiltonian_8C_a0f083f849adf99409ad61ff7d9ab2dea}
+
+
+ \subsubsection*{E\-X\-C\-I\-T\-A\-T\-I\-O\-N -\/ O\-P\-E\-R\-A\-T\-O\-R }
+
+i and a are A\-L\-P\-H\-A spin ; j and b are B\-E\-T\-A spin
+
+1) Pick a filled alpha obrital {\itshape R\-A\-N\-D\-O\-M\-L\-Y}, i
+
+2) choose an U\-Nfilled alpha determinant {\itshape R\-A\-N\-D\-O\-M\-L\-Y}, a ---$>$ record change in K values from i--$>$a, delk\-\_\-ia (for each n,m, and l)
+
+3) choose a filled beta orbital {\itshape R\-A\-N\-D\-O\-M\-L\-Y}, j
+
+4) Run through A\-L\-L unfilled beta orbitals, and record those which conserve K, given delk\-\_\-ia (i.\-e, given -\/delk\-\_\-ia) ---$>$ Of those which conserve K, choose an unfilled one at {\itshape R\-A\-N\-D\-O\-M}
+
+5) Hopefully, the excitation ij ---$>$ ab conserves K with 100\% gauruntee \hypertarget{UEGHamiltonian_8C_aa6447c7741a98dd5076411e98357c9d7}{\index{U\-E\-G\-Hamiltonian.\-C@{U\-E\-G\-Hamiltonian.\-C}!excitation\-Same\-Spinij\-\_\-ab@{excitation\-Same\-Spinij\-\_\-ab}}
+\index{excitation\-Same\-Spinij\-\_\-ab@{excitation\-Same\-Spinij\-\_\-ab}!UEGHamiltonian.C@{U\-E\-G\-Hamiltonian.\-C}}
+\subsubsection[{excitation\-Same\-Spinij\-\_\-ab}]{\setlength{\rightskip}{0pt plus 5cm}void excitation\-Same\-Spinij\-\_\-ab (
+\begin{DoxyParamCaption}
+\item[{int \&}]{spin1\-\_\-i, }
+\item[{int \&}]{spin1\-\_\-a, }
+\item[{int \&}]{spin1\-\_\-j, }
+\item[{int \&}]{spin1\-\_\-b, }
+\item[{const int \&}]{num\-Electrons, }
+\item[{const int \&}]{num\-Orbitals, }
+\item[{long int \&}]{spin1\-Det\-Bin, }
+\item[{double(\&)}]{K\-Esorted\-List\mbox{[}\-O\-R\-B\-\_\-\-S\-I\-Z\-E\mbox{]}\mbox{[}3\mbox{]}, }
+\item[{int \&}]{sign}
+\end{DoxyParamCaption}
+)}}\label{UEGHamiltonian_8C_aa6447c7741a98dd5076411e98357c9d7}
+
+
+ \subsubsection*{E\-X\-C\-I\-T\-A\-T\-I\-O\-N -\/ O\-P\-E\-R\-A\-T\-O\-R }
+
+i,j,a,\&b are A\-L\-L of the same spin (Either Alpha or Beta) \hypertarget{UEGHamiltonian_8C_ad349fcf2533ef69216553d20f96d6320}{\index{U\-E\-G\-Hamiltonian.\-C@{U\-E\-G\-Hamiltonian.\-C}!I\-N\-Ldecimal\-To\-Binary@{I\-N\-Ldecimal\-To\-Binary}}
+\index{I\-N\-Ldecimal\-To\-Binary@{I\-N\-Ldecimal\-To\-Binary}!UEGHamiltonian.C@{U\-E\-G\-Hamiltonian.\-C}}
+\subsubsection[{I\-N\-Ldecimal\-To\-Binary}]{\setlength{\rightskip}{0pt plus 5cm}void I\-N\-Ldecimal\-To\-Binary (
+\begin{DoxyParamCaption}
+\item[{long int \&}]{decimal, }
+\item[{std\-::string \&}]{binary\-Num}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{UEGHamiltonian_8C_ad349fcf2533ef69216553d20f96d6320}
+This inline function simply converts a base 10 integer (which represents the unique determinant) into its binary representation, but with type string. 

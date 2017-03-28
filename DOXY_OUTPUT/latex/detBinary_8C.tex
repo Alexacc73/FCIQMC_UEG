@@ -1,0 +1,105 @@
+\hypertarget{detBinary_8C}{\section{det\-Binary.\-C File Reference}
+\label{detBinary_8C}\index{det\-Binary.\-C@{det\-Binary.\-C}}
+}
+{\ttfamily \#include $<$iostream$>$}\\*
+{\ttfamily \#include $<$stdlib.\-h$>$}\\*
+{\ttfamily \#include $<$algorithm$>$}\\*
+{\ttfamily \#include $<$set$>$}\\*
+{\ttfamily \#include $<$map$>$}\\*
+{\ttfamily \#include $<$math.\-h$>$}\\*
+{\ttfamily \#include $<$time.\-h$>$}\\*
+{\ttfamily \#include $<$bitset$>$}\\*
+{\ttfamily \#include $<$boost/math/special\-\_\-functions/binomial.\-hpp$>$}\\*
+{\ttfamily \#include $<$cmath$>$}\\*
+{\ttfamily \#include $<$iomanip$>$}\\*
+{\ttfamily \#include $<$climits$>$}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\-::string \hyperlink{detBinary_8C_a49dff28819e0977cdccaeb0bd0594b08}{decimal\-To\-Binary} (long int decimal)
+\item 
+long int \hyperlink{detBinary_8C_a66f0443bdfa9a6df97f7b679f13ee82d}{binary\-To\-Decimal} (std\-::string binary\-String)
+\item 
+size\-\_\-t \hyperlink{detBinary_8C_abbaaa9a01b6be36fec4a4641ffef65cb}{one\-Bit\-Count} (size\-\_\-t \hyperlink{detBinary_8C_abe63e991a7bf5d666068b15c9064428d}{n})
+\item 
+constexpr std\-::uint64\-\_\-t \hyperlink{detBinary_8C_af1df0771f0fa88ba992c6e5fef7aadb9}{pow2} (std\-::uint64\-\_\-t i)
+\item 
+int \hyperlink{detBinary_8C_a840291bc02cba5474a4cb46a9b9566fe}{main} (void)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+double \hyperlink{detBinary_8C_abe63e991a7bf5d666068b15c9064428d}{n} = 19
+\item 
+double \hyperlink{detBinary_8C_a880a49112fedae68e714341a9a082fb6}{r} = 7
+\item 
+int \hyperlink{detBinary_8C_a321e0b13b94d7a5f1dcbb07cb9fc325e}{I\-N\-Tr} = \hyperlink{detBinary_8C_a880a49112fedae68e714341a9a082fb6}{r}
+\item 
+std\-::set$<$ std\-::pair$<$ long int, \\*
+long int $>$ $>$ \hyperlink{detBinary_8C_abb52eaa994bfb0dd4e03f9ea3a145f1e}{my\-Det}
+\item 
+std\-::set$<$ std\-::string $>$ \hyperlink{detBinary_8C_aab3e83510aa4019e3ec804ca9f491004}{mydet\-S\-T\-R}
+\item 
+std\-::set$<$ std\-::pair\\*
+$<$ std\-::bitset\\*
+$<$ 57 $>$, std\-::bitset$<$ 57 $>$ $>$ $>$ \hyperlink{detBinary_8C_a60ca3db1256f22188342eaf1658c6475}{my\-Det\-Bit}
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{detBinary_8C_a66f0443bdfa9a6df97f7b679f13ee82d}{\index{det\-Binary.\-C@{det\-Binary.\-C}!binary\-To\-Decimal@{binary\-To\-Decimal}}
+\index{binary\-To\-Decimal@{binary\-To\-Decimal}!detBinary.C@{det\-Binary.\-C}}
+\subsubsection[{binary\-To\-Decimal}]{\setlength{\rightskip}{0pt plus 5cm}long int binary\-To\-Decimal (
+\begin{DoxyParamCaption}
+\item[{std\-::string}]{binary\-String}
+\end{DoxyParamCaption}
+)}}\label{detBinary_8C_a66f0443bdfa9a6df97f7b679f13ee82d}
+\hypertarget{detBinary_8C_a49dff28819e0977cdccaeb0bd0594b08}{\index{det\-Binary.\-C@{det\-Binary.\-C}!decimal\-To\-Binary@{decimal\-To\-Binary}}
+\index{decimal\-To\-Binary@{decimal\-To\-Binary}!detBinary.C@{det\-Binary.\-C}}
+\subsubsection[{decimal\-To\-Binary}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string decimal\-To\-Binary (
+\begin{DoxyParamCaption}
+\item[{long int}]{decimal}
+\end{DoxyParamCaption}
+)}}\label{detBinary_8C_a49dff28819e0977cdccaeb0bd0594b08}
+\hypertarget{detBinary_8C_a840291bc02cba5474a4cb46a9b9566fe}{\index{det\-Binary.\-C@{det\-Binary.\-C}!main@{main}}
+\index{main@{main}!detBinary.C@{det\-Binary.\-C}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{detBinary_8C_a840291bc02cba5474a4cb46a9b9566fe}
+\hypertarget{detBinary_8C_abbaaa9a01b6be36fec4a4641ffef65cb}{\index{det\-Binary.\-C@{det\-Binary.\-C}!one\-Bit\-Count@{one\-Bit\-Count}}
+\index{one\-Bit\-Count@{one\-Bit\-Count}!detBinary.C@{det\-Binary.\-C}}
+\subsubsection[{one\-Bit\-Count}]{\setlength{\rightskip}{0pt plus 5cm}size\-\_\-t one\-Bit\-Count (
+\begin{DoxyParamCaption}
+\item[{size\-\_\-t}]{n}
+\end{DoxyParamCaption}
+)}}\label{detBinary_8C_abbaaa9a01b6be36fec4a4641ffef65cb}
+\hypertarget{detBinary_8C_af1df0771f0fa88ba992c6e5fef7aadb9}{\index{det\-Binary.\-C@{det\-Binary.\-C}!pow2@{pow2}}
+\index{pow2@{pow2}!detBinary.C@{det\-Binary.\-C}}
+\subsubsection[{pow2}]{\setlength{\rightskip}{0pt plus 5cm}constexpr std\-::uint64\-\_\-t pow2 (
+\begin{DoxyParamCaption}
+\item[{std\-::uint64\-\_\-t}]{i}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{detBinary_8C_af1df0771f0fa88ba992c6e5fef7aadb9}
+
+
+\subsection{Variable Documentation}
+\hypertarget{detBinary_8C_a321e0b13b94d7a5f1dcbb07cb9fc325e}{\index{det\-Binary.\-C@{det\-Binary.\-C}!I\-N\-Tr@{I\-N\-Tr}}
+\index{I\-N\-Tr@{I\-N\-Tr}!detBinary.C@{det\-Binary.\-C}}
+\subsubsection[{I\-N\-Tr}]{\setlength{\rightskip}{0pt plus 5cm}int I\-N\-Tr = {\bf r}}}\label{detBinary_8C_a321e0b13b94d7a5f1dcbb07cb9fc325e}
+\hypertarget{detBinary_8C_abb52eaa994bfb0dd4e03f9ea3a145f1e}{\index{det\-Binary.\-C@{det\-Binary.\-C}!my\-Det@{my\-Det}}
+\index{my\-Det@{my\-Det}!detBinary.C@{det\-Binary.\-C}}
+\subsubsection[{my\-Det}]{\setlength{\rightskip}{0pt plus 5cm}std\-::set$<$ std\-::pair$<$long int, long int$>$ $>$ my\-Det}}\label{detBinary_8C_abb52eaa994bfb0dd4e03f9ea3a145f1e}
+\hypertarget{detBinary_8C_a60ca3db1256f22188342eaf1658c6475}{\index{det\-Binary.\-C@{det\-Binary.\-C}!my\-Det\-Bit@{my\-Det\-Bit}}
+\index{my\-Det\-Bit@{my\-Det\-Bit}!detBinary.C@{det\-Binary.\-C}}
+\subsubsection[{my\-Det\-Bit}]{\setlength{\rightskip}{0pt plus 5cm}std\-::set$<$ std\-::pair$<$std\-::bitset$<$57$>$, std\-::bitset$<$57$>$ $>$ $>$ my\-Det\-Bit}}\label{detBinary_8C_a60ca3db1256f22188342eaf1658c6475}
+\hypertarget{detBinary_8C_aab3e83510aa4019e3ec804ca9f491004}{\index{det\-Binary.\-C@{det\-Binary.\-C}!mydet\-S\-T\-R@{mydet\-S\-T\-R}}
+\index{mydet\-S\-T\-R@{mydet\-S\-T\-R}!detBinary.C@{det\-Binary.\-C}}
+\subsubsection[{mydet\-S\-T\-R}]{\setlength{\rightskip}{0pt plus 5cm}std\-::set$<$ std\-::string $>$ mydet\-S\-T\-R}}\label{detBinary_8C_aab3e83510aa4019e3ec804ca9f491004}
+\hypertarget{detBinary_8C_abe63e991a7bf5d666068b15c9064428d}{\index{det\-Binary.\-C@{det\-Binary.\-C}!n@{n}}
+\index{n@{n}!detBinary.C@{det\-Binary.\-C}}
+\subsubsection[{n}]{\setlength{\rightskip}{0pt plus 5cm}double n = 19}}\label{detBinary_8C_abe63e991a7bf5d666068b15c9064428d}
+\hypertarget{detBinary_8C_a880a49112fedae68e714341a9a082fb6}{\index{det\-Binary.\-C@{det\-Binary.\-C}!r@{r}}
+\index{r@{r}!detBinary.C@{det\-Binary.\-C}}
+\subsubsection[{r}]{\setlength{\rightskip}{0pt plus 5cm}double r = 7}}\label{detBinary_8C_a880a49112fedae68e714341a9a082fb6}

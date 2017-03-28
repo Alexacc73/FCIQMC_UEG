@@ -29,3 +29,7 @@
 \form#28:$ D_I $
 \form#29:$ \langle ij||ij \rangle $
 \form#30:\[ 2 \frac{\pi^2}{L^2} \sum_{i} k_{i}^{2} - \frac{1}{\pi L} \sum_{i} \sum_{i \neq j} \frac{1}{| K_i - k_j |^2} \]
+\form#31:\[ E_{proj} = \sum_{J \neq 0} \Big \langle D_J | H | D_0 \Big \rangle \frac{N_J (\tau)}{N_0 (\tau)} \]
+\form#32:$ i < j $
+\form#33:$ a < b $
+\form#34:$ \langle D_I | H | D_J \rangle $

@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['initrefwalkers',['initRefWalkers',['../UEG__MAIN__binarytest_8C.html#a5481ef8ba617908ce12828cc4a8c45a3',1,'UEG_MAIN_binarytest.C']]],
-  ['intelectrons',['INTelectrons',['../UEG__MAIN__binarytest_8C.html#ace3e2699d268bc86fda1a7a41270c49e',1,'UEG_MAIN_binarytest.C']]]
+  ['fil',['fil',['../namespaceMEAN__SHIFT.html#a8d3baad9fa0bb397ed36b32af03a996c',1,'MEAN_SHIFT']]],
+  ['file_5fshiftplot',['FILE_shiftPlot',['../UEG__MAIN__binarytest_8C.html#a8947574152f3a6b27e38b1f5ea8f61de',1,'UEG_MAIN_binarytest.C']]],
+  ['file_5fshoulderplot',['FILE_shoulderPlot',['../UEG__MAIN__binarytest_8C.html#a707c8ad6d9aee200d8624eae87e2299f',1,'UEG_MAIN_binarytest.C']]]
 ];

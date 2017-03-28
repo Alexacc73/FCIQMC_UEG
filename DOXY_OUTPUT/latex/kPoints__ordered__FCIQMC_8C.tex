@@ -1,0 +1,162 @@
+\hypertarget{kPoints__ordered__FCIQMC_8C}{\section{k\-Points\-\_\-ordered\-\_\-\-F\-C\-I\-Q\-M\-C.\-C File Reference}
+\label{kPoints__ordered__FCIQMC_8C}\index{k\-Points\-\_\-ordered\-\_\-\-F\-C\-I\-Q\-M\-C.\-C@{k\-Points\-\_\-ordered\-\_\-\-F\-C\-I\-Q\-M\-C.\-C}}
+}
+{\ttfamily \#include $<$iostream$>$}\\*
+{\ttfamily \#include $<$stdlib.\-h$>$}\\*
+{\ttfamily \#include $<$algorithm$>$}\\*
+{\ttfamily \#include $<$vector$>$}\\*
+{\ttfamily \#include $<$set$>$}\\*
+{\ttfamily \#include $<$math.\-h$>$}\\*
+{\ttfamily \#include $<$time.\-h$>$}\\*
+{\ttfamily \#include $<$bitset$>$}\\*
+{\ttfamily \#include $<$boost/math/special\-\_\-functions/binomial.\-hpp$>$}\\*
+{\ttfamily \#include $<$cmath$>$}\\*
+{\ttfamily \#include $<$iomanip$>$}\\*
+{\ttfamily \#include $<$omp.\-h$>$}\\*
+{\ttfamily \#include $<$fstream$>$}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\-::string \hyperlink{kPoints__ordered__FCIQMC_8C_ad90cfa61d31ce5c25047ff4ba86637f1}{decimal\-To\-Binary} (double decimal, const int B\-I\-T\-S\-I\-Z\-E)
+\item 
+double \hyperlink{kPoints__ordered__FCIQMC_8C_a154b8630a86d66e5317e3cc14e083e71}{binary\-To\-Decimal} (std\-::string binary\-String, const int B\-I\-T\-S\-I\-Z\-E)
+\item 
+size\-\_\-t \hyperlink{kPoints__ordered__FCIQMC_8C_abbaaa9a01b6be36fec4a4641ffef65cb}{one\-Bit\-Count} (size\-\_\-t n)
+\item 
+void \hyperlink{kPoints__ordered__FCIQMC_8C_a2feed44d61efa16ddf5d8dbaca3d9bb6}{create\-Plane\-Wave\-Orbitals} (double k\-Points\mbox{[}$\,$\mbox{]}\mbox{[}3\mbox{]}, const double \hyperlink{kPoints__ordered__FCIQMC_8C_a3617ed292f6cccea83811369c46ca12a}{max\-K}, int \&num\-Spin\-Orbitals, bool include\-Fullmax\-K)
+\item 
+void \hyperlink{kPoints__ordered__FCIQMC_8C_a4e9e2e31b98f67d1f318dff5c1119ca6}{k\-Points\-Energy\-Sort} (double k\-Points\mbox{[}$\,$\mbox{]}\mbox{[}3\mbox{]}, double orderedk\-Points\mbox{[}$\,$\mbox{]}\mbox{[}3\mbox{]}, int k\-Point\-Length)
+\item 
+const double \hyperlink{kPoints__ordered__FCIQMC_8C_ac6dd2d721900579d23395c49cd3a6ed5}{get\-Cell\-Length} (const double cell\-Volume)
+\item 
+double \hyperlink{kPoints__ordered__FCIQMC_8C_a4163f9da7388c6cb20df40a344434265}{hartree\-Fock\-Energy} (double orderedk\-Points\mbox{[}$\,$\mbox{]}\mbox{[}3\mbox{]}, const double \hyperlink{UEG__MAIN__binarytest_8C_a613e167ad809e33c73b70a24822cc6f9}{num\-Electrons}, double cell\-Length, const double cell\-Volume)
+\item 
+void \hyperlink{kPoints__ordered__FCIQMC_8C_a98a978eba3037c271060ce2592b5776d}{P\-R\-I\-N\-T\-O\-R\-B\-I\-T\-A\-L\-S} (int orbitals, double klist\mbox{[}$\,$\mbox{]}\mbox{[}3\mbox{]})
+\item 
+double \hyperlink{kPoints__ordered__FCIQMC_8C_a397170dcd4b82a5e2dffd639b82b7eb0}{Di\-\_\-\-H\-\_\-\-Di} ()
+\item 
+double \hyperlink{kPoints__ordered__FCIQMC_8C_a4081aba46bc28f7e0bf16c262ebb9cc2}{Di\-\_\-\-H\-\_\-\-Dj} (double cell\-Length, double klist\mbox{[}$\,$\mbox{]}\mbox{[}3\mbox{]}, int i, int a, int b)
+\item 
+int \hyperlink{kPoints__ordered__FCIQMC_8C_a840291bc02cba5474a4cb46a9b9566fe}{main} (void)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const double \hyperlink{kPoints__ordered__FCIQMC_8C_a952eac791b596a61bba0a133a3bb439f}{P\-I} = 3.\-141592653589793
+\item 
+const double \hyperlink{kPoints__ordered__FCIQMC_8C_a363ad74e3d4570cd6bfaa4622e0af0bd}{rs} = 1.\-0
+\item 
+const double \hyperlink{kPoints__ordered__FCIQMC_8C_a613e167ad809e33c73b70a24822cc6f9}{num\-Electrons} = 14
+\item 
+const double \hyperlink{kPoints__ordered__FCIQMC_8C_a3617ed292f6cccea83811369c46ca12a}{max\-K} = 1
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{kPoints__ordered__FCIQMC_8C_a154b8630a86d66e5317e3cc14e083e71}{\index{k\-Points\-\_\-ordered\-\_\-\-F\-C\-I\-Q\-M\-C.\-C@{k\-Points\-\_\-ordered\-\_\-\-F\-C\-I\-Q\-M\-C.\-C}!binary\-To\-Decimal@{binary\-To\-Decimal}}
+\index{binary\-To\-Decimal@{binary\-To\-Decimal}!kPoints_ordered_FCIQMC.C@{k\-Points\-\_\-ordered\-\_\-\-F\-C\-I\-Q\-M\-C.\-C}}
+\subsubsection[{binary\-To\-Decimal}]{\setlength{\rightskip}{0pt plus 5cm}double binary\-To\-Decimal (
+\begin{DoxyParamCaption}
+\item[{std\-::string}]{binary\-String, }
+\item[{const int}]{B\-I\-T\-S\-I\-Z\-E}
+\end{DoxyParamCaption}
+)}}\label{kPoints__ordered__FCIQMC_8C_a154b8630a86d66e5317e3cc14e083e71}
+\hypertarget{kPoints__ordered__FCIQMC_8C_a2feed44d61efa16ddf5d8dbaca3d9bb6}{\index{k\-Points\-\_\-ordered\-\_\-\-F\-C\-I\-Q\-M\-C.\-C@{k\-Points\-\_\-ordered\-\_\-\-F\-C\-I\-Q\-M\-C.\-C}!create\-Plane\-Wave\-Orbitals@{create\-Plane\-Wave\-Orbitals}}
+\index{create\-Plane\-Wave\-Orbitals@{create\-Plane\-Wave\-Orbitals}!kPoints_ordered_FCIQMC.C@{k\-Points\-\_\-ordered\-\_\-\-F\-C\-I\-Q\-M\-C.\-C}}
+\subsubsection[{create\-Plane\-Wave\-Orbitals}]{\setlength{\rightskip}{0pt plus 5cm}void create\-Plane\-Wave\-Orbitals (
+\begin{DoxyParamCaption}
+\item[{double}]{k\-Points\mbox{[}$\,$\mbox{]}\mbox{[}3\mbox{]}, }
+\item[{const double}]{max\-K, }
+\item[{int \&}]{num\-Spin\-Orbitals, }
+\item[{bool}]{include\-Fullmax\-K}
+\end{DoxyParamCaption}
+)}}\label{kPoints__ordered__FCIQMC_8C_a2feed44d61efa16ddf5d8dbaca3d9bb6}
+\hypertarget{kPoints__ordered__FCIQMC_8C_ad90cfa61d31ce5c25047ff4ba86637f1}{\index{k\-Points\-\_\-ordered\-\_\-\-F\-C\-I\-Q\-M\-C.\-C@{k\-Points\-\_\-ordered\-\_\-\-F\-C\-I\-Q\-M\-C.\-C}!decimal\-To\-Binary@{decimal\-To\-Binary}}
+\index{decimal\-To\-Binary@{decimal\-To\-Binary}!kPoints_ordered_FCIQMC.C@{k\-Points\-\_\-ordered\-\_\-\-F\-C\-I\-Q\-M\-C.\-C}}
+\subsubsection[{decimal\-To\-Binary}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string decimal\-To\-Binary (
+\begin{DoxyParamCaption}
+\item[{double}]{decimal, }
+\item[{const int}]{B\-I\-T\-S\-I\-Z\-E}
+\end{DoxyParamCaption}
+)}}\label{kPoints__ordered__FCIQMC_8C_ad90cfa61d31ce5c25047ff4ba86637f1}
+\hypertarget{kPoints__ordered__FCIQMC_8C_a397170dcd4b82a5e2dffd639b82b7eb0}{\index{k\-Points\-\_\-ordered\-\_\-\-F\-C\-I\-Q\-M\-C.\-C@{k\-Points\-\_\-ordered\-\_\-\-F\-C\-I\-Q\-M\-C.\-C}!Di\-\_\-\-H\-\_\-\-Di@{Di\-\_\-\-H\-\_\-\-Di}}
+\index{Di\-\_\-\-H\-\_\-\-Di@{Di\-\_\-\-H\-\_\-\-Di}!kPoints_ordered_FCIQMC.C@{k\-Points\-\_\-ordered\-\_\-\-F\-C\-I\-Q\-M\-C.\-C}}
+\subsubsection[{Di\-\_\-\-H\-\_\-\-Di}]{\setlength{\rightskip}{0pt plus 5cm}double Di\-\_\-\-H\-\_\-\-Di (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{kPoints__ordered__FCIQMC_8C_a397170dcd4b82a5e2dffd639b82b7eb0}
+\hypertarget{kPoints__ordered__FCIQMC_8C_a4081aba46bc28f7e0bf16c262ebb9cc2}{\index{k\-Points\-\_\-ordered\-\_\-\-F\-C\-I\-Q\-M\-C.\-C@{k\-Points\-\_\-ordered\-\_\-\-F\-C\-I\-Q\-M\-C.\-C}!Di\-\_\-\-H\-\_\-\-Dj@{Di\-\_\-\-H\-\_\-\-Dj}}
+\index{Di\-\_\-\-H\-\_\-\-Dj@{Di\-\_\-\-H\-\_\-\-Dj}!kPoints_ordered_FCIQMC.C@{k\-Points\-\_\-ordered\-\_\-\-F\-C\-I\-Q\-M\-C.\-C}}
+\subsubsection[{Di\-\_\-\-H\-\_\-\-Dj}]{\setlength{\rightskip}{0pt plus 5cm}double Di\-\_\-\-H\-\_\-\-Dj (
+\begin{DoxyParamCaption}
+\item[{double}]{cell\-Length, }
+\item[{double}]{klist\mbox{[}$\,$\mbox{]}\mbox{[}3\mbox{]}, }
+\item[{int}]{i, }
+\item[{int}]{a, }
+\item[{int}]{b}
+\end{DoxyParamCaption}
+)}}\label{kPoints__ordered__FCIQMC_8C_a4081aba46bc28f7e0bf16c262ebb9cc2}
+\hypertarget{kPoints__ordered__FCIQMC_8C_ac6dd2d721900579d23395c49cd3a6ed5}{\index{k\-Points\-\_\-ordered\-\_\-\-F\-C\-I\-Q\-M\-C.\-C@{k\-Points\-\_\-ordered\-\_\-\-F\-C\-I\-Q\-M\-C.\-C}!get\-Cell\-Length@{get\-Cell\-Length}}
+\index{get\-Cell\-Length@{get\-Cell\-Length}!kPoints_ordered_FCIQMC.C@{k\-Points\-\_\-ordered\-\_\-\-F\-C\-I\-Q\-M\-C.\-C}}
+\subsubsection[{get\-Cell\-Length}]{\setlength{\rightskip}{0pt plus 5cm}const double get\-Cell\-Length (
+\begin{DoxyParamCaption}
+\item[{const double}]{cell\-Volume}
+\end{DoxyParamCaption}
+)}}\label{kPoints__ordered__FCIQMC_8C_ac6dd2d721900579d23395c49cd3a6ed5}
+\hypertarget{kPoints__ordered__FCIQMC_8C_a4163f9da7388c6cb20df40a344434265}{\index{k\-Points\-\_\-ordered\-\_\-\-F\-C\-I\-Q\-M\-C.\-C@{k\-Points\-\_\-ordered\-\_\-\-F\-C\-I\-Q\-M\-C.\-C}!hartree\-Fock\-Energy@{hartree\-Fock\-Energy}}
+\index{hartree\-Fock\-Energy@{hartree\-Fock\-Energy}!kPoints_ordered_FCIQMC.C@{k\-Points\-\_\-ordered\-\_\-\-F\-C\-I\-Q\-M\-C.\-C}}
+\subsubsection[{hartree\-Fock\-Energy}]{\setlength{\rightskip}{0pt plus 5cm}double hartree\-Fock\-Energy (
+\begin{DoxyParamCaption}
+\item[{double}]{orderedk\-Points\mbox{[}$\,$\mbox{]}\mbox{[}3\mbox{]}, }
+\item[{const double}]{num\-Electrons, }
+\item[{double}]{cell\-Length, }
+\item[{const double}]{cell\-Volume}
+\end{DoxyParamCaption}
+)}}\label{kPoints__ordered__FCIQMC_8C_a4163f9da7388c6cb20df40a344434265}
+\hypertarget{kPoints__ordered__FCIQMC_8C_a4e9e2e31b98f67d1f318dff5c1119ca6}{\index{k\-Points\-\_\-ordered\-\_\-\-F\-C\-I\-Q\-M\-C.\-C@{k\-Points\-\_\-ordered\-\_\-\-F\-C\-I\-Q\-M\-C.\-C}!k\-Points\-Energy\-Sort@{k\-Points\-Energy\-Sort}}
+\index{k\-Points\-Energy\-Sort@{k\-Points\-Energy\-Sort}!kPoints_ordered_FCIQMC.C@{k\-Points\-\_\-ordered\-\_\-\-F\-C\-I\-Q\-M\-C.\-C}}
+\subsubsection[{k\-Points\-Energy\-Sort}]{\setlength{\rightskip}{0pt plus 5cm}void k\-Points\-Energy\-Sort (
+\begin{DoxyParamCaption}
+\item[{double}]{k\-Points\mbox{[}$\,$\mbox{]}\mbox{[}3\mbox{]}, }
+\item[{double}]{orderedk\-Points\mbox{[}$\,$\mbox{]}\mbox{[}3\mbox{]}, }
+\item[{int}]{k\-Point\-Length}
+\end{DoxyParamCaption}
+)}}\label{kPoints__ordered__FCIQMC_8C_a4e9e2e31b98f67d1f318dff5c1119ca6}
+\hypertarget{kPoints__ordered__FCIQMC_8C_a840291bc02cba5474a4cb46a9b9566fe}{\index{k\-Points\-\_\-ordered\-\_\-\-F\-C\-I\-Q\-M\-C.\-C@{k\-Points\-\_\-ordered\-\_\-\-F\-C\-I\-Q\-M\-C.\-C}!main@{main}}
+\index{main@{main}!kPoints_ordered_FCIQMC.C@{k\-Points\-\_\-ordered\-\_\-\-F\-C\-I\-Q\-M\-C.\-C}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{kPoints__ordered__FCIQMC_8C_a840291bc02cba5474a4cb46a9b9566fe}
+\hypertarget{kPoints__ordered__FCIQMC_8C_abbaaa9a01b6be36fec4a4641ffef65cb}{\index{k\-Points\-\_\-ordered\-\_\-\-F\-C\-I\-Q\-M\-C.\-C@{k\-Points\-\_\-ordered\-\_\-\-F\-C\-I\-Q\-M\-C.\-C}!one\-Bit\-Count@{one\-Bit\-Count}}
+\index{one\-Bit\-Count@{one\-Bit\-Count}!kPoints_ordered_FCIQMC.C@{k\-Points\-\_\-ordered\-\_\-\-F\-C\-I\-Q\-M\-C.\-C}}
+\subsubsection[{one\-Bit\-Count}]{\setlength{\rightskip}{0pt plus 5cm}size\-\_\-t one\-Bit\-Count (
+\begin{DoxyParamCaption}
+\item[{size\-\_\-t}]{n}
+\end{DoxyParamCaption}
+)}}\label{kPoints__ordered__FCIQMC_8C_abbaaa9a01b6be36fec4a4641ffef65cb}
+\hypertarget{kPoints__ordered__FCIQMC_8C_a98a978eba3037c271060ce2592b5776d}{\index{k\-Points\-\_\-ordered\-\_\-\-F\-C\-I\-Q\-M\-C.\-C@{k\-Points\-\_\-ordered\-\_\-\-F\-C\-I\-Q\-M\-C.\-C}!P\-R\-I\-N\-T\-O\-R\-B\-I\-T\-A\-L\-S@{P\-R\-I\-N\-T\-O\-R\-B\-I\-T\-A\-L\-S}}
+\index{P\-R\-I\-N\-T\-O\-R\-B\-I\-T\-A\-L\-S@{P\-R\-I\-N\-T\-O\-R\-B\-I\-T\-A\-L\-S}!kPoints_ordered_FCIQMC.C@{k\-Points\-\_\-ordered\-\_\-\-F\-C\-I\-Q\-M\-C.\-C}}
+\subsubsection[{P\-R\-I\-N\-T\-O\-R\-B\-I\-T\-A\-L\-S}]{\setlength{\rightskip}{0pt plus 5cm}void P\-R\-I\-N\-T\-O\-R\-B\-I\-T\-A\-L\-S (
+\begin{DoxyParamCaption}
+\item[{int}]{orbitals, }
+\item[{double}]{klist\mbox{[}$\,$\mbox{]}\mbox{[}3\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{kPoints__ordered__FCIQMC_8C_a98a978eba3037c271060ce2592b5776d}
+
+
+\subsection{Variable Documentation}
+\hypertarget{kPoints__ordered__FCIQMC_8C_a3617ed292f6cccea83811369c46ca12a}{\index{k\-Points\-\_\-ordered\-\_\-\-F\-C\-I\-Q\-M\-C.\-C@{k\-Points\-\_\-ordered\-\_\-\-F\-C\-I\-Q\-M\-C.\-C}!max\-K@{max\-K}}
+\index{max\-K@{max\-K}!kPoints_ordered_FCIQMC.C@{k\-Points\-\_\-ordered\-\_\-\-F\-C\-I\-Q\-M\-C.\-C}}
+\subsubsection[{max\-K}]{\setlength{\rightskip}{0pt plus 5cm}const double max\-K = 1}}\label{kPoints__ordered__FCIQMC_8C_a3617ed292f6cccea83811369c46ca12a}
+\hypertarget{kPoints__ordered__FCIQMC_8C_a613e167ad809e33c73b70a24822cc6f9}{\index{k\-Points\-\_\-ordered\-\_\-\-F\-C\-I\-Q\-M\-C.\-C@{k\-Points\-\_\-ordered\-\_\-\-F\-C\-I\-Q\-M\-C.\-C}!num\-Electrons@{num\-Electrons}}
+\index{num\-Electrons@{num\-Electrons}!kPoints_ordered_FCIQMC.C@{k\-Points\-\_\-ordered\-\_\-\-F\-C\-I\-Q\-M\-C.\-C}}
+\subsubsection[{num\-Electrons}]{\setlength{\rightskip}{0pt plus 5cm}const double num\-Electrons = 14}}\label{kPoints__ordered__FCIQMC_8C_a613e167ad809e33c73b70a24822cc6f9}
+\hypertarget{kPoints__ordered__FCIQMC_8C_a952eac791b596a61bba0a133a3bb439f}{\index{k\-Points\-\_\-ordered\-\_\-\-F\-C\-I\-Q\-M\-C.\-C@{k\-Points\-\_\-ordered\-\_\-\-F\-C\-I\-Q\-M\-C.\-C}!P\-I@{P\-I}}
+\index{P\-I@{P\-I}!kPoints_ordered_FCIQMC.C@{k\-Points\-\_\-ordered\-\_\-\-F\-C\-I\-Q\-M\-C.\-C}}
+\subsubsection[{P\-I}]{\setlength{\rightskip}{0pt plus 5cm}const double P\-I = 3.\-141592653589793}}\label{kPoints__ordered__FCIQMC_8C_a952eac791b596a61bba0a133a3bb439f}
+\hypertarget{kPoints__ordered__FCIQMC_8C_a363ad74e3d4570cd6bfaa4622e0af0bd}{\index{k\-Points\-\_\-ordered\-\_\-\-F\-C\-I\-Q\-M\-C.\-C@{k\-Points\-\_\-ordered\-\_\-\-F\-C\-I\-Q\-M\-C.\-C}!rs@{rs}}
+\index{rs@{rs}!kPoints_ordered_FCIQMC.C@{k\-Points\-\_\-ordered\-\_\-\-F\-C\-I\-Q\-M\-C.\-C}}
+\subsubsection[{rs}]{\setlength{\rightskip}{0pt plus 5cm}const double rs = 1.\-0}}\label{kPoints__ordered__FCIQMC_8C_a363ad74e3d4570cd6bfaa4622e0af0bd}

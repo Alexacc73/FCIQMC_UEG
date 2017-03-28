@@ -8,19 +8,21 @@
 var indexSectionsWithContent =
 {
   0: "abcdefgikmnoprstuvwz",
-  1: "bpru",
-  2: "abcdegikmopstv",
-  3: "adiknprwz",
-  4: "f"
+  1: "m",
+  2: "bmpru",
+  3: "abcdegikmopstv",
+  4: "adfikmnprswz",
+  5: "f"
 };
 
 var indexSectionNames =
 {
   0: "all",
-  1: "files",
-  2: "functions",
-  3: "variables",
-  4: "pages"
+  1: "namespaces",
+  2: "files",
+  3: "functions",
+  4: "variables",
+  5: "pages"
 };
 
 function convertToId(search)

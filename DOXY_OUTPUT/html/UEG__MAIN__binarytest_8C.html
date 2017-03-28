@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.6"/>
-<title>FCIQMC Algorithm for the UEG: UEG_MAIN_binarytest.C File Reference</title>
+<title>FCIQMC Algorithm for the UEG: /home/acc73/Documents/UEG_fast_FCIQMC/UEG_MAIN_binarytest.C File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -39,6 +39,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -69,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -78,6 +79,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_fb4fe24d05e472879dea4b4af8611fe8.html">UEG_fast_FCIQMC</a></li>  </ul>
+</div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
@@ -87,8 +92,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">UEG_MAIN_binarytest.C File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;binaryManip.H&quot;</code><br/>
-<code>#include &quot;planeWaves.H&quot;</code><br/>
+<div class="textblock"><code>#include &quot;planeWaves.H&quot;</code><br/>
 <code>#include &quot;UEGHamiltonian.H&quot;</code><br/>
 <code>#include &lt;fstream&gt;</code><br/>
 <code>#include &lt;time.h&gt;</code><br/>
@@ -99,20 +103,30 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 Functions</h2></td></tr>
 <tr class="memitem:acc4e7d0bf8c76cb8b426703dc7115cdc"><td class="memItemLeft" align="right" valign="top">constexpr std::uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="UEG__MAIN__binarytest_8C.html#acc4e7d0bf8c76cb8b426703dc7115cdc">INLpow2</a> (std::uint64_t x)</td></tr>
 <tr class="separator:acc4e7d0bf8c76cb8b426703dc7115cdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0d3433e362b073bc05067375aa6b521a"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="UEG__MAIN__binarytest_8C.html#a0d3433e362b073bc05067375aa6b521a">INLgetPositionInList</a> (std::pair&lt; long int, long int &gt; &amp;uniqueDet, std::vector&lt; long int &gt; &amp;alphaDetList, std::vector&lt; long int &gt; &amp;betaDetList)</td></tr>
-<tr class="separator:a0d3433e362b073bc05067375aa6b521a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8fc76e9bc36b9fb87b8c288f8888073c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="UEG__MAIN__binarytest_8C.html#a8fc76e9bc36b9fb87b8c288f8888073c">SPAWN</a> (const double cellLength, std::vector&lt; int &gt; &amp;trueWalkerList, std::vector&lt; int &gt; &amp;posWalkerList, std::vector&lt; int &gt; &amp;negWalkerList, double(&amp;KEsortedList)[ORB_SIZE][3], std::set&lt; std::pair&lt; long int, long int &gt; &gt; &amp;uniqueDetSet, std::pair&lt; std::set&lt; std::pair&lt; long int, long int &gt; &gt;::iterator, bool &gt; &amp;result, std::vector&lt; long int &gt; &amp;alphaDets, std::vector&lt; long int &gt; &amp;betaDets)</td></tr>
-<tr class="separator:a8fc76e9bc36b9fb87b8c288f8888073c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a49e83ca6bb3da729c527ddf6012aa98f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="UEG__MAIN__binarytest_8C.html#a49e83ca6bb3da729c527ddf6012aa98f">DEATH_CLONE</a> (const double cellLength, std::vector&lt; int &gt; &amp;trueWalkerList, double(&amp;KEsortedList)[ORB_SIZE][3], double &amp;SHIFT, std::vector&lt; long int &gt; &amp;alphaDets, std::vector&lt; long int &gt; &amp;betaDets, const double &amp;HFEnergy)</td></tr>
-<tr class="separator:a49e83ca6bb3da729c527ddf6012aa98f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a622a9bfc71046778049dda8b8d82b829"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="UEG__MAIN__binarytest_8C.html#a622a9bfc71046778049dda8b8d82b829">INLgetPositionInList</a> (std::pair&lt; long int, long int &gt; &amp;uniqueDet, std::vector&lt; long int &gt; &amp;alphaDetList, std::vector&lt; long int &gt; &amp;betaDetList)</td></tr>
+<tr class="separator:a622a9bfc71046778049dda8b8d82b829"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a202c81ee7e30a4a9266c287caad49b02"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="UEG__MAIN__binarytest_8C.html#a202c81ee7e30a4a9266c287caad49b02">oneBitCount</a> (long int n)</td></tr>
+<tr class="separator:a202c81ee7e30a4a9266c287caad49b02"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad349fcf2533ef69216553d20f96d6320"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="UEG__MAIN__binarytest_8C.html#ad349fcf2533ef69216553d20f96d6320">INLdecimalToBinary</a> (long int &amp;decimal, std::string &amp;binaryNum)</td></tr>
+<tr class="separator:ad349fcf2533ef69216553d20f96d6320"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34236e8d8d9c172c2a791f4e5f8c7e31"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="UEG__MAIN__binarytest_8C.html#a34236e8d8d9c172c2a791f4e5f8c7e31">INLbinaryToDecimal</a> (std::string &amp;binaryString, long int &amp;decimal)</td></tr>
+<tr class="separator:a34236e8d8d9c172c2a791f4e5f8c7e31"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc1ce2a3e5f999076de789546b8e277b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="UEG__MAIN__binarytest_8C.html#acc1ce2a3e5f999076de789546b8e277b">INLgetHijSign</a> (int orb_i, int orb_j, int orb_a, int orb_b)</td></tr>
+<tr class="separator:acc1ce2a3e5f999076de789546b8e277b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae96d80bb5e115ea1aec37f72f2ac4979"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="UEG__MAIN__binarytest_8C.html#ae96d80bb5e115ea1aec37f72f2ac4979">INLgetHijSignAB</a> (int orb_i, int orb_j, int orb_a, int orb_b)</td></tr>
+<tr class="separator:ae96d80bb5e115ea1aec37f72f2ac4979"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67cbe483fa671d09ebdf32a4e4fe6161"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="UEG__MAIN__binarytest_8C.html#a67cbe483fa671d09ebdf32a4e4fe6161">SPAWN</a> (const double &amp;cellLength, std::vector&lt; int &gt; &amp;trueWalkerList, std::vector&lt; int &gt; &amp;posWalkerList, std::vector&lt; int &gt; &amp;negWalkerList, double(&amp;KEsortedList)[ORB_SIZE][3], std::set&lt; std::pair&lt; long int, long int &gt; &gt; &amp;uniqueDetSet, std::pair&lt; std::set&lt; std::pair&lt; long int, long int &gt; &gt;::iterator, bool &gt; &amp;result, std::vector&lt; long int &gt; &amp;alphaDets, std::vector&lt; long int &gt; &amp;betaDets)</td></tr>
+<tr class="separator:a67cbe483fa671d09ebdf32a4e4fe6161"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa45cfd4de92450ce64a165b519966a3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="UEG__MAIN__binarytest_8C.html#aaa45cfd4de92450ce64a165b519966a3">DEATH_CLONE</a> (const double &amp;cellLength, std::vector&lt; int &gt; &amp;trueWalkerList, double(&amp;KEsortedList)[ORB_SIZE][3], double &amp;SHIFT, std::vector&lt; long int &gt; &amp;alphaDets, std::vector&lt; long int &gt; &amp;betaDets, const double &amp;HFEnergy)</td></tr>
+<tr class="separator:aaa45cfd4de92450ce64a165b519966a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a87f327cb0a53f992caea1d8bee3816d8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="UEG__MAIN__binarytest_8C.html#a87f327cb0a53f992caea1d8bee3816d8">ANNIHILATION</a> (int &amp;step, std::vector&lt; int &gt; &amp;trueWalkerList, std::vector&lt; int &gt; &amp;posWalkerList, std::vector&lt; int &gt; &amp;negWalkerList, std::set&lt; std::pair&lt; long int, long int &gt; &gt; &amp;uniqueDeterminantSet, std::vector&lt; long int &gt; &amp;alphaDetsBinary, std::vector&lt; long int &gt; &amp;betaDetsBinary)</td></tr>
 <tr class="separator:a87f327cb0a53f992caea1d8bee3816d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9e40179604d09f7f8b1266958b11d930"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="UEG__MAIN__binarytest_8C.html#a9e40179604d09f7f8b1266958b11d930">totalWalkerNumber</a> (std::vector&lt; int &gt; &amp;trueWalkerList)</td></tr>
 <tr class="separator:a9e40179604d09f7f8b1266958b11d930"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0ec81bf6b6e5089a5647fb2c8205e1a6"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="UEG__MAIN__binarytest_8C.html#a0ec81bf6b6e5089a5647fb2c8205e1a6">variableShift</a> (const double &amp;<a class="el" href="UEG__MAIN__binarytest_8C.html#aa06f5594efa32a5569766c36690b4a22">delt</a>, const int &amp;<a class="el" href="UEG__MAIN__binarytest_8C.html#a1b1b50ff28122bf25bbd141938893243">AShift</a>, int &amp;intTimestep, const double &amp;<a class="el" href="UEG__MAIN__binarytest_8C.html#a50fb6782013c8c12243ca553cee0971a">zeta</a>, std::vector&lt; double &gt; &amp;totalWalkerTracker, std::vector&lt; double &gt; &amp;shiftTracker)</td></tr>
 <tr class="separator:a0ec81bf6b6e5089a5647fb2c8205e1a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab516e26346b637d7482dc9043e806be2"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="UEG__MAIN__binarytest_8C.html#ab516e26346b637d7482dc9043e806be2">projectorEnergy</a> ()</td></tr>
-<tr class="separator:ab516e26346b637d7482dc9043e806be2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a688d4b7bc7a4cc8a4a6b3a000a21ba"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="UEG__MAIN__binarytest_8C.html#a7a688d4b7bc7a4cc8a4a6b3a000a21ba">projectorEnergy</a> (const double &amp;cellLength, long int &amp;HF_BINARY, std::vector&lt; int &gt; &amp;trueWalkerList, std::vector&lt; long int &gt; &amp;alphaDetsBinary, std::vector&lt; long int &gt; &amp;betaDetsBinary, double(&amp;KEsortedList)[ORB_SIZE][3])</td></tr>
+<tr class="separator:a7a688d4b7bc7a4cc8a4a6b3a000a21ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="UEG__MAIN__binarytest_8C.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -120,28 +134,32 @@ Functions</h2></td></tr>
 Variables</h2></td></tr>
 <tr class="memitem:a952eac791b596a61bba0a133a3bb439f"><td class="memItemLeft" align="right" valign="top">const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="UEG__MAIN__binarytest_8C.html#a952eac791b596a61bba0a133a3bb439f">PI</a> = 3.141592653589793</td></tr>
 <tr class="separator:a952eac791b596a61bba0a133a3bb439f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a363ad74e3d4570cd6bfaa4622e0af0bd"><td class="memItemLeft" align="right" valign="top">const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="UEG__MAIN__binarytest_8C.html#a363ad74e3d4570cd6bfaa4622e0af0bd">rs</a> = 1.0</td></tr>
+<tr class="memitem:a363ad74e3d4570cd6bfaa4622e0af0bd"><td class="memItemLeft" align="right" valign="top">const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="UEG__MAIN__binarytest_8C.html#a363ad74e3d4570cd6bfaa4622e0af0bd">rs</a> = 0.5</td></tr>
 <tr class="separator:a363ad74e3d4570cd6bfaa4622e0af0bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a613e167ad809e33c73b70a24822cc6f9"><td class="memItemLeft" align="right" valign="top">const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="UEG__MAIN__binarytest_8C.html#a613e167ad809e33c73b70a24822cc6f9">numElectrons</a> = 14</td></tr>
 <tr class="separator:a613e167ad809e33c73b70a24822cc6f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ace3e2699d268bc86fda1a7a41270c49e"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="UEG__MAIN__binarytest_8C.html#ace3e2699d268bc86fda1a7a41270c49e">INTelectrons</a> = <a class="el" href="UEG__MAIN__binarytest_8C.html#a613e167ad809e33c73b70a24822cc6f9">numElectrons</a></td></tr>
 <tr class="separator:ace3e2699d268bc86fda1a7a41270c49e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa8c8c523b8aaaef95263171d9b078d8d"><td class="memItemLeft" align="right" valign="top">const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="UEG__MAIN__binarytest_8C.html#aa8c8c523b8aaaef95263171d9b078d8d">Kc_CUTTOFF</a> = 2</td></tr>
+<tr class="memitem:aa8c8c523b8aaaef95263171d9b078d8d"><td class="memItemLeft" align="right" valign="top">const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="UEG__MAIN__binarytest_8C.html#aa8c8c523b8aaaef95263171d9b078d8d">Kc_CUTTOFF</a> = 2.4</td></tr>
 <tr class="separator:aa8c8c523b8aaaef95263171d9b078d8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa06f5594efa32a5569766c36690b4a22"><td class="memItemLeft" align="right" valign="top">const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="UEG__MAIN__binarytest_8C.html#aa06f5594efa32a5569766c36690b4a22">delt</a> = 0.003</td></tr>
+<tr class="memitem:aa06f5594efa32a5569766c36690b4a22"><td class="memItemLeft" align="right" valign="top">const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="UEG__MAIN__binarytest_8C.html#aa06f5594efa32a5569766c36690b4a22">delt</a> = 0.00025</td></tr>
 <tr class="separator:aa06f5594efa32a5569766c36690b4a22"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a50fb6782013c8c12243ca553cee0971a"><td class="memItemLeft" align="right" valign="top">const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="UEG__MAIN__binarytest_8C.html#a50fb6782013c8c12243ca553cee0971a">zeta</a> = 0.04</td></tr>
+<tr class="memitem:a50fb6782013c8c12243ca553cee0971a"><td class="memItemLeft" align="right" valign="top">const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="UEG__MAIN__binarytest_8C.html#a50fb6782013c8c12243ca553cee0971a">zeta</a> = 0.005</td></tr>
 <tr class="separator:a50fb6782013c8c12243ca553cee0971a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1b1b50ff28122bf25bbd141938893243"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="UEG__MAIN__binarytest_8C.html#a1b1b50ff28122bf25bbd141938893243">AShift</a> = 2</td></tr>
+<tr class="memitem:a1b1b50ff28122bf25bbd141938893243"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="UEG__MAIN__binarytest_8C.html#a1b1b50ff28122bf25bbd141938893243">AShift</a> = 1</td></tr>
 <tr class="separator:a1b1b50ff28122bf25bbd141938893243"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a957840dbdbfa8a29c76754be143dd02f"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="UEG__MAIN__binarytest_8C.html#a957840dbdbfa8a29c76754be143dd02f">numSteps</a> = 500000</td></tr>
+<tr class="memitem:a957840dbdbfa8a29c76754be143dd02f"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="UEG__MAIN__binarytest_8C.html#a957840dbdbfa8a29c76754be143dd02f">numSteps</a> = 1000000</td></tr>
 <tr class="separator:a957840dbdbfa8a29c76754be143dd02f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6c7e0fd46bc659f43a5e2fe841b0aeeb"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="UEG__MAIN__binarytest_8C.html#a6c7e0fd46bc659f43a5e2fe841b0aeeb">walkerCritical</a> = 500000</td></tr>
+<tr class="memitem:a6c7e0fd46bc659f43a5e2fe841b0aeeb"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="UEG__MAIN__binarytest_8C.html#a6c7e0fd46bc659f43a5e2fe841b0aeeb">walkerCritical</a> = 300000</td></tr>
 <tr class="separator:a6c7e0fd46bc659f43a5e2fe841b0aeeb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5481ef8ba617908ce12828cc4a8c45a3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="UEG__MAIN__binarytest_8C.html#a5481ef8ba617908ce12828cc4a8c45a3">initRefWalkers</a> = 50</td></tr>
+<tr class="memitem:a5481ef8ba617908ce12828cc4a8c45a3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="UEG__MAIN__binarytest_8C.html#a5481ef8ba617908ce12828cc4a8c45a3">initRefWalkers</a> = 150</td></tr>
 <tr class="separator:a5481ef8ba617908ce12828cc4a8c45a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5a4a522e121fab9651a940cabf5ac77d"><td class="memItemLeft" align="right" valign="top">long int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="UEG__MAIN__binarytest_8C.html#a5a4a522e121fab9651a940cabf5ac77d">pow2Array</a> [ORB_SIZE]</td></tr>
 <tr class="separator:a5a4a522e121fab9651a940cabf5ac77d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a707c8ad6d9aee200d8624eae87e2299f"><td class="memItemLeft" align="right" valign="top">const std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="UEG__MAIN__binarytest_8C.html#a707c8ad6d9aee200d8624eae87e2299f">FILE_shoulderPlot</a> = &quot;SHOULDER_TEST.txt&quot;</td></tr>
+<tr class="separator:a707c8ad6d9aee200d8624eae87e2299f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8947574152f3a6b27e38b1f5ea8f61de"><td class="memItemLeft" align="right" valign="top">const std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="UEG__MAIN__binarytest_8C.html#a8947574152f3a6b27e38b1f5ea8f61de">FILE_shiftPlot</a> = &quot;SHIFT_TEST.txt&quot;</td></tr>
+<tr class="separator:a8947574152f3a6b27e38b1f5ea8f61de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="a87f327cb0a53f992caea1d8bee3816d8"></a>
@@ -202,14 +220,14 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a49e83ca6bb3da729c527ddf6012aa98f"></a>
+<a class="anchor" id="aaa45cfd4de92450ce64a165b519966a3"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">void DEATH_CLONE </td>
           <td>(</td>
-          <td class="paramtype">const double&#160;</td>
+          <td class="paramtype">const double &amp;&#160;</td>
           <td class="paramname"><em>cellLength</em>, </td>
         </tr>
         <tr>
@@ -265,7 +283,7 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a0d3433e362b073bc05067375aa6b521a"></a>
+<a class="anchor" id="a34236e8d8d9c172c2a791f4e5f8c7e31"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -273,7 +291,171 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const int INLgetPositionInList </td>
+          <td class="memname">void INLbinaryToDecimal </td>
+          <td>(</td>
+          <td class="paramtype">std::string &amp;&#160;</td>
+          <td class="paramname"><em>binaryString</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">long int &amp;&#160;</td>
+          <td class="paramname"><em>decimal</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>This inline function simply converts a string (of length defined at compile time) which represents the unique determinant into its decimal representation, type long int (up to 2^63). </p>
+
+</div>
+</div>
+<a class="anchor" id="ad349fcf2533ef69216553d20f96d6320"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void INLdecimalToBinary </td>
+          <td>(</td>
+          <td class="paramtype">long int &amp;&#160;</td>
+          <td class="paramname"><em>decimal</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string &amp;&#160;</td>
+          <td class="paramname"><em>binaryNum</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>This inline function simply converts a base 10 integer (which represents the unique determinant) into its binary representation, but with type string. </p>
+
+</div>
+</div>
+<a class="anchor" id="acc1ce2a3e5f999076de789546b8e277b"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int INLgetHijSign </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>orb_i</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>orb_j</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>orb_a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>orb_b</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>This function is only used in conjunction with the Projector Energy routine, An very similar piece of code exists already within the Excitation operator </p>
+
+</div>
+</div>
+<a class="anchor" id="ae96d80bb5e115ea1aec37f72f2ac4979"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int INLgetHijSignAB </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>orb_i</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>orb_j</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>orb_a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>orb_b</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>This function is only used in conjunction with the Projector Energy routine, An very similar piece of code exists already within the Excitation operator </p>
+
+</div>
+</div>
+<a class="anchor" id="a622a9bfc71046778049dda8b8d82b829"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int INLgetPositionInList </td>
           <td>(</td>
           <td class="paramtype">std::pair&lt; long int, long int &gt; &amp;&#160;</td>
           <td class="paramname"><em>uniqueDet</em>, </td>
@@ -349,33 +531,93 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ab516e26346b637d7482dc9043e806be2"></a>
+<a class="anchor" id="a202c81ee7e30a4a9266c287caad49b02"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t oneBitCount </td>
+          <td>(</td>
+          <td class="paramtype">long int&#160;</td>
+          <td class="paramname"><em>n</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>This function simply returns the number of bits, i.e, the number of ones in a binary number. </p>
+
+</div>
+</div>
+<a class="anchor" id="a7a688d4b7bc7a4cc8a4a6b3a000a21ba"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">double projectorEnergy </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">const double &amp;&#160;</td>
+          <td class="paramname"><em>cellLength</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">long int &amp;&#160;</td>
+          <td class="paramname"><em>HF_BINARY</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::vector&lt; int &gt; &amp;&#160;</td>
+          <td class="paramname"><em>trueWalkerList</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::vector&lt; long int &gt; &amp;&#160;</td>
+          <td class="paramname"><em>alphaDetsBinary</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::vector&lt; long int &gt; &amp;&#160;</td>
+          <td class="paramname"><em>betaDetsBinary</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double(&amp;)&#160;</td>
+          <td class="paramname"><em>KEsortedList</em>[ORB_SIZE][3]&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 <p>The Projector Energy gives an independent estimation of the energy from the shift, according to equation: </p>
 <p class="formulaDsp">
-<img class="formulaDsp" alt="\[ E_{proj} = \sum_{j \neq 0} \Big \langle D_j | H | D_0 \Big \rangle \frac{N_j (\tau)}{N_0 (\tau)} \]" src="form_1.png"/>
+<img class="formulaDsp" alt="\[ E_{proj} = \sum_{J \neq 0} \Big \langle D_J | H | D_0 \Big \rangle \frac{N_J (\tau)}{N_0 (\tau)} \]" src="form_31.png"/>
 </p>
  
 </div>
 </div>
-<a class="anchor" id="a8fc76e9bc36b9fb87b8c288f8888073c"></a>
+<a class="anchor" id="a67cbe483fa671d09ebdf32a4e4fe6161"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">void SPAWN </td>
           <td>(</td>
-          <td class="paramtype">const double&#160;</td>
+          <td class="paramtype">const double &amp;&#160;</td>
           <td class="paramname"><em>cellLength</em>, </td>
         </tr>
         <tr>
@@ -519,7 +761,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const int AShift = 2</td>
+          <td class="memname">const int AShift = 1</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -532,11 +774,35 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const double delt = 0.003</td>
+          <td class="memname">const double delt = 0.00025</td>
         </tr>
       </table>
 </div><div class="memdoc">
 <p>delt is the Imaginary timestep for the propogation of the "walker" population </p>
+
+</div>
+</div>
+<a class="anchor" id="a8947574152f3a6b27e38b1f5ea8f61de"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string FILE_shiftPlot = &quot;SHIFT_TEST.txt&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a707c8ad6d9aee200d8624eae87e2299f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string FILE_shoulderPlot = &quot;SHOULDER_TEST.txt&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -545,7 +811,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int initRefWalkers = 50</td>
+          <td class="memname">int initRefWalkers = 150</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -570,7 +836,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const double Kc_CUTTOFF = 2</td>
+          <td class="memname">const double Kc_CUTTOFF = 2.4</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -596,7 +862,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const int numSteps = 500000</td>
+          <td class="memname">const int numSteps = 1000000</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -634,7 +900,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const double rs = 1.0</td>
+          <td class="memname">const double rs = 0.5</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -647,7 +913,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const int walkerCritical = 500000</td>
+          <td class="memname">const int walkerCritical = 300000</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -660,7 +926,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const double zeta = 0.04</td>
+          <td class="memname">const double zeta = 0.005</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -671,7 +937,7 @@ Variables</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Mar 7 2017 18:16:11 for FCIQMC Algorithm for the UEG by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Mar 21 2017 13:20:01 for FCIQMC Algorithm for the UEG by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

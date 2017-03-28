@@ -1,0 +1,268 @@
+\hypertarget{UEG__MAIN__binarytest_8C}{\section{/home/acc73/\-Documents/\-U\-E\-G\-\_\-fast\-\_\-\-F\-C\-I\-Q\-M\-C/\-U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.C File Reference}
+\label{UEG__MAIN__binarytest_8C}\index{/home/acc73/\-Documents/\-U\-E\-G\-\_\-fast\-\_\-\-F\-C\-I\-Q\-M\-C/\-U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C@{/home/acc73/\-Documents/\-U\-E\-G\-\_\-fast\-\_\-\-F\-C\-I\-Q\-M\-C/\-U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C}}
+}
+{\ttfamily \#include \char`\"{}plane\-Waves.\-H\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}U\-E\-G\-Hamiltonian.\-H\char`\"{}}\\*
+{\ttfamily \#include $<$fstream$>$}\\*
+{\ttfamily \#include $<$time.\-h$>$}\\*
+{\ttfamily \#include $<$set$>$}\\*
+{\ttfamily \#include $<$map$>$}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+constexpr std\-::uint64\-\_\-t \hyperlink{UEG__MAIN__binarytest_8C_acc4e7d0bf8c76cb8b426703dc7115cdc}{I\-N\-Lpow2} (std\-::uint64\-\_\-t x)
+\item 
+int \hyperlink{UEG__MAIN__binarytest_8C_a622a9bfc71046778049dda8b8d82b829}{I\-N\-Lget\-Position\-In\-List} (std\-::pair$<$ long int, long int $>$ \&unique\-Det, std\-::vector$<$ long int $>$ \&alpha\-Det\-List, std\-::vector$<$ long int $>$ \&beta\-Det\-List)
+\item 
+size\-\_\-t \hyperlink{UEG__MAIN__binarytest_8C_a202c81ee7e30a4a9266c287caad49b02}{one\-Bit\-Count} (long int n)
+\item 
+void \hyperlink{UEG__MAIN__binarytest_8C_ad349fcf2533ef69216553d20f96d6320}{I\-N\-Ldecimal\-To\-Binary} (long int \&decimal, std\-::string \&binary\-Num)
+\item 
+void \hyperlink{UEG__MAIN__binarytest_8C_a34236e8d8d9c172c2a791f4e5f8c7e31}{I\-N\-Lbinary\-To\-Decimal} (std\-::string \&binary\-String, long int \&decimal)
+\item 
+int \hyperlink{UEG__MAIN__binarytest_8C_acc1ce2a3e5f999076de789546b8e277b}{I\-N\-Lget\-Hij\-Sign} (int orb\-\_\-i, int orb\-\_\-j, int orb\-\_\-a, int orb\-\_\-b)
+\item 
+int \hyperlink{UEG__MAIN__binarytest_8C_ae96d80bb5e115ea1aec37f72f2ac4979}{I\-N\-Lget\-Hij\-Sign\-A\-B} (int orb\-\_\-i, int orb\-\_\-j, int orb\-\_\-a, int orb\-\_\-b)
+\item 
+void \hyperlink{UEG__MAIN__binarytest_8C_a67cbe483fa671d09ebdf32a4e4fe6161}{S\-P\-A\-W\-N} (const double \&cell\-Length, std\-::vector$<$ int $>$ \&true\-Walker\-List, std\-::vector$<$ int $>$ \&pos\-Walker\-List, std\-::vector$<$ int $>$ \&neg\-Walker\-List, double(\&K\-Esorted\-List)\mbox{[}O\-R\-B\-\_\-\-S\-I\-Z\-E\mbox{]}\mbox{[}3\mbox{]}, std\-::set$<$ std\-::pair$<$ long int, long int $>$ $>$ \&unique\-Det\-Set, std\-::pair$<$ std\-::set$<$ std\-::pair$<$ long int, long int $>$ $>$\-::iterator, bool $>$ \&result, std\-::vector$<$ long int $>$ \&alpha\-Dets, std\-::vector$<$ long int $>$ \&beta\-Dets)
+\item 
+void \hyperlink{UEG__MAIN__binarytest_8C_aaa45cfd4de92450ce64a165b519966a3}{D\-E\-A\-T\-H\-\_\-\-C\-L\-O\-N\-E} (const double \&cell\-Length, std\-::vector$<$ int $>$ \&true\-Walker\-List, double(\&K\-Esorted\-List)\mbox{[}O\-R\-B\-\_\-\-S\-I\-Z\-E\mbox{]}\mbox{[}3\mbox{]}, double \&S\-H\-I\-F\-T, std\-::vector$<$ long int $>$ \&alpha\-Dets, std\-::vector$<$ long int $>$ \&beta\-Dets, const double \&H\-F\-Energy)
+\item 
+void \hyperlink{UEG__MAIN__binarytest_8C_a87f327cb0a53f992caea1d8bee3816d8}{A\-N\-N\-I\-H\-I\-L\-A\-T\-I\-O\-N} (int \&step, std\-::vector$<$ int $>$ \&true\-Walker\-List, std\-::vector$<$ int $>$ \&pos\-Walker\-List, std\-::vector$<$ int $>$ \&neg\-Walker\-List, std\-::set$<$ std\-::pair$<$ long int, long int $>$ $>$ \&unique\-Determinant\-Set, std\-::vector$<$ long int $>$ \&alpha\-Dets\-Binary, std\-::vector$<$ long int $>$ \&beta\-Dets\-Binary)
+\item 
+int \hyperlink{UEG__MAIN__binarytest_8C_a9e40179604d09f7f8b1266958b11d930}{total\-Walker\-Number} (std\-::vector$<$ int $>$ \&true\-Walker\-List)
+\item 
+double \hyperlink{UEG__MAIN__binarytest_8C_a0ec81bf6b6e5089a5647fb2c8205e1a6}{variable\-Shift} (const double \&\hyperlink{UEG__MAIN__binarytest_8C_aa06f5594efa32a5569766c36690b4a22}{delt}, const int \&\hyperlink{UEG__MAIN__binarytest_8C_a1b1b50ff28122bf25bbd141938893243}{A\-Shift}, int \&int\-Timestep, const double \&\hyperlink{UEG__MAIN__binarytest_8C_a50fb6782013c8c12243ca553cee0971a}{zeta}, std\-::vector$<$ double $>$ \&total\-Walker\-Tracker, std\-::vector$<$ double $>$ \&shift\-Tracker)
+\item 
+double \hyperlink{UEG__MAIN__binarytest_8C_a7a688d4b7bc7a4cc8a4a6b3a000a21ba}{projector\-Energy} (const double \&cell\-Length, long int \&H\-F\-\_\-\-B\-I\-N\-A\-R\-Y, std\-::vector$<$ int $>$ \&true\-Walker\-List, std\-::vector$<$ long int $>$ \&alpha\-Dets\-Binary, std\-::vector$<$ long int $>$ \&beta\-Dets\-Binary, double(\&K\-Esorted\-List)\mbox{[}O\-R\-B\-\_\-\-S\-I\-Z\-E\mbox{]}\mbox{[}3\mbox{]})
+\item 
+int \hyperlink{UEG__MAIN__binarytest_8C_a840291bc02cba5474a4cb46a9b9566fe}{main} (void)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const double \hyperlink{UEG__MAIN__binarytest_8C_a952eac791b596a61bba0a133a3bb439f}{P\-I} = 3.\-141592653589793
+\item 
+const double \hyperlink{UEG__MAIN__binarytest_8C_a363ad74e3d4570cd6bfaa4622e0af0bd}{rs} = 0.\-5
+\item 
+const double \hyperlink{UEG__MAIN__binarytest_8C_a613e167ad809e33c73b70a24822cc6f9}{num\-Electrons} = 14
+\item 
+const int \hyperlink{UEG__MAIN__binarytest_8C_ace3e2699d268bc86fda1a7a41270c49e}{I\-N\-Telectrons} = \hyperlink{UEG__MAIN__binarytest_8C_a613e167ad809e33c73b70a24822cc6f9}{num\-Electrons}
+\item 
+const double \hyperlink{UEG__MAIN__binarytest_8C_aa8c8c523b8aaaef95263171d9b078d8d}{Kc\-\_\-\-C\-U\-T\-T\-O\-F\-F} = 2.\-4
+\item 
+const double \hyperlink{UEG__MAIN__binarytest_8C_aa06f5594efa32a5569766c36690b4a22}{delt} = 0.\-00025
+\item 
+const double \hyperlink{UEG__MAIN__binarytest_8C_a50fb6782013c8c12243ca553cee0971a}{zeta} = 0.\-005
+\item 
+const int \hyperlink{UEG__MAIN__binarytest_8C_a1b1b50ff28122bf25bbd141938893243}{A\-Shift} = 1
+\item 
+const int \hyperlink{UEG__MAIN__binarytest_8C_a957840dbdbfa8a29c76754be143dd02f}{num\-Steps} = 1000000
+\item 
+const int \hyperlink{UEG__MAIN__binarytest_8C_a6c7e0fd46bc659f43a5e2fe841b0aeeb}{walker\-Critical} = 300000
+\item 
+int \hyperlink{UEG__MAIN__binarytest_8C_a5481ef8ba617908ce12828cc4a8c45a3}{init\-Ref\-Walkers} = 150
+\item 
+long int \hyperlink{UEG__MAIN__binarytest_8C_a5a4a522e121fab9651a940cabf5ac77d}{pow2\-Array} \mbox{[}O\-R\-B\-\_\-\-S\-I\-Z\-E\mbox{]}
+\item 
+const std\-::string \hyperlink{UEG__MAIN__binarytest_8C_a707c8ad6d9aee200d8624eae87e2299f}{F\-I\-L\-E\-\_\-shoulder\-Plot} = \char`\"{}S\-H\-O\-U\-L\-D\-E\-R\-\_\-\-T\-E\-S\-T.\-txt\char`\"{}
+\item 
+const std\-::string \hyperlink{UEG__MAIN__binarytest_8C_a8947574152f3a6b27e38b1f5ea8f61de}{F\-I\-L\-E\-\_\-shift\-Plot} = \char`\"{}S\-H\-I\-F\-T\-\_\-\-T\-E\-S\-T.\-txt\char`\"{}
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{UEG__MAIN__binarytest_8C_a87f327cb0a53f992caea1d8bee3816d8}{\index{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C@{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C}!A\-N\-N\-I\-H\-I\-L\-A\-T\-I\-O\-N@{A\-N\-N\-I\-H\-I\-L\-A\-T\-I\-O\-N}}
+\index{A\-N\-N\-I\-H\-I\-L\-A\-T\-I\-O\-N@{A\-N\-N\-I\-H\-I\-L\-A\-T\-I\-O\-N}!UEG_MAIN_binarytest.C@{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C}}
+\subsubsection[{A\-N\-N\-I\-H\-I\-L\-A\-T\-I\-O\-N}]{\setlength{\rightskip}{0pt plus 5cm}void A\-N\-N\-I\-H\-I\-L\-A\-T\-I\-O\-N (
+\begin{DoxyParamCaption}
+\item[{int \&}]{step, }
+\item[{std\-::vector$<$ int $>$ \&}]{true\-Walker\-List, }
+\item[{std\-::vector$<$ int $>$ \&}]{pos\-Walker\-List, }
+\item[{std\-::vector$<$ int $>$ \&}]{neg\-Walker\-List, }
+\item[{std\-::set$<$ std\-::pair$<$ long int, long int $>$ $>$ \&}]{unique\-Determinant\-Set, }
+\item[{std\-::vector$<$ long int $>$ \&}]{alpha\-Dets\-Binary, }
+\item[{std\-::vector$<$ long int $>$ \&}]{beta\-Dets\-Binary}
+\end{DoxyParamCaption}
+)}}\label{UEG__MAIN__binarytest_8C_a87f327cb0a53f992caea1d8bee3816d8}
+This represents the final (third) step in the population dynamics algorithm. The following description is verbatim from the original paper\-:
+
+The annihilation step\-: In this (final) part of the algorithm, we run over all (newly-\/spawned, cloned and surviving parent) walkers, and annihilate pairs of walkers of opposite sign which are found to be on the same determinant. Each time an annihilation event occurs, the corresponding pair is removed from the list of walkers, and the total number of walkers $ N_w $ reduced by two. \hypertarget{UEG__MAIN__binarytest_8C_aaa45cfd4de92450ce64a165b519966a3}{\index{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C@{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C}!D\-E\-A\-T\-H\-\_\-\-C\-L\-O\-N\-E@{D\-E\-A\-T\-H\-\_\-\-C\-L\-O\-N\-E}}
+\index{D\-E\-A\-T\-H\-\_\-\-C\-L\-O\-N\-E@{D\-E\-A\-T\-H\-\_\-\-C\-L\-O\-N\-E}!UEG_MAIN_binarytest.C@{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C}}
+\subsubsection[{D\-E\-A\-T\-H\-\_\-\-C\-L\-O\-N\-E}]{\setlength{\rightskip}{0pt plus 5cm}void D\-E\-A\-T\-H\-\_\-\-C\-L\-O\-N\-E (
+\begin{DoxyParamCaption}
+\item[{const double \&}]{cell\-Length, }
+\item[{std\-::vector$<$ int $>$ \&}]{true\-Walker\-List, }
+\item[{double(\&)}]{K\-Esorted\-List\mbox{[}\-O\-R\-B\-\_\-\-S\-I\-Z\-E\mbox{]}\mbox{[}3\mbox{]}, }
+\item[{double \&}]{S\-H\-I\-F\-T, }
+\item[{std\-::vector$<$ long int $>$ \&}]{alpha\-Dets, }
+\item[{std\-::vector$<$ long int $>$ \&}]{beta\-Dets, }
+\item[{const double \&}]{H\-F\-Energy}
+\end{DoxyParamCaption}
+)}}\label{UEG__MAIN__binarytest_8C_aaa45cfd4de92450ce64a165b519966a3}
+This routine represents the second step in the population dynamics algorithm. The following description is verbatim from the original paper\-:
+
+The diagonal death/cloning step\-: for each (parent) walker compute \[ p_{d}(i_{\alpha}) = \delta \tau( K_{i_{\alpha} i_{\alpha}} - S ) (16) \]
+
+If $ p_d > 0 $, the walker dies with probability $ p_d $, and if $ p_d < 0 $ the walker is cloned with probability $ |pd| $. The death event happens immediately, and such a parent does not participate in the following (annihilation) step to be described shortly. Cloning events are quite rare, and only occur for $ S > 0 $, and even then only on determinants for which $ \langle D_i | K | D_i \rangle < S $ . In simulations where we desire to grow the number of walkers rapidly, a positive value of S is adopted, and this can lead to cloning events. However, more often, the value of S is negative (as it tries to match the correlation energy), and in such cases there can be no cloning events at all. Generates a number between (0,1\mbox{]} \hypertarget{UEG__MAIN__binarytest_8C_a34236e8d8d9c172c2a791f4e5f8c7e31}{\index{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C@{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C}!I\-N\-Lbinary\-To\-Decimal@{I\-N\-Lbinary\-To\-Decimal}}
+\index{I\-N\-Lbinary\-To\-Decimal@{I\-N\-Lbinary\-To\-Decimal}!UEG_MAIN_binarytest.C@{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C}}
+\subsubsection[{I\-N\-Lbinary\-To\-Decimal}]{\setlength{\rightskip}{0pt plus 5cm}void I\-N\-Lbinary\-To\-Decimal (
+\begin{DoxyParamCaption}
+\item[{std\-::string \&}]{binary\-String, }
+\item[{long int \&}]{decimal}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{UEG__MAIN__binarytest_8C_a34236e8d8d9c172c2a791f4e5f8c7e31}
+This inline function simply converts a string (of length defined at compile time) which represents the unique determinant into its decimal representation, type long int (up to 2$^\wedge$63). \hypertarget{UEG__MAIN__binarytest_8C_ad349fcf2533ef69216553d20f96d6320}{\index{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C@{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C}!I\-N\-Ldecimal\-To\-Binary@{I\-N\-Ldecimal\-To\-Binary}}
+\index{I\-N\-Ldecimal\-To\-Binary@{I\-N\-Ldecimal\-To\-Binary}!UEG_MAIN_binarytest.C@{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C}}
+\subsubsection[{I\-N\-Ldecimal\-To\-Binary}]{\setlength{\rightskip}{0pt plus 5cm}void I\-N\-Ldecimal\-To\-Binary (
+\begin{DoxyParamCaption}
+\item[{long int \&}]{decimal, }
+\item[{std\-::string \&}]{binary\-Num}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{UEG__MAIN__binarytest_8C_ad349fcf2533ef69216553d20f96d6320}
+This inline function simply converts a base 10 integer (which represents the unique determinant) into its binary representation, but with type string. \hypertarget{UEG__MAIN__binarytest_8C_acc1ce2a3e5f999076de789546b8e277b}{\index{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C@{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C}!I\-N\-Lget\-Hij\-Sign@{I\-N\-Lget\-Hij\-Sign}}
+\index{I\-N\-Lget\-Hij\-Sign@{I\-N\-Lget\-Hij\-Sign}!UEG_MAIN_binarytest.C@{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C}}
+\subsubsection[{I\-N\-Lget\-Hij\-Sign}]{\setlength{\rightskip}{0pt plus 5cm}int I\-N\-Lget\-Hij\-Sign (
+\begin{DoxyParamCaption}
+\item[{int}]{orb\-\_\-i, }
+\item[{int}]{orb\-\_\-j, }
+\item[{int}]{orb\-\_\-a, }
+\item[{int}]{orb\-\_\-b}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{UEG__MAIN__binarytest_8C_acc1ce2a3e5f999076de789546b8e277b}
+This function is only used in conjunction with the Projector Energy routine, An very similar piece of code exists already within the Excitation operator \hypertarget{UEG__MAIN__binarytest_8C_ae96d80bb5e115ea1aec37f72f2ac4979}{\index{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C@{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C}!I\-N\-Lget\-Hij\-Sign\-A\-B@{I\-N\-Lget\-Hij\-Sign\-A\-B}}
+\index{I\-N\-Lget\-Hij\-Sign\-A\-B@{I\-N\-Lget\-Hij\-Sign\-A\-B}!UEG_MAIN_binarytest.C@{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C}}
+\subsubsection[{I\-N\-Lget\-Hij\-Sign\-A\-B}]{\setlength{\rightskip}{0pt plus 5cm}int I\-N\-Lget\-Hij\-Sign\-A\-B (
+\begin{DoxyParamCaption}
+\item[{int}]{orb\-\_\-i, }
+\item[{int}]{orb\-\_\-j, }
+\item[{int}]{orb\-\_\-a, }
+\item[{int}]{orb\-\_\-b}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{UEG__MAIN__binarytest_8C_ae96d80bb5e115ea1aec37f72f2ac4979}
+This function is only used in conjunction with the Projector Energy routine, An very similar piece of code exists already within the Excitation operator \hypertarget{UEG__MAIN__binarytest_8C_a622a9bfc71046778049dda8b8d82b829}{\index{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C@{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C}!I\-N\-Lget\-Position\-In\-List@{I\-N\-Lget\-Position\-In\-List}}
+\index{I\-N\-Lget\-Position\-In\-List@{I\-N\-Lget\-Position\-In\-List}!UEG_MAIN_binarytest.C@{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C}}
+\subsubsection[{I\-N\-Lget\-Position\-In\-List}]{\setlength{\rightskip}{0pt plus 5cm}int I\-N\-Lget\-Position\-In\-List (
+\begin{DoxyParamCaption}
+\item[{std\-::pair$<$ long int, long int $>$ \&}]{unique\-Det, }
+\item[{std\-::vector$<$ long int $>$ \&}]{alpha\-Det\-List, }
+\item[{std\-::vector$<$ long int $>$ \&}]{beta\-Det\-List}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{UEG__MAIN__binarytest_8C_a622a9bfc71046778049dda8b8d82b829}
+This function purely resturns the position of a unique determinant within the list of Alpha and Beta determinants. It is necessary to know this, in order that we can add a new walker to the correct determinant (Our unique list is not sorted according to the walker number list, but the Alpha and Beta lists A\-R\-E sorted to associate with the walker number list) \hypertarget{UEG__MAIN__binarytest_8C_acc4e7d0bf8c76cb8b426703dc7115cdc}{\index{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C@{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C}!I\-N\-Lpow2@{I\-N\-Lpow2}}
+\index{I\-N\-Lpow2@{I\-N\-Lpow2}!UEG_MAIN_binarytest.C@{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C}}
+\subsubsection[{I\-N\-Lpow2}]{\setlength{\rightskip}{0pt plus 5cm}constexpr std\-::uint64\-\_\-t I\-N\-Lpow2 (
+\begin{DoxyParamCaption}
+\item[{std\-::uint64\-\_\-t}]{x}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{UEG__MAIN__binarytest_8C_acc4e7d0bf8c76cb8b426703dc7115cdc}
+Simply raises the input argument to the power 2, thus returning $ 2^x $ \hypertarget{UEG__MAIN__binarytest_8C_a840291bc02cba5474a4cb46a9b9566fe}{\index{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C@{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C}!main@{main}}
+\index{main@{main}!UEG_MAIN_binarytest.C@{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{UEG__MAIN__binarytest_8C_a840291bc02cba5474a4cb46a9b9566fe}
+
+
+ \subsubsection*{M A I N -\/ S T A R T S -\/ H E R E }\hypertarget{UEG__MAIN__binarytest_8C_a202c81ee7e30a4a9266c287caad49b02}{\index{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C@{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C}!one\-Bit\-Count@{one\-Bit\-Count}}
+\index{one\-Bit\-Count@{one\-Bit\-Count}!UEG_MAIN_binarytest.C@{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C}}
+\subsubsection[{one\-Bit\-Count}]{\setlength{\rightskip}{0pt plus 5cm}size\-\_\-t one\-Bit\-Count (
+\begin{DoxyParamCaption}
+\item[{long int}]{n}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{UEG__MAIN__binarytest_8C_a202c81ee7e30a4a9266c287caad49b02}
+This function simply returns the number of bits, i.\-e, the number of ones in a binary number. \hypertarget{UEG__MAIN__binarytest_8C_a7a688d4b7bc7a4cc8a4a6b3a000a21ba}{\index{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C@{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C}!projector\-Energy@{projector\-Energy}}
+\index{projector\-Energy@{projector\-Energy}!UEG_MAIN_binarytest.C@{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C}}
+\subsubsection[{projector\-Energy}]{\setlength{\rightskip}{0pt plus 5cm}double projector\-Energy (
+\begin{DoxyParamCaption}
+\item[{const double \&}]{cell\-Length, }
+\item[{long int \&}]{H\-F\-\_\-\-B\-I\-N\-A\-R\-Y, }
+\item[{std\-::vector$<$ int $>$ \&}]{true\-Walker\-List, }
+\item[{std\-::vector$<$ long int $>$ \&}]{alpha\-Dets\-Binary, }
+\item[{std\-::vector$<$ long int $>$ \&}]{beta\-Dets\-Binary, }
+\item[{double(\&)}]{K\-Esorted\-List\mbox{[}\-O\-R\-B\-\_\-\-S\-I\-Z\-E\mbox{]}\mbox{[}3\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{UEG__MAIN__binarytest_8C_a7a688d4b7bc7a4cc8a4a6b3a000a21ba}
+The Projector Energy gives an independent estimation of the energy from the shift, according to equation\-: \[ E_{proj} = \sum_{J \neq 0} \Big \langle D_J | H | D_0 \Big \rangle \frac{N_J (\tau)}{N_0 (\tau)} \] \hypertarget{UEG__MAIN__binarytest_8C_a67cbe483fa671d09ebdf32a4e4fe6161}{\index{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C@{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C}!S\-P\-A\-W\-N@{S\-P\-A\-W\-N}}
+\index{S\-P\-A\-W\-N@{S\-P\-A\-W\-N}!UEG_MAIN_binarytest.C@{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C}}
+\subsubsection[{S\-P\-A\-W\-N}]{\setlength{\rightskip}{0pt plus 5cm}void S\-P\-A\-W\-N (
+\begin{DoxyParamCaption}
+\item[{const double \&}]{cell\-Length, }
+\item[{std\-::vector$<$ int $>$ \&}]{true\-Walker\-List, }
+\item[{std\-::vector$<$ int $>$ \&}]{pos\-Walker\-List, }
+\item[{std\-::vector$<$ int $>$ \&}]{neg\-Walker\-List, }
+\item[{double(\&)}]{K\-Esorted\-List\mbox{[}\-O\-R\-B\-\_\-\-S\-I\-Z\-E\mbox{]}\mbox{[}3\mbox{]}, }
+\item[{std\-::set$<$ std\-::pair$<$ long int, long int $>$ $>$ \&}]{unique\-Det\-Set, }
+\item[{std\-::pair$<$ std\-::set$<$ std\-::pair$<$ long int, long int $>$ $>$\-::iterator, bool $>$ \&}]{result, }
+\item[{std\-::vector$<$ long int $>$ \&}]{alpha\-Dets, }
+\item[{std\-::vector$<$ long int $>$ \&}]{beta\-Dets}
+\end{DoxyParamCaption}
+)}}\label{UEG__MAIN__binarytest_8C_a67cbe483fa671d09ebdf32a4e4fe6161}
+This function represents first step in the population dynamics of the algorithm. The spawning routine goes as follows, described verbatim from the original paper\-:
+
+The spawning step\-: for each walker $ \alpha $ (located on $ D_{i \alpha} $), we select a (coupled) determinant $ D_j $ with normalised probability pgen(j$\vert$iα) and attempt to spawn a child there with probability \[ p_s(j|i_{\alpha}) = \frac{\delta \tau | K_{i_{\alpha}j} | }{p_{gen}j | i_{\alpha}} (15) \] If a spawning event is successful, (i.\-e. if ps exceeds a uniformly chosen random number between 0 and 1), then the sign of the child is determined by the sign of $ K_{i_{\alpha}j} $ and the sign of the parent\-: it is the same sign as the parent if $ K_{i_{\alpha}j} < 0 $ , and opposite to the parent otherwise. Our method to compute the generation probabilities $ p_{gen} $ is given in Appendix B. If $ p_s > 1 $ , then multiple copies of walkers are spawned on j (namely with probability 1, $ |ps| $ walkers are spawned, and with probability $ ps − |ps| $ an additional walker is spawned). \hypertarget{UEG__MAIN__binarytest_8C_a9e40179604d09f7f8b1266958b11d930}{\index{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C@{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C}!total\-Walker\-Number@{total\-Walker\-Number}}
+\index{total\-Walker\-Number@{total\-Walker\-Number}!UEG_MAIN_binarytest.C@{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C}}
+\subsubsection[{total\-Walker\-Number}]{\setlength{\rightskip}{0pt plus 5cm}int total\-Walker\-Number (
+\begin{DoxyParamCaption}
+\item[{std\-::vector$<$ int $>$ \&}]{true\-Walker\-List}
+\end{DoxyParamCaption}
+)}}\label{UEG__MAIN__binarytest_8C_a9e40179604d09f7f8b1266958b11d930}
+Simply counts the current number of walkers associated with all determinants, irrespective of sign. Returns\-: $ N_w = \sum_{i} | N_i | $ \hypertarget{UEG__MAIN__binarytest_8C_a0ec81bf6b6e5089a5647fb2c8205e1a6}{\index{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C@{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C}!variable\-Shift@{variable\-Shift}}
+\index{variable\-Shift@{variable\-Shift}!UEG_MAIN_binarytest.C@{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C}}
+\subsubsection[{variable\-Shift}]{\setlength{\rightskip}{0pt plus 5cm}double variable\-Shift (
+\begin{DoxyParamCaption}
+\item[{const double \&}]{delt, }
+\item[{const int \&}]{A\-Shift, }
+\item[{int \&}]{int\-Timestep, }
+\item[{const double \&}]{zeta, }
+\item[{std\-::vector$<$ double $>$ \&}]{total\-Walker\-Tracker, }
+\item[{std\-::vector$<$ double $>$ \&}]{shift\-Tracker}
+\end{DoxyParamCaption}
+)}}\label{UEG__MAIN__binarytest_8C_a0ec81bf6b6e5089a5647fb2c8205e1a6}
+variable\-Shift function controls the shift in response to the population, and relates exactly to the equation\-: \[ S(\tau) = S(\tau - A\delta \tau) - \frac{\zeta}{A \delta \tau} ln\frac{N_w (\tau)}{N_w (\tau - A\delta \tau)} \] 
+
+\subsection{Variable Documentation}
+\hypertarget{UEG__MAIN__binarytest_8C_a1b1b50ff28122bf25bbd141938893243}{\index{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C@{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C}!A\-Shift@{A\-Shift}}
+\index{A\-Shift@{A\-Shift}!UEG_MAIN_binarytest.C@{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C}}
+\subsubsection[{A\-Shift}]{\setlength{\rightskip}{0pt plus 5cm}const int A\-Shift = 1}}\label{UEG__MAIN__binarytest_8C_a1b1b50ff28122bf25bbd141938893243}
+A\-Shift controls how frequently the shift is changed in response to the population in the variable shift mode (A\-Shift = 1 means every step) \hypertarget{UEG__MAIN__binarytest_8C_aa06f5594efa32a5569766c36690b4a22}{\index{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C@{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C}!delt@{delt}}
+\index{delt@{delt}!UEG_MAIN_binarytest.C@{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C}}
+\subsubsection[{delt}]{\setlength{\rightskip}{0pt plus 5cm}const double delt = 0.\-00025}}\label{UEG__MAIN__binarytest_8C_aa06f5594efa32a5569766c36690b4a22}
+delt is the Imaginary timestep for the propogation of the \char`\"{}walker\char`\"{} population \hypertarget{UEG__MAIN__binarytest_8C_a8947574152f3a6b27e38b1f5ea8f61de}{\index{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C@{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C}!F\-I\-L\-E\-\_\-shift\-Plot@{F\-I\-L\-E\-\_\-shift\-Plot}}
+\index{F\-I\-L\-E\-\_\-shift\-Plot@{F\-I\-L\-E\-\_\-shift\-Plot}!UEG_MAIN_binarytest.C@{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C}}
+\subsubsection[{F\-I\-L\-E\-\_\-shift\-Plot}]{\setlength{\rightskip}{0pt plus 5cm}const std\-::string F\-I\-L\-E\-\_\-shift\-Plot = \char`\"{}S\-H\-I\-F\-T\-\_\-\-T\-E\-S\-T.\-txt\char`\"{}}}\label{UEG__MAIN__binarytest_8C_a8947574152f3a6b27e38b1f5ea8f61de}
+\hypertarget{UEG__MAIN__binarytest_8C_a707c8ad6d9aee200d8624eae87e2299f}{\index{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C@{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C}!F\-I\-L\-E\-\_\-shoulder\-Plot@{F\-I\-L\-E\-\_\-shoulder\-Plot}}
+\index{F\-I\-L\-E\-\_\-shoulder\-Plot@{F\-I\-L\-E\-\_\-shoulder\-Plot}!UEG_MAIN_binarytest.C@{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C}}
+\subsubsection[{F\-I\-L\-E\-\_\-shoulder\-Plot}]{\setlength{\rightskip}{0pt plus 5cm}const std\-::string F\-I\-L\-E\-\_\-shoulder\-Plot = \char`\"{}S\-H\-O\-U\-L\-D\-E\-R\-\_\-\-T\-E\-S\-T.\-txt\char`\"{}}}\label{UEG__MAIN__binarytest_8C_a707c8ad6d9aee200d8624eae87e2299f}
+\hypertarget{UEG__MAIN__binarytest_8C_a5481ef8ba617908ce12828cc4a8c45a3}{\index{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C@{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C}!init\-Ref\-Walkers@{init\-Ref\-Walkers}}
+\index{init\-Ref\-Walkers@{init\-Ref\-Walkers}!UEG_MAIN_binarytest.C@{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C}}
+\subsubsection[{init\-Ref\-Walkers}]{\setlength{\rightskip}{0pt plus 5cm}int init\-Ref\-Walkers = 150}}\label{UEG__MAIN__binarytest_8C_a5481ef8ba617908ce12828cc4a8c45a3}
+init\-Ref\-Walkers is the number of wlakers which are initially placed on the reference (i.\-e Hartree Fock) determinant to begin the spawning \hypertarget{UEG__MAIN__binarytest_8C_ace3e2699d268bc86fda1a7a41270c49e}{\index{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C@{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C}!I\-N\-Telectrons@{I\-N\-Telectrons}}
+\index{I\-N\-Telectrons@{I\-N\-Telectrons}!UEG_MAIN_binarytest.C@{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C}}
+\subsubsection[{I\-N\-Telectrons}]{\setlength{\rightskip}{0pt plus 5cm}const int I\-N\-Telectrons = {\bf num\-Electrons}}}\label{UEG__MAIN__binarytest_8C_ace3e2699d268bc86fda1a7a41270c49e}
+\hypertarget{UEG__MAIN__binarytest_8C_aa8c8c523b8aaaef95263171d9b078d8d}{\index{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C@{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C}!Kc\-\_\-\-C\-U\-T\-T\-O\-F\-F@{Kc\-\_\-\-C\-U\-T\-T\-O\-F\-F}}
+\index{Kc\-\_\-\-C\-U\-T\-T\-O\-F\-F@{Kc\-\_\-\-C\-U\-T\-T\-O\-F\-F}!UEG_MAIN_binarytest.C@{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C}}
+\subsubsection[{Kc\-\_\-\-C\-U\-T\-T\-O\-F\-F}]{\setlength{\rightskip}{0pt plus 5cm}const double Kc\-\_\-\-C\-U\-T\-T\-O\-F\-F = 2.\-4}}\label{UEG__MAIN__binarytest_8C_aa8c8c523b8aaaef95263171d9b078d8d}
+Kc\-\_\-\-C\-U\-T\-T\-O\-F\-F is the kinetic energy cutoff for the plane wave basis orbitals. E.\-g, a cutoff of \char`\"{}2\char`\"{} will allow the orbital \mbox{[}4 0 0\mbox{]} but not \mbox{[}5 0 0\mbox{]}. Set cutoff = 2.\-4 for 57 Orbitals (114 Spin Orbitals) \hypertarget{UEG__MAIN__binarytest_8C_a613e167ad809e33c73b70a24822cc6f9}{\index{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C@{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C}!num\-Electrons@{num\-Electrons}}
+\index{num\-Electrons@{num\-Electrons}!UEG_MAIN_binarytest.C@{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C}}
+\subsubsection[{num\-Electrons}]{\setlength{\rightskip}{0pt plus 5cm}const double num\-Electrons = 14}}\label{UEG__MAIN__binarytest_8C_a613e167ad809e33c73b70a24822cc6f9}
+Total number of electrons -\/$>$ half allocated Alpha spin, the other half allocated Beta Spin. \hypertarget{UEG__MAIN__binarytest_8C_a957840dbdbfa8a29c76754be143dd02f}{\index{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C@{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C}!num\-Steps@{num\-Steps}}
+\index{num\-Steps@{num\-Steps}!UEG_MAIN_binarytest.C@{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C}}
+\subsubsection[{num\-Steps}]{\setlength{\rightskip}{0pt plus 5cm}const int num\-Steps = 1000000}}\label{UEG__MAIN__binarytest_8C_a957840dbdbfa8a29c76754be143dd02f}
+Number of steps after which to terminate the algorithm \hypertarget{UEG__MAIN__binarytest_8C_a952eac791b596a61bba0a133a3bb439f}{\index{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C@{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C}!P\-I@{P\-I}}
+\index{P\-I@{P\-I}!UEG_MAIN_binarytest.C@{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C}}
+\subsubsection[{P\-I}]{\setlength{\rightskip}{0pt plus 5cm}const double P\-I = 3.\-141592653589793}}\label{UEG__MAIN__binarytest_8C_a952eac791b596a61bba0a133a3bb439f}
+A number, nobody knows what it means \hypertarget{UEG__MAIN__binarytest_8C_a5a4a522e121fab9651a940cabf5ac77d}{\index{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C@{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C}!pow2\-Array@{pow2\-Array}}
+\index{pow2\-Array@{pow2\-Array}!UEG_MAIN_binarytest.C@{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C}}
+\subsubsection[{pow2\-Array}]{\setlength{\rightskip}{0pt plus 5cm}long int pow2\-Array\mbox{[}O\-R\-B\-\_\-\-S\-I\-Z\-E\mbox{]}}}\label{UEG__MAIN__binarytest_8C_a5a4a522e121fab9651a940cabf5ac77d}
+\hypertarget{UEG__MAIN__binarytest_8C_a363ad74e3d4570cd6bfaa4622e0af0bd}{\index{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C@{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C}!rs@{rs}}
+\index{rs@{rs}!UEG_MAIN_binarytest.C@{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C}}
+\subsubsection[{rs}]{\setlength{\rightskip}{0pt plus 5cm}const double rs = 0.\-5}}\label{UEG__MAIN__binarytest_8C_a363ad74e3d4570cd6bfaa4622e0af0bd}
+rs controls density of the Electron Gas. \char`\"{}rs\char`\"{} is the radius of the sphere whose volume is that of the cell divided by the number of electrons \hypertarget{UEG__MAIN__binarytest_8C_a6c7e0fd46bc659f43a5e2fe841b0aeeb}{\index{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C@{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C}!walker\-Critical@{walker\-Critical}}
+\index{walker\-Critical@{walker\-Critical}!UEG_MAIN_binarytest.C@{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C}}
+\subsubsection[{walker\-Critical}]{\setlength{\rightskip}{0pt plus 5cm}const int walker\-Critical = 300000}}\label{UEG__MAIN__binarytest_8C_a6c7e0fd46bc659f43a5e2fe841b0aeeb}
+After \char`\"{}walker critical\char`\"{} walkers have been spawned after a complete cycle (post annihilation) the variable shift mode is turned on \hypertarget{UEG__MAIN__binarytest_8C_a50fb6782013c8c12243ca553cee0971a}{\index{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C@{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C}!zeta@{zeta}}
+\index{zeta@{zeta}!UEG_MAIN_binarytest.C@{U\-E\-G\-\_\-\-M\-A\-I\-N\-\_\-binarytest.\-C}}
+\subsubsection[{zeta}]{\setlength{\rightskip}{0pt plus 5cm}const double zeta = 0.\-005}}\label{UEG__MAIN__binarytest_8C_a50fb6782013c8c12243ca553cee0971a}
+Zeta is a damping parameter which controls the agressiveness of the \char`\"{}shift\char`\"{} in the variable shift mode of the algorithm 

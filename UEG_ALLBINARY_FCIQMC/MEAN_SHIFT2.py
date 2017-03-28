@@ -1,4 +1,4 @@
-fil = open("SHIFT_114SO_rs0.5_dt1E-4.txt", "r")
+fil = open("SHIFT_38SO_rs1.0_dt8E-4.txt", "r")
 print "FILENAME = ", fil.name
 
 summ1 = 0.0
@@ -17,7 +17,7 @@ for line in fil.readlines():
 
 fil.close()
 
-mean_sample = int(size*0.95)
+mean_sample = int(size*0.80)
 
 for num in range(0, mean_sample ):
 	summ1 += shiftArray[-num-1]

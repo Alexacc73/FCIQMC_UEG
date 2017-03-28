@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.6"/>
-<title>FCIQMC Algorithm for the UEG: UEGHamiltonian.C File Reference</title>
+<title>FCIQMC Algorithm for the UEG: /home/acc73/Documents/UEG_fast_FCIQMC/UEGHamiltonian.C File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -39,6 +39,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -69,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -78,6 +79,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_fb4fe24d05e472879dea4b4af8611fe8.html">UEG_fast_FCIQMC</a></li>  </ul>
+</div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
@@ -87,10 +92,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;UEGHamiltonian.H&quot;</code><br/>
-<code>#include &quot;binaryManip.H&quot;</code><br/>
-<code>#include &lt;iostream&gt;</code><br/>
-<code>#include &lt;stdlib.h&gt;</code><br/>
-<code>#include &lt;algorithm&gt;</code><br/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -214,7 +215,8 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>This function calculates the OFF-diagonal matrix elements of the Hamiltonian, for double electronic excitations, using the simplifications of the Slater-Condon rules. It calculates the double electron integral <img class="formulaInl" alt="$ \langle D_I | H | D_J \rangle = \langle ij||ab \rangle = \langle ij|ab \rangle - \langle ij|ba \rangle $" src="form_25.png"/>, where the spin-orthogonality imposed upon the system mean that <img class="formulaInl" alt="$ \langle ij|ba \rangle = 0 $" src="form_26.png"/> if orbital i and orbital b are of opposite spin. From the Determinant given by kpoints in detKlist: "i" is the index from which one (alpha spin) electron is excited into orbital index "a". A second (beta spin) electron is chosen from a filled orbital, j, and is excited into the unfilled orbital index "b". It is assumed that <img class="formulaInl" alt="$ D_J $" src="form_27.png"/> has already been chosen as a coupled DOUBLE excitation of <img class="formulaInl" alt="$ D_I $" src="form_28.png"/> such that CRYSTAL MOMENTUM (k) and SPIN are conserved. </p>
+<p>This function calculates the OFF-diagonal matrix elements of the Hamiltonian, for double electronic excitations, using the simplifications of the Slater-Condon rules. It calculates the double electron integral <img class="formulaInl" alt="$ \langle D_I | H | D_J \rangle = \langle ij||ab \rangle = \langle ij|ab \rangle - \langle ij|ba \rangle $" src="form_25.png"/>, where the spin-orthogonality imposed upon the system mean that <img class="formulaInl" alt="$ \langle ij|ba \rangle = 0 $" src="form_26.png"/> if orbital i and orbital b are of opposite spin. From the Determinant given by kpoints in detKlist: "i" is the index from which one (alpha spin) electron is excited into orbital index "a". A second (beta spin) electron is chosen from a filled orbital, j, and is excited into the unfilled orbital index "b". It is assumed that <img class="formulaInl" alt="$ D_J $" src="form_27.png"/> has already been chosen as a coupled DOUBLE excitation of <img class="formulaInl" alt="$ D_I $" src="form_28.png"/> such that CRYSTAL MOMENTUM (k) and SPIN are conserved.</p>
+<p>NB: Already imposed, prior to being passed to this function, is the following: <img class="formulaInl" alt="$ i < j $" src="form_32.png"/>, and <img class="formulaInl" alt="$ a < b $" src="form_33.png"/>, which aids in the calculation of the excitation permutations needed to give <img class="formulaInl" alt="$ \langle D_I | H | D_J \rangle $" src="form_34.png"/> the correct sign. </p>
 
 </div>
 </div>
@@ -409,7 +411,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Mar 7 2017 18:16:11 for FCIQMC Algorithm for the UEG by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Mar 21 2017 13:20:01 for FCIQMC Algorithm for the UEG by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>
